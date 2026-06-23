@@ -1,31 +1,59 @@
 import Link from "next/link";
-import { statsContent } from "@/lib/content";
-import { getLanguageStats, isStatsAccessGranted } from "@/lib/language-stats";
+import { AdminLoginPanel } from "@/components/AdminLoginPanel";
+import { adminContent, statsContent } from "@/lib/content";
+import {
+  getAdminSession,
+  isAdminAccessGranted,
+  type AdminAuthErrorCode,
+} from "@/lib/admin-auth";
+import { getLanguageStats } from "@/lib/language-stats";
 import { getLocale } from "@/lib/locale";
+
+function buildProtectedHref(path: string, lang?: string) {
+  const params = new URLSearchParams();
+  if (lang) params.set("lang", lang);
+  const query = params.toString();
+  return query ? `${path}?${query}` : path;
+}
+
+function parseAuthError(value?: string): AdminAuthErrorCode | undefined {
+  if (
+    value === "unauthorized" ||
+    value === "oauth" ||
+    value === "state" ||
+    value === "config" ||
+    value === "email"
+  ) {
+    return value;
+  }
+  return undefined;
+}
 
 export default async function StatsPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ lang?: string; key?: string }>;
+  searchParams?: Promise<{ lang?: string; key?: string; error?: string }>;
 }) {
   const params = await searchParams;
   const locale = await getLocale(params?.lang);
   const t = statsContent[locale];
+  const auth = adminContent[locale];
+  const returnTo = buildProtectedHref("/stats", params?.lang);
 
-  if (!isStatsAccessGranted(params?.key)) {
+  if (!(await isAdminAccessGranted(params?.key))) {
     return (
-      <main className="statsPage">
-        <div className="statsShell">
-          <h1>{t.title}</h1>
-          <p className="statsDenied">{t.denied}</p>
-          <Link href="/">{t.back}</Link>
-        </div>
-      </main>
+      <AdminLoginPanel
+        locale={locale}
+        returnTo={returnTo}
+        error={parseAuthError(params?.error)}
+      />
     );
   }
 
+  const session = await getAdminSession();
   const stats = await getLanguageStats();
   const maxCount = stats.languages[0]?.count ?? 1;
+  const adminHref = buildProtectedHref("/admin", params?.lang);
 
   return (
     <main className="statsPage">
@@ -34,8 +62,22 @@ export default async function StatsPage({
           <div>
             <h1>{t.title}</h1>
             <p>{t.intro}</p>
+            {session ? (
+              <p className="adminSignedIn">
+                {auth.signedInAs} <strong>{session.email}</strong>
+              </p>
+            ) : null}
           </div>
-          <Link href="/">{t.back}</Link>
+          <div className="adminHeaderLinks">
+            <Link href={adminHref}>{locale === "fr" ? "Administration" : "Admin"}</Link>
+            <form action="/api/admin/auth/logout" method="POST">
+              <input type="hidden" name="returnTo" value={returnTo} />
+              <button type="submit" className="adminSignOutButton">
+                {auth.signOut}
+              </button>
+            </form>
+            <Link href="/">{t.back}</Link>
+          </div>
         </div>
 
         <div className="statsSummary">

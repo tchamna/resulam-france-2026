@@ -2,14 +2,21 @@ import { BookingForm } from "@/components/BookingForm";
 import { DiscoverGrid } from "@/components/DiscoverGrid";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
+import type { DesignVariant } from "@/lib/design";
 import type { Locale } from "@/lib/locale";
 
 type ProgrammeSectionProps = {
   locale: Locale;
   t: PageCopy;
   initialAvailability: BookingAvailability;
-  variant?: "flyer" | "midnight";
+  variant?: DesignVariant;
 };
+
+function programmeSectionClass(variant: DesignVariant): string {
+  if (variant === "midnight") return "programmeSection programmeSectionMidnight scrollSection";
+  if (variant === "heritage") return "programmeSection programmeSectionHeritage scrollSection";
+  return "section programmeSection scrollSection";
+}
 
 export function ProgrammeSection({
   locale,
@@ -18,7 +25,7 @@ export function ProgrammeSection({
   variant = "flyer",
 }: ProgrammeSectionProps) {
   return (
-    <section className={variant === "midnight" ? "programmeSection programmeSectionMidnight scrollSection" : "section programmeSection scrollSection"} id="programme">
+    <section className={programmeSectionClass(variant)} id="programme">
       <DiscoverGrid title={t.sectionTitle} intro={t.sectionText} items={t.benefits} />
       <BookingForm
         copy={t.form}

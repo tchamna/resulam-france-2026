@@ -44,8 +44,4 @@ export async function getLanguageStats(): Promise<LanguageStats> {
   return { totalBookings: bookings.length, languages };
 }
 
-export function isStatsAccessGranted(key?: string) {
-  const expected = process.env.BOOKING_STATS_KEY?.trim();
-  if (!expected) return process.env.NODE_ENV !== "production";
-  return Boolean(key && key === expected);
-}
+export { isAdminAccessGranted as isStatsAccessGranted } from "@/lib/admin-auth";

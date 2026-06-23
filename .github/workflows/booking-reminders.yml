@@ -1,0 +1,27 @@
+name: Send booking reminders
+
+on:
+  schedule:
+    # 07:00 UTC daily (~09:00 Paris in summer)
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger reminder job on production
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+          REMINDER_KEY: ${{ secrets.BOOKING_REMINDER_CRON_KEY }}
+          STATS_KEY: ${{ secrets.BOOKING_STATS_KEY }}
+        run: |
+          CRON_KEY="${REMINDER_KEY:-$STATS_KEY}"
+          BASE_URL="${APP_URL:-https://resulam-france-2026.azurewebsites.net}"
+          if [ -z "$CRON_KEY" ]; then
+            echo "Missing BOOKING_REMINDER_CRON_KEY (or BOOKING_STATS_KEY) secret."
+            exit 1
+          fi
+          curl --fail-with-body -sS -X POST \
+            -H "Authorization: Bearer ${CRON_KEY}" \
+            "${BASE_URL}/api/bookings/reminders"

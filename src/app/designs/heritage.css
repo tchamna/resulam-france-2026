@@ -1,0 +1,652 @@
+body:has(.page-heritage) {
+  background: #121f33;
+}
+
+.page-heritage {
+  --heritage-bg-top: #2d4f78;
+  --heritage-bg-mid: #1e3554;
+  --heritage-bg-bottom: #101b2c;
+  --heritage-surface: #f7faff;
+  --heritage-cream: #f7faff;
+  --heritage-paper: #ffffff;
+  --heritage-navy: #1a2744;
+  --heritage-terracotta: #c45a2a;
+  --heritage-terracotta-soft: #e07a4a;
+  --heritage-gold: #d4a843;
+  --heritage-gold-light: #e0bc62;
+  --heritage-green: #11643e;
+  --heritage-line: rgba(255, 255, 255, 0.14);
+  --heritage-muted: #4f5d73;
+  --heritage-on-dark: #eef3fa;
+  --heritage-on-dark-muted: rgba(232, 238, 248, 0.78);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse 130% 90% at 50% -15%, rgba(88, 132, 188, 0.42), transparent 58%),
+    radial-gradient(ellipse 80% 60% at 100% 100%, rgba(26, 39, 68, 0.55), transparent 62%),
+    linear-gradient(180deg, var(--heritage-bg-top) 0%, var(--heritage-bg-mid) 46%, var(--heritage-bg-bottom) 100%);
+  color: var(--heritage-on-dark);
+}
+
+.heritageWatermark {
+  display: none;
+}
+
+.page-heritage > *:not(.heritageWatermark) {
+  position: relative;
+  z-index: 1;
+}
+
+.heritageNav,
+.heritageHero,
+.heritageInfo,
+.page-heritage .greetingsSection,
+.programmeSectionHeritage,
+.heritageFooter {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.heritageNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.heritageBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--heritage-on-dark);
+}
+
+.heritageBrand img {
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(26, 39, 68, 0.12);
+}
+
+.heritageNavActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.page-heritage .themeSwitcher {
+  border-color: rgba(26, 39, 68, 0.18);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.page-heritage .themeOption {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.page-heritage .themeOption.isActive {
+  background: var(--heritage-navy);
+  color: white;
+}
+
+.page-heritage .themeOption:not(.isActive):hover {
+  background: rgba(196, 90, 42, 0.12);
+  color: var(--heritage-terracotta);
+}
+
+.heritageLang {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(26, 39, 68, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--heritage-muted);
+  font-size: 0.88rem;
+  box-shadow: 0 8px 18px rgba(26, 39, 68, 0.08);
+}
+
+.heritageLang span,
+.heritageLang a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+}
+
+.heritageLang a {
+  border-left: 1px solid rgba(26, 39, 68, 0.12);
+  background: var(--heritage-navy);
+  color: white;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.heritageLang a:hover {
+  background: var(--heritage-green);
+}
+
+.heritageHero {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.heritageFrame {
+  padding: 14px;
+  background:
+    linear-gradient(135deg, var(--heritage-navy) 0 25%, transparent 25% 50%, var(--heritage-terracotta) 50% 75%, transparent 75%),
+    linear-gradient(225deg, var(--heritage-gold-light) 0 25%, transparent 25% 50%, var(--heritage-navy) 50% 75%, transparent 75%),
+    linear-gradient(45deg, var(--heritage-terracotta) 0 25%, transparent 25% 50%, var(--heritage-gold-light) 50% 75%, transparent 75%),
+    linear-gradient(315deg, var(--heritage-navy) 0 25%, transparent 25% 50%, var(--heritage-terracotta) 50% 75%, transparent 75%);
+  background-size: 28px 28px;
+  box-shadow: 0 28px 80px rgba(26, 39, 68, 0.18);
+}
+
+.heritageFrameInner {
+  background: var(--heritage-surface);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  color: var(--heritage-navy);
+}
+
+.heritageHeroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: stretch;
+}
+
+.heritageCopy,
+.heritageLibrary {
+  min-width: 0;
+}
+
+.heritageLibrary {
+  display: flex;
+  flex-direction: column;
+}
+
+.heritageCopy {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.heritageCopyTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.heritageStamp {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: fit-content;
+  min-width: 88px;
+  min-height: 88px;
+  padding: 0.65rem;
+  border: 3px dashed var(--heritage-terracotta);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--heritage-terracotta);
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+  box-shadow: 0 10px 24px rgba(196, 90, 42, 0.14);
+}
+
+.heritageStamp span {
+  max-width: 72px;
+}
+
+.page-heritage .heritageCopyTop h1,
+.page-heritage .heritageHeroTitle {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-heritage .heritageHeroTitle {
+  margin: 0;
+  color: var(--heritage-gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.heritageHeadline {
+  margin: 0;
+  color: var(--heritage-navy);
+  font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.heritageLead {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--heritage-muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.55;
+}
+
+.heritageHeroActions {
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
+  margin-top: 0.65rem;
+}
+
+.heritageUrgency {
+  margin: 0;
+  border-radius: 999px;
+  background: var(--heritage-terracotta);
+  padding: 0.45rem 0.9rem;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.heritagePrimaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 320px);
+  min-height: 54px;
+  border-radius: 999px;
+  background: var(--heritage-green);
+  padding: 0.9rem 1.5rem;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 14px 28px rgba(17, 100, 62, 0.28);
+}
+
+.heritagePrimaryCta:hover {
+  filter: brightness(1.06);
+}
+
+.heritageNote {
+  max-width: 22rem;
+  color: var(--heritage-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.heritageLibraryTitle {
+  margin: 0 0 1rem;
+  color: var(--heritage-navy);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.heritageLibraryTitle span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--heritage-gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95em;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.heritageCarousel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.heritageCarousel .carouselMask {
+  flex: 1;
+  min-height: 240px;
+  border-color: rgba(26, 39, 68, 0.2);
+  box-shadow: 0 18px 40px rgba(26, 39, 68, 0.14);
+}
+
+.heritageCarousel .carouselTrack {
+  height: 100%;
+  align-items: stretch;
+  padding: 0.85rem;
+}
+
+.heritageCarousel .carouselItem {
+  width: clamp(240px, 88%, 320px);
+  min-height: 100%;
+  aspect-ratio: 16 / 11;
+}
+
+.heritageLibraryNote {
+  margin: 0.85rem 0 0;
+  color: var(--heritage-muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.heritageInfo {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.heritageInfoBar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.heritageInfoItem {
+  border: 1px solid rgba(26, 39, 68, 0.14);
+  border-top: 4px solid var(--heritage-gold);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 0.85rem 0.95rem;
+  color: var(--heritage-navy);
+}
+
+.heritageInfoItem span {
+  display: block;
+  color: var(--heritage-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.heritageInfoItem strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--heritage-navy);
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.page-heritage .venueNotice {
+  border: 1px solid rgba(26, 39, 68, 0.16);
+  border-left: 5px solid var(--heritage-terracotta);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--heritage-navy);
+  padding: 1.15rem 1.2rem;
+}
+
+.page-heritage .venueNotice strong {
+  color: var(--heritage-terracotta);
+  margin-bottom: 0.55rem;
+}
+
+.page-heritage .venueNotice p {
+  color: var(--heritage-muted);
+  line-height: 1.7;
+}
+
+.page-heritage .bookingVenueNotice {
+  border: 1px solid rgba(26, 39, 68, 0.14);
+  border-left: 4px solid var(--heritage-terracotta);
+  border-radius: 12px;
+  background: rgba(244, 248, 255, 0.96);
+  padding: 1.05rem 1.15rem;
+  gap: 0.9rem;
+  color: var(--heritage-navy);
+}
+
+.page-heritage .bookingVenuePin {
+  color: var(--heritage-terracotta);
+  margin-top: 0.25rem;
+}
+
+.page-heritage .bookingVenueNotice .venueNotice {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.page-heritage .bookingVenueNotice .venueNotice strong {
+  margin-bottom: 0.5rem;
+}
+
+.page-heritage .bookingVenueNotice .venueNotice p {
+  line-height: 1.7;
+}
+
+.programmeSectionHeritage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.programmeSectionHeritage::before,
+.programmeSectionHeritage::after {
+  display: none;
+}
+
+.programmeSectionHeritage .discoverPanel h2 {
+  color: var(--heritage-on-dark);
+}
+
+.programmeSectionHeritage .discoverIntro {
+  color: var(--heritage-on-dark-muted);
+}
+
+.programmeSectionHeritage .discoverCard {
+  border-color: rgba(26, 39, 68, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--heritage-navy);
+}
+
+.programmeSectionHeritage .discoverCard h3 {
+  color: var(--heritage-navy);
+}
+
+.programmeSectionHeritage .discoverCard p {
+  color: var(--heritage-muted);
+}
+
+.programmeSectionHeritage .discoverIcon {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .booking,
+.page-heritage .bookingCard {
+  border: 2px solid rgba(26, 39, 68, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+  color: var(--heritage-navy);
+}
+
+.page-heritage .booking h2,
+.page-heritage .field label {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .status,
+.page-heritage .field label span {
+  color: var(--heritage-muted);
+}
+
+.page-heritage .field input,
+.page-heritage .field textarea {
+  border-color: rgba(26, 39, 68, 0.18);
+  background: white;
+  color: var(--heritage-navy);
+}
+
+.page-heritage .seatsPanel {
+  border-color: rgba(26, 39, 68, 0.14);
+  background: rgba(244, 248, 255, 0.95);
+}
+
+.page-heritage .seatsCount {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .submit {
+  background: var(--heritage-green);
+}
+
+.page-heritage .submit:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.page-heritage .seatsSkyline {
+  color: var(--heritage-gold);
+}
+
+.page-heritage .fieldHint {
+  color: var(--heritage-gold);
+}
+
+.page-heritage .seatsBannerHeritage {
+  border-color: rgba(26, 39, 68, 0.2);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--heritage-navy);
+}
+
+.page-heritage .seatsBannerHeritage:hover {
+  border-color: var(--heritage-terracotta);
+}
+
+.page-heritage .seatsBannerHeritage .seatsBannerDot {
+  background: var(--heritage-terracotta);
+  box-shadow: 0 0 0 4px rgba(196, 90, 42, 0.16);
+}
+
+.page-heritage .greetingsIntro h2 {
+  color: var(--heritage-on-dark);
+}
+
+.page-heritage .greetingsHint,
+.page-heritage .greetingsRowLabel {
+  color: var(--heritage-on-dark-muted);
+}
+
+.page-heritage .greetingsEyebrow {
+  color: var(--heritage-gold-light);
+}
+
+.page-heritage .greetingsPhrasebookLink {
+  color: var(--heritage-gold-light);
+}
+
+.page-heritage .greetingsPhrasebookLink:hover {
+  color: #f0d48a;
+}
+
+.page-heritage .greetingsMarquee {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.page-heritage .greetingCard,
+.page-heritage button.greetingCardAudio {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: #f8fbff;
+  color: var(--heritage-navy);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.page-heritage .greetingCardAudio:hover {
+  border-color: rgba(212, 168, 67, 0.55);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+}
+
+.page-heritage .greetingCardPlaying {
+  border-color: var(--heritage-gold-light);
+  box-shadow: 0 16px 32px rgba(212, 168, 67, 0.22);
+}
+
+.page-heritage .greetingLanguage {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .greetingTranslation {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .greetingPlay {
+  background: rgba(17, 100, 62, 0.14);
+  color: var(--heritage-green);
+}
+
+.page-heritage .greetingCardPlaying .greetingPlay {
+  background: var(--heritage-green);
+  color: white;
+}
+
+.heritageFooter {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  color: var(--heritage-on-dark-muted);
+  text-align: center;
+}
+
+@media (min-width: 961px) {
+  .heritageCarousel .carouselMask {
+    min-height: clamp(280px, 34vw, 380px);
+  }
+
+  .heritageCarousel .carouselItem {
+    width: clamp(320px, 36vw, 460px);
+    aspect-ratio: 16 / 10;
+  }
+
+  .heritageCarousel .carouselTrack {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .heritageHeroGrid,
+  .heritageInfoBar,
+  .programmeSectionHeritage {
+    grid-template-columns: 1fr;
+  }
+
+  .heritageInfoBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .heritageNav {
+    flex-wrap: wrap;
+  }
+
+  .heritageNavActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .heritageLang span {
+    display: none;
+  }
+
+  .heritageInfoBar {
+    grid-template-columns: 1fr;
+  }
+}

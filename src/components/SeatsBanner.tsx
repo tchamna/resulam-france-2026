@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { BookingAvailability } from "@/lib/bookings";
 import { formatPlacesLeft } from "@/lib/format-places-left";
+import type { DesignVariant } from "@/lib/design";
 
 type SeatsBannerCopy = {
   seatsLeft: string;
@@ -13,8 +14,14 @@ type SeatsBannerCopy = {
 type SeatsBannerProps = {
   copy: SeatsBannerCopy;
   initialAvailability: BookingAvailability;
-  variant?: "flyer" | "midnight";
+  variant?: DesignVariant;
 };
+
+function seatsBannerClass(variant: DesignVariant): string {
+  if (variant === "midnight") return "seatsBanner seatsBannerMidnight";
+  if (variant === "heritage") return "seatsBanner seatsBannerHeritage";
+  return "seatsBanner";
+}
 
 export function SeatsBanner({ copy, initialAvailability, variant = "flyer" }: SeatsBannerProps) {
   const [availability, setAvailability] = useState(initialAvailability);
@@ -45,7 +52,7 @@ export function SeatsBanner({ copy, initialAvailability, variant = "flyer" }: Se
 
   return (
     <a
-      className={variant === "midnight" ? "seatsBanner seatsBannerMidnight" : "seatsBanner"}
+      className={seatsBannerClass(variant)}
       href="#book"
       aria-live="polite"
     >

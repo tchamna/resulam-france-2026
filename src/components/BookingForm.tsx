@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { VenueNotice, type VenueNoticeCopy } from "@/components/VenueNotice";
+import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
   title: string;
@@ -51,18 +53,6 @@ function formatSuccess(copy: Copy, remaining: number) {
   return copy.success.replace("{count}", String(remaining));
 }
 
-function ParisSkyline() {
-  return (
-    <svg viewBox="0 0 320 48" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-      <path
-        d="M0 44h320v4H0zM20 44V28l8-14 8 14v16M52 44V22l6-10 6 10v22M76 44V30l4-8 4 8v14M96 44V18l5-12 5 12v26M118 44V26h6l3-18 3 18h6v18M148 44V20l4-6 4 6v24M168 44V32l8-20 8 20v12M196 44V24l5-8 5 8v20M220 44V16l6-10 6 10v28M244 44V28l10-16 10 16v16M276 44V22l4-8 4 8v22M296 44V34l6-14 6 14v10"
-        fill="currentColor"
-        opacity="0.9"
-      />
-    </svg>
-  );
-}
-
 export function BookingForm({
   copy,
   venueNotice,
@@ -74,7 +64,7 @@ export function BookingForm({
   venueNotice: VenueNoticeCopy;
   locale: "en" | "fr";
   initialAvailability: Availability;
-  variant?: "flyer" | "midnight";
+  variant?: DesignVariant;
 }) {
   const [availability, setAvailability] = useState(initialAvailability);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -190,8 +180,15 @@ export function BookingForm({
               : formatSeats(copy, availability.remaining, availability.capacity)}
           </strong>
         </div>
-        <div className="seatsSkyline">
-          <ParisSkyline />
+        <div className="seatsSkyline" aria-hidden="true">
+          <Image
+            src="/landing/seats-frieze.png"
+            alt=""
+            width={1024}
+            height={559}
+            className="seatsFriezeImage"
+            sizes="(max-width: 640px) 100vw, 440px"
+          />
         </div>
         <div
           className="seatsProgressTrack"

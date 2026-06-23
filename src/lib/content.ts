@@ -3,6 +3,7 @@ export const content = {
     navLanguage: "English",
     designFlyer: "Classic",
     designMidnight: "Midnight",
+    designHeritage: "Heritage",
     eyebrow: "France visit: August 6-11, 2026",
     title: "Resulam France 2026",
     heroDate: "August 9, 2026",
@@ -87,6 +88,10 @@ export const content = {
       validationError: "Please check your name, email, and languages (at least 2 characters).",
     },
     footer: "Resulam France 2026",
+    music: {
+      play: "Play music",
+      pause: "Pause music",
+    },
     greetings: {
       eyebrow: "Mother tongues",
       title: "How we greet each other",
@@ -96,6 +101,17 @@ export const content = {
       playLabel: "Play phrase",
       playingLabel: "Pause phrase",
       openPhrasebook: "Open in phrasebook",
+    },
+    heritage: {
+      headline: "Reconnect with your mother tongue",
+      eventLine: "August 9, 2026 - Resulam in France",
+      libraryTitle: "Explore our complete heritage resource library",
+      librarySubtitle: "Videos, books, apps & USBs",
+      libraryNote: "Access to over 1000+ curated language lessons.",
+      stamp: "Free conference",
+      urgency: "Urgency: only {count} places left",
+      urgencyOne: "Urgency: only 1 place left",
+      urgencySoldOut: "Urgency: fully booked",
     },
     midnight: {
       badge: "France 2026",
@@ -126,6 +142,7 @@ export const content = {
     navLanguage: "Français",
     designFlyer: "Classique",
     designMidnight: "Midnight",
+    designHeritage: "Patrimoine",
     eyebrow: "Séjour en France : 6-11 août 2026",
     title: "Resulam débarque en France.",
     heroDate: "9 Août 2026",
@@ -211,6 +228,10 @@ export const content = {
       validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
     },
     footer: "Resulam France 2026",
+    music: {
+      play: "Lancer la musique",
+      pause: "Couper la musique",
+    },
     greetings: {
       eyebrow: "Langues maternelles",
       title: "Comment on se salue",
@@ -220,6 +241,17 @@ export const content = {
       playLabel: "Écouter la phrase",
       playingLabel: "Mettre en pause",
       openPhrasebook: "Ouvrir dans le phrasebook",
+    },
+    heritage: {
+      headline: "Retrouvez votre langue maternelle",
+      eventLine: "9 août 2026 - Resulam en France",
+      libraryTitle: "Explorez notre bibliothèque patrimoniale complète",
+      librarySubtitle: "Vidéos, livres, apps et clés USB",
+      libraryNote: "Accès à plus de 1000 leçons de langues sélectionnées.",
+      stamp: "Conférence gratuite",
+      urgency: "Plus que {count} places",
+      urgencyOne: "Plus qu'une place",
+      urgencySoldOut: "Complet, mais vous pouvez vous inscrire sur la liste d'attente",
     },
     midnight: {
       badge: "France 2026",
@@ -273,11 +305,95 @@ export const statsContent = {
   },
 } as const;
 
+export const adminContent = {
+  en: {
+    title: "Booking admin",
+    intro: "Registered attendees and language breakdown from reservations.",
+    totalBookings: "Total bookings",
+    languagesChart: "Languages by reservation",
+    subscribers: "Registered attendees",
+    language: "Language",
+    reservations: "Reservations",
+    share: "Share",
+    name: "Name",
+    email: "Email",
+    phone: "Phone",
+    languages: "Languages",
+    locale: "Locale",
+    date: "Registered",
+    empty: "No bookings recorded yet.",
+    denied: "Access denied. Open this page with ?key=YOUR_KEY in the URL.",
+    back: "Back to site",
+    statsLink: "Language stats only",
+    loginTitle: "Admin sign in",
+    loginIntro: "Enter your admin email, then continue with Google to receive a secure session.",
+    loginEmailLabel: "Admin email",
+    loginEmailPlaceholder: "you@resulam.com",
+    signInWithGoogle: "Continue with Google",
+    signedInAs: "Signed in as",
+    signOut: "Sign out",
+    loginErrorUnauthorized: "This Google account is not authorized for admin access.",
+    loginErrorOAuth: "Google sign-in failed. Please try again.",
+    loginErrorState: "Sign-in expired or was invalid. Please try again.",
+    loginErrorConfig: "Google sign-in is not configured on this server.",
+    loginErrorEmail: "Enter your admin email before continuing with Google.",
+  },
+  fr: {
+    title: "Administration des réservations",
+    intro: "Liste des inscrits et répartition des langues mentionnées.",
+    totalBookings: "Réservations totales",
+    languagesChart: "Langues par réservation",
+    subscribers: "Personnes inscrites",
+    language: "Langue",
+    reservations: "Réservations",
+    share: "Part",
+    name: "Nom",
+    email: "E-mail",
+    phone: "Téléphone",
+    languages: "Langues",
+    locale: "Langue du site",
+    date: "Inscription",
+    empty: "Aucune réservation enregistrée.",
+    denied: "Accès refusé. Ouvrez cette page avec ?key=VOTRE_CLE dans l'URL.",
+    back: "Retour au site",
+    statsLink: "Statistiques langues seules",
+    loginTitle: "Connexion admin",
+    loginIntro: "Saisissez votre e-mail admin, puis continuez avec Google pour obtenir une session sécurisée.",
+    loginEmailLabel: "E-mail admin",
+    loginEmailPlaceholder: "vous@resulam.com",
+    signInWithGoogle: "Continuer avec Google",
+    signedInAs: "Connecté en tant que",
+    signOut: "Se déconnecter",
+    loginErrorUnauthorized: "Ce compte Google n'est pas autorisé pour l'administration.",
+    loginErrorOAuth: "La connexion Google a échoué. Veuillez réessayer.",
+    loginErrorState: "La connexion a expiré ou est invalide. Veuillez réessayer.",
+    loginErrorConfig: "La connexion Google n'est pas configurée sur ce serveur.",
+    loginErrorEmail: "Saisissez votre e-mail admin avant de continuer avec Google.",
+  },
+} as const;
+
 import type { Locale } from "@/lib/locale";
 
 export type PageCopy = (typeof content)[Locale];
 
 export type MidnightCopy = PageCopy["midnight"];
+export type HeritageCopy = PageCopy["heritage"];
+
+export function getDesignLabel(t: PageCopy, variant: "flyer" | "midnight" | "heritage"): string {
+  if (variant === "flyer") return t.designFlyer;
+  if (variant === "midnight") return t.designMidnight;
+  return t.designHeritage;
+}
+
+export function formatHeritageUrgency(
+  copy: HeritageCopy,
+  remaining: number,
+  full: boolean,
+): string {
+  if (full || remaining <= 0) return copy.urgencySoldOut;
+  if (remaining === 1) return copy.urgencyOne;
+  return copy.urgency.replace("{count}", String(remaining));
+}
 
 export type MomentSlide = {
   id: string;

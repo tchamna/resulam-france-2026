@@ -7,6 +7,7 @@ import type { DesignVariant } from "@/lib/design";
 
 type LandingExperienceProps = {
   formCopy: PageCopy["form"];
+  musicCopy: PageCopy["music"];
   initialAvailability: BookingAvailability;
   variant: DesignVariant;
   children: React.ReactNode;
@@ -14,6 +15,7 @@ type LandingExperienceProps = {
 
 export function LandingExperience({
   formCopy,
+  musicCopy,
   initialAvailability,
   variant,
   children,
@@ -23,9 +25,9 @@ export function LandingExperience({
       <SeatsBanner
         copy={formCopy}
         initialAvailability={initialAvailability}
-        variant={variant === "midnight" ? "midnight" : "flyer"}
+        variant={variant}
       />
-      <BackgroundMusic />
+      <BackgroundMusic copy={musicCopy} />
       <IdleAutoScroll />
       {children}
     </>

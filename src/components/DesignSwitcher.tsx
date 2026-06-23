@@ -1,4 +1,4 @@
-import { content } from "@/lib/content";
+import { content, getDesignLabel } from "@/lib/content";
 import type { DesignVariant } from "@/lib/design";
 import { DESIGN_VARIANTS, buildPageHref } from "@/lib/design";
 import type { Locale } from "@/lib/locale";
@@ -16,11 +16,11 @@ export function DesignSwitcher({ locale, design }: DesignSwitcherProps) {
       {DESIGN_VARIANTS.map((variant) =>
         variant === design ? (
           <span key={variant} className="themeOption isActive" aria-current="page">
-            {variant === "flyer" ? labels.designFlyer : labels.designMidnight}
+            {getDesignLabel(labels, variant)}
           </span>
         ) : (
           <a key={variant} href={buildPageHref(locale, variant)} className="themeOption">
-            {variant === "flyer" ? labels.designFlyer : labels.designMidnight}
+            {getDesignLabel(labels, variant)}
           </a>
         )
       )}

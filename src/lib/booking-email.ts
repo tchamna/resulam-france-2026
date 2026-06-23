@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import type { Booking, BookingAvailability } from "@/lib/bookings";
 import { getSmtpConfig, parseNotifyRecipients } from "@/lib/bookings";
+import { getEventCopy } from "@/lib/event";
 
 function createTransporter() {
   const config = getSmtpConfig();
@@ -19,23 +20,7 @@ function createTransporter() {
 }
 
 function eventDetails(locale: Booking["locale"]) {
-  if (locale === "fr") {
-    return {
-      event: "Conférence publique gratuite Resulam France 2026",
-      date: "Dimanche 9 août 2026",
-      visit: "Séjour en France : 6-11 août 2026",
-      venue:
-        "Lieu : Paris (lieu exact à confirmer). Revenez sur le site pour les mises à jour — nous vous enverrons un email dès que le lieu sera annoncé.",
-    };
-  }
-
-  return {
-    event: "Resulam France 2026 free public conference",
-    date: "Sunday, August 9, 2026",
-    visit: "France visit: August 6-11, 2026",
-    venue:
-      "Venue: Paris (exact venue to be confirmed). Check this website for updates — we will email you once the venue is announced.",
-  };
+  return getEventCopy(locale);
 }
 
 function seatsLine(locale: Booking["locale"], availability: BookingAvailability) {
@@ -118,8 +103,8 @@ function guestHtml(booking: Booking, availability: BookingAvailability) {
 
   const nextStep =
     booking.locale === "fr"
-      ? "Conservez cet email. Nous vous recontacterons si nécessaire avant l'événement."
-      : "Keep this email for your records. We will contact you if anything changes before the event.";
+      ? "Conservez cet email. Nous vous enverrons un rappel toutes les deux semaines à partir d'un mois avant l'événement, puis chaque jour les trois derniers jours."
+      : "Keep this email for your records. We will send a reminder every two weeks starting one month before the event, then daily for the final three days.";
 
   return wrapHtml(
     booking.locale === "fr" ? "Réservation confirmée" : "Booking confirmed",

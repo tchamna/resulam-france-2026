@@ -9,6 +9,7 @@ A small bilingual landing page for the Resulam France visit and the free August 
 - Highlights the free August 9 conference and limited places.
 - Collects booking name, email, and optional phone number.
 - Saves bookings to `data/bookings.jsonl` and sends an email notification when SMTP is configured.
+- Sends automatic email reminders to participants: every 2 weeks from one month before the event, then daily for the final 3 days (plus event day).
 
 ## Run locally
 
@@ -56,6 +57,8 @@ BOOKING_CAPACITY=50
 BOOKING_DATA_DIR=/home/data
 BOOKING_NOTIFY_EMAILS=contact@resulam.com
 BOOKING_STATS_KEY=change-me-in-production
+EVENT_DATE=2026-08-09
+BOOKING_REMINDER_CRON_KEY=change-me-in-production
 AUTH_SMTP_HOST=your SMTP host
 AUTH_SMTP_PORT=587
 AUTH_SMTP_USERNAME=your SMTP username
@@ -64,3 +67,21 @@ AUTH_SMTP_FROM=Resulam France 2026 <contact@resulam.com>
 ```
 
 For production, use SMTP so bookings are emailed immediately. The local JSONL file is useful as a fallback and for testing.
+
+## Participant reminders
+
+Reminders are sent to everyone in `bookings.jsonl` on this schedule (Paris time, event date `2026-08-09`):
+
+- **Bi-weekly** from 9 July 2026 (one month before) until the daily phase starts
+- **Daily** on 6, 7, and 8 August 2026 (the final 3 days before the conference)
+
+A GitHub Actions workflow (`.github/workflows/booking-reminders.yml`) calls `POST /api/bookings/reminders` every day. Set repository secret `BOOKING_REMINDER_CRON_KEY` (or reuse `BOOKING_STATS_KEY`) and optional repository variable `APP_URL`.
+
+Manual trigger:
+
+```bash
+curl -X POST "https://resulam-france-2026.azurewebsites.net/api/bookings/reminders" \
+  -H "Authorization: Bearer YOUR_CRON_KEY"
+```
+
+Sent reminders are logged to `reminders.jsonl` in `BOOKING_DATA_DIR` so each participant receives at most one email per day.

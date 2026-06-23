@@ -1,49 +1,14 @@
 import Image from "next/image";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
+import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import { VenueNotice } from "@/components/VenueNotice";
-import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
 import type { Locale } from "@/lib/locale";
-
-function CarouselItems({ t }: { t: PageCopy }) {
-  return (
-    <>
-      <div className="carouselItem carouselVideo">
-        <video controls playsInline preload="metadata" poster="/landing/nufi-cartoon-presentation.png">
-          <source src="/landing/pangop-temoignage-nufi-1.mp4" type="video/mp4" />
-        </video>
-        <span>{t.testimony}</span>
-      </div>
-      <div className="carouselItem carouselYoutube">
-        <YouTubeEmbed
-          url="https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s"
-          title="Resulam Nufi cartoon preview"
-        />
-        <span>{t.cartoons}</span>
-      </div>
-      <div className="carouselItem carouselYoutube">
-        <YouTubeEmbed
-          url="https://www.youtube.com/watch?v=xusm6BsMVWg"
-          title="Resulam African language cartoon preview"
-        />
-        <span>{t.cartoons}</span>
-      </div>
-      <div className="carouselItem bookSlide">
-        <Image src="/landing/african-tales-book.png" alt="African tales in Nufi and French" fill sizes="260px" loading="eager" />
-        <span>{t.books}</span>
-      </div>
-      <div className="carouselItem bookSlide">
-        <Image src="/landing/nufi-grammar-book.png" alt="Nufi grammar book and ebook" fill sizes="260px" loading="eager" />
-        <span>{t.books}</span>
-      </div>
-    </>
-  );
-}
 
 type FlyerLandingProps = {
   locale: Locale;
@@ -101,15 +66,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
               </div>
             </div>
 
-            <div className="flyerCarousel" aria-label={t.mediaTitle}>
-              <p>{t.mediaTitle}</p>
-              <div className="carouselMask">
-                <div className="carouselTrack">
-                  <CarouselItems t={t} />
-                  <CarouselItems t={t} />
-                </div>
-              </div>
-            </div>
+            <MediaCarousel t={t} />
           </div>
         </div>
       </section>
