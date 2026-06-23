@@ -73,14 +73,10 @@ export function MidnightLanding({
         </div>
       </header>
 
-      <section className="midnightHero">
+      <section className="midnightHero scrollSection">
         <p className="midnightTagline">• {m.tagline}</p>
-        <h1>{m.title}</h1>
-
-        <div className="midnightDate">
-          <span className="midnightDateRange">{m.dateRange}</span>
-          <span className="midnightDateMonth">{m.dateMonth}</span>
-        </div>
+        <h1 className="heroDate">{t.heroDate}</h1>
+        <p className="heroTitle">{t.heroTitle}</p>
 
         <HeroLead text={m.heroLead} highlight={m.heroLeadHighlight} />
 
@@ -94,7 +90,7 @@ export function MidnightLanding({
         </div>
       </section>
 
-      <section className="midnightMoments" id="moments" aria-labelledby="moments-title">
+      <section className="midnightMoments scrollSection" id="moments" aria-labelledby="moments-title">
         <MomentsCarousel
           slides={slides}
           eyebrow={m.momentsLabel}
@@ -129,7 +125,7 @@ export function MidnightLanding({
         variant="midnight"
       />
 
-      <footer className="midnightFooter">
+      <footer className="midnightFooter scrollSection">
         <p>{t.footer}</p>
       </footer>
     </main>

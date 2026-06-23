@@ -1,8 +1,12 @@
 export const content = {
   en: {
     navLanguage: "English",
+    designFlyer: "Classic",
+    designMidnight: "Midnight",
     eyebrow: "France visit: August 6-11, 2026",
     title: "Resulam France 2026",
+    heroDate: "August 9, 2026",
+    heroTitle: "Resulam lands in France.",
     kicker: "Free conference",
     lead:
       "Reconnect with your mother tongue and learn practical ways to transmit African languages at home.",
@@ -120,8 +124,12 @@ export const content = {
   },
   fr: {
     navLanguage: "Français",
+    designFlyer: "Classique",
+    designMidnight: "Midnight",
     eyebrow: "Séjour en France : 6-11 août 2026",
     title: "Resulam débarque en France.",
+    heroDate: "9 Août 2026",
+    heroTitle: "Resulam débarque en France.",
     kicker: "Grande conférence gratuite",
     lead:
       "Retrouvez votre langue maternelle et découvrez des méthodes concrètes pour transmettre les langues africaines à la maison.",
@@ -275,10 +283,9 @@ export type MomentSlide = {
   id: string;
   label: string;
   meta: string;
-  kind: "video" | "link" | "book";
+  kind: "video" | "youtube" | "book";
   src: string;
   poster?: string;
-  href?: string;
   alt: string;
 };
 
@@ -297,18 +304,17 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       id: "cartoon-nufi",
       label: t.cartoons,
       meta: "Aug 7",
-      kind: "link",
-      src: "/landing/nufi-cartoon-presentation.png",
-      href: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
+      poster: "/landing/nufi-cartoon-presentation.png",
       alt: "Resulam Nufi cartoon preview",
     },
     {
       id: "cartoon-african",
       label: t.cartoons,
       meta: "Aug 8",
-      kind: "link",
-      src: "https://img.youtube.com/vi/xusm6BsMVWg/hqdefault.jpg",
-      href: "https://www.youtube.com/watch?v=xusm6BsMVWg",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=xusm6BsMVWg",
       alt: "Resulam African language cartoon preview",
     },
     {

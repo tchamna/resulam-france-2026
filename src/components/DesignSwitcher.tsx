@@ -1,27 +1,26 @@
+import { content } from "@/lib/content";
 import type { DesignVariant } from "@/lib/design";
 import { DESIGN_VARIANTS, buildPageHref } from "@/lib/design";
+import type { Locale } from "@/lib/locale";
 
 type DesignSwitcherProps = {
-  locale: string;
+  locale: Locale;
   design: DesignVariant;
 };
 
-const designLabels: Record<DesignVariant, string> = {
-  flyer: "Flyer",
-  midnight: "Midnight",
-};
-
 export function DesignSwitcher({ locale, design }: DesignSwitcherProps) {
+  const labels = content[locale];
+
   return (
     <div className="themeSwitcher" aria-label="Theme switcher">
       {DESIGN_VARIANTS.map((variant) =>
         variant === design ? (
           <span key={variant} className="themeOption isActive" aria-current="page">
-            {designLabels[variant]}
+            {variant === "flyer" ? labels.designFlyer : labels.designMidnight}
           </span>
         ) : (
           <a key={variant} href={buildPageHref(locale, variant)} className="themeOption">
-            {designLabels[variant]}
+            {variant === "flyer" ? labels.designFlyer : labels.designMidnight}
           </a>
         )
       )}

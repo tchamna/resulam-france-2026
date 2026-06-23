@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { MomentSlide } from "@/lib/content";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 
 type MomentsCarouselProps = {
   slides: MomentSlide[];
@@ -29,7 +30,7 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
-      if (target?.closest("input, textarea, select, video")) return;
+      if (target?.closest("input, textarea, select, video, iframe")) return;
 
       if (event.key === "ArrowLeft") {
         event.preventDefault();
@@ -96,20 +97,8 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
             >
               <source src={slide.src} type="video/mp4" />
             </video>
-          ) : slide.kind === "link" && slide.href ? (
-            <a href={slide.href} target="_blank" rel="noopener noreferrer" className="momentsLink">
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                sizes="(max-width: 860px) 100vw, 960px"
-                className="momentsMedia"
-              />
-              <span className="momentsPlay" aria-hidden="true">
-                ▶
-              </span>
-              <span className="momentsLinkHint">YouTube</span>
-            </a>
+          ) : slide.kind === "youtube" ? (
+            <YouTubeEmbed url={slide.src} title={slide.alt} className="momentsMedia momentsYoutube" />
           ) : (
             <div className="momentsBook">
               <Image

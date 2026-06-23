@@ -205,7 +205,11 @@ export function GreetingsMarquee({ copy }: { copy: GreetingsCopy }) {
 
   return (
     <section
-      className={marqueePaused ? "greetingsSection greetingsSectionPaused" : "greetingsSection"}
+      className={
+        marqueePaused
+          ? "greetingsSection greetingsSectionPaused scrollSection"
+          : "greetingsSection scrollSection"
+      }
       aria-labelledby="greetings-title"
     >
       <audio ref={audioRef} preload="none" onEnded={handleAudioEnded} />

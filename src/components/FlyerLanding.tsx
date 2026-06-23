@@ -3,6 +3,7 @@ import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import { VenueNotice } from "@/components/VenueNotice";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
@@ -13,29 +14,25 @@ function CarouselItems({ t }: { t: PageCopy }) {
   return (
     <>
       <div className="carouselItem carouselVideo">
-        <video autoPlay muted loop playsInline poster="/landing/nufi-cartoon-presentation.png">
+        <video controls playsInline preload="metadata" poster="/landing/nufi-cartoon-presentation.png">
           <source src="/landing/pangop-temoignage-nufi-1.mp4" type="video/mp4" />
         </video>
         <span>{t.testimony}</span>
       </div>
-      <a
-        className="carouselItem"
-        href="https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image src="/landing/nufi-cartoon-presentation.png" alt="Resulam Nufi cartoon preview" fill sizes="360px" loading="eager" />
+      <div className="carouselItem carouselYoutube">
+        <YouTubeEmbed
+          url="https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s"
+          title="Resulam Nufi cartoon preview"
+        />
         <span>{t.cartoons}</span>
-      </a>
-      <a
-        className="carouselItem"
-        href="https://www.youtube.com/watch?v=xusm6BsMVWg"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image src="https://img.youtube.com/vi/xusm6BsMVWg/hqdefault.jpg" alt="Resulam African language cartoon preview" fill sizes="360px" loading="eager" />
+      </div>
+      <div className="carouselItem carouselYoutube">
+        <YouTubeEmbed
+          url="https://www.youtube.com/watch?v=xusm6BsMVWg"
+          title="Resulam African language cartoon preview"
+        />
         <span>{t.cartoons}</span>
-      </a>
+      </div>
       <div className="carouselItem bookSlide">
         <Image src="/landing/african-tales-book.png" alt="African tales in Nufi and French" fill sizes="260px" loading="eager" />
         <span>{t.books}</span>
@@ -82,7 +79,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
         </div>
       </nav>
 
-      <section className="flyerHero">
+      <section className="flyerHero scrollSection">
         <div className="flyerFrame">
           <div className="flyerTop">
             <span>{t.eyebrow}</span>
@@ -92,13 +89,9 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
           <div className="flyerMain">
             <div className="flyerCopy">
               <p className="kicker">{t.kicker}</p>
-              <h1>{t.title}</h1>
+              <h1 className="heroDate">{t.heroDate}</h1>
+              <p className="heroTitle">{t.heroTitle}</p>
               <p className="lead">{t.lead}</p>
-
-              <div className="dateRibbon">
-                <span>{t.dateLabel}</span>
-                <strong>{t.dateValue}</strong>
-              </div>
 
               <div className="heroActions">
                 <a className="primaryCta" href="#book">
@@ -121,7 +114,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
         </div>
       </section>
 
-      <section className="section" aria-label="Event details">
+      <section className="section scrollSection" aria-label="Event details">
         <div className="infoBar">
           <div className="infoItem">
             <span className="infoLabel">{t.dateLabel}</span>
@@ -147,7 +140,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
 
       <ProgrammeSection locale={locale} t={t} initialAvailability={initialAvailability} variant="flyer" />
 
-      <footer className="footer">
+      <footer className="footer scrollSection">
         <p>{t.footer}</p>
       </footer>
     </main>

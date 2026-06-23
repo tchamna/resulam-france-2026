@@ -18,7 +18,7 @@ export function ProgrammeSection({
   variant = "flyer",
 }: ProgrammeSectionProps) {
   return (
-    <section className={variant === "midnight" ? "programmeSection programmeSectionMidnight" : "section programmeSection"} id="programme">
+    <section className={variant === "midnight" ? "programmeSection programmeSectionMidnight scrollSection" : "section programmeSection scrollSection"} id="programme">
       <DiscoverGrid title={t.sectionTitle} intro={t.sectionText} items={t.benefits} />
       <BookingForm
         copy={t.form}

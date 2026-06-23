@@ -1,4 +1,5 @@
 import { FlyerLanding } from "@/components/FlyerLanding";
+import { LandingExperience } from "@/components/LandingExperience";
 import { MidnightLanding } from "@/components/MidnightLanding";
 import { getBookingAvailability } from "@/lib/bookings";
 import { content } from "@/lib/content";
@@ -20,7 +21,22 @@ export default async function Page({
 
   if (design === "midnight") {
     return (
-      <MidnightLanding
+      <LandingExperience formCopy={t.form} initialAvailability={availability} variant={design}>
+        <MidnightLanding
+          locale={locale}
+          design={design}
+          t={t}
+          alternateLocale={alternateLocale}
+          alternateLabel={alternateLabel}
+          initialAvailability={availability}
+        />
+      </LandingExperience>
+    );
+  }
+
+  return (
+    <LandingExperience formCopy={t.form} initialAvailability={availability} variant={design}>
+      <FlyerLanding
         locale={locale}
         design={design}
         t={t}
@@ -28,17 +44,6 @@ export default async function Page({
         alternateLabel={alternateLabel}
         initialAvailability={availability}
       />
-    );
-  }
-
-  return (
-    <FlyerLanding
-      locale={locale}
-      design={design}
-      t={t}
-      alternateLocale={alternateLocale}
-      alternateLabel={alternateLabel}
-      initialAvailability={availability}
-    />
+    </LandingExperience>
   );
 }

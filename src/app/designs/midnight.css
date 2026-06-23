@@ -176,6 +176,23 @@ body:has(.page-midnight) {
   line-height: 1.02;
 }
 
+.page-midnight .heroDate {
+  margin: 0;
+  color: var(--midnight-gold);
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.page-midnight .heroTitle {
+  max-width: 900px;
+  margin: 0.75rem 0 0;
+  color: #f5f7fb;
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 .midnightDate {
   display: flex;
   align-items: center;
@@ -353,6 +370,10 @@ body:has(.page-midnight) {
   height: 100%;
   object-fit: cover;
   background: #0d1320;
+}
+
+.momentsYoutube {
+  border: 0;
 }
 
 .momentsBook .momentsMedia {
@@ -642,6 +663,22 @@ body:has(.page-midnight) {
 
 .page-midnight .fieldHint {
   color: var(--midnight-gold);
+}
+
+.page-midnight .seatsBannerMidnight {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(12, 18, 32, 0.92);
+  color: #f5f7fb;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.page-midnight .seatsBannerMidnight:hover {
+  border-color: rgba(212, 175, 55, 0.65);
+}
+
+.page-midnight .seatsBannerMidnight .seatsBannerDot {
+  background: var(--midnight-gold);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
 }
 
 .page-midnight .seatsProgressTrack {
