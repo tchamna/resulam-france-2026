@@ -28,16 +28,17 @@ export function BackgroundMusic() {
     audio.volume = BACKGROUND_VOLUME;
 
     async function playCurrentTrack() {
+      const player = audioRef.current;
       const track = playlistRef.current[trackIndexRef.current];
-      if (!track) {
+      if (!player || !track) {
         return;
       }
 
-      audio.src = track;
-      audio.load();
+      player.src = track;
+      player.load();
 
       try {
-        await audio.play();
+        await player.play();
         startedRef.current = true;
       } catch {
         // Autoplay is often blocked until the visitor interacts with the page.
