@@ -8,6 +8,8 @@ type Copy = {
   name: string;
   email: string;
   phone: string;
+  languages: string;
+  languagesPlaceholder: string;
   optional: string;
   button: string;
   sending: string;
@@ -28,6 +30,7 @@ export function BookingForm({ copy, locale }: { copy: Copy; locale: "en" | "fr" 
       name: String(form.get("name") ?? "").trim(),
       email: String(form.get("email") ?? "").trim(),
       phone: String(form.get("phone") ?? "").trim(),
+      languages: String(form.get("languages") ?? "").trim(),
     };
 
     try {
@@ -63,6 +66,16 @@ export function BookingForm({ copy, locale }: { copy: Copy; locale: "en" | "fr" 
             {copy.phone} <span aria-hidden="true">({copy.optional})</span>
           </label>
           <input id="phone" name="phone" type="tel" autoComplete="tel" />
+        </div>
+        <div className="field">
+          <label htmlFor="languages">{copy.languages}</label>
+          <textarea
+            id="languages"
+            name="languages"
+            required
+            minLength={2}
+            placeholder={copy.languagesPlaceholder}
+          />
         </div>
         <button className="submit" type="submit" disabled={status === "sending"}>
           {status === "sending" ? copy.sending : copy.button}

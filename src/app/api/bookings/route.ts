@@ -10,6 +10,7 @@ type Booking = {
   name: string;
   email: string;
   phone: string;
+  languages: string;
 };
 
 function clean(value: unknown, maxLength: number) {
@@ -39,10 +40,12 @@ function validate(body: Record<string, unknown>): Booking | null {
   const name = clean(body.name, 120);
   const email = clean(body.email, 180).toLowerCase();
   const phone = clean(body.phone, 60);
+  const languages = clean(body.languages, 500);
 
   if (name.length < 2) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
-  return { locale, name, email, phone };
+  if (languages.length < 2) return null;
+  return { locale, name, email, phone, languages };
 }
 
 async function saveBooking(booking: Booking) {
@@ -78,6 +81,7 @@ async function sendNotification(booking: Booking) {
       `Name: ${booking.name}`,
       `Email: ${booking.email}`,
       `Phone: ${booking.phone || "(not provided)"}`,
+      `African languages of interest: ${booking.languages}`,
       `Language: ${booking.locale}`,
       `Submitted: ${new Date().toISOString()}`,
     ].join("\n"),

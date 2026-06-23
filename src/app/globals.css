@@ -1,13 +1,14 @@
 :root {
   color-scheme: light;
-  --ink: #151515;
-  --muted: #5d5a55;
-  --line: #ded8cc;
-  --paper: #fffaf0;
-  --cream: #f4ecdd;
-  --green: #14623f;
-  --red: #ba3b2e;
+  --ink: #14110d;
+  --muted: #625c52;
+  --line: #dfd3bf;
+  --paper: #fff8ea;
+  --cream: #f4ead8;
+  --green: #11643e;
+  --red: #b73328;
   --gold: #d7a53f;
+  --yellow: #ffe08a;
 }
 
 * {
@@ -20,7 +21,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--cream);
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -30,15 +31,16 @@ a {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
 .page {
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(255, 250, 240, 0.94), rgba(244, 236, 221, 0.96)),
-    url("/resulam_logo.png") center 6rem / min(86vw, 720px) no-repeat;
+    linear-gradient(180deg, rgba(255, 248, 234, 0.98), rgba(244, 234, 216, 0.98)),
+    linear-gradient(135deg, rgba(17, 100, 62, 0.1), transparent 36%, rgba(183, 51, 40, 0.09));
 }
 
 .nav {
@@ -46,7 +48,7 @@ input {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 1rem 1.25rem;
 }
@@ -55,7 +57,7 @@ input {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .brand img {
@@ -65,47 +67,157 @@ input {
   background: white;
 }
 
-.language {
+.languageSwitcher {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
-  padding: 0.55rem 0.85rem;
   color: var(--muted);
+  font-size: 0.92rem;
+  box-shadow: 0 8px 18px rgba(57, 45, 24, 0.08);
+}
+
+.currentLanguage,
+.languageLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+}
+
+.currentLanguage {
+  color: var(--muted);
+}
+
+.currentLanguage svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.languageLink {
+  border-left: 1px solid var(--line);
+  background: #14110d;
+  color: white;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.languageLink:hover {
+  background: var(--green);
+}
+
+.language {
   font-size: 0.92rem;
 }
 
-.hero {
-  max-width: 1120px;
+.flyerHero {
+  max-width: 1180px;
   margin: 0 auto;
-  padding: clamp(2.25rem, 7vw, 5.75rem) 1.25rem 2rem;
+  padding: 1rem 1.25rem 1.4rem;
 }
 
-.eyebrow {
-  display: inline-flex;
+.flyerFrame {
+  overflow: hidden;
+  border: 1px solid #d1b684;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 245, 224, 0.95)),
+    linear-gradient(115deg, rgba(17, 100, 62, 0.16), transparent 42%, rgba(215, 165, 63, 0.22));
+  box-shadow: 0 28px 80px rgba(57, 45, 24, 0.18);
+}
+
+.flyerTop {
+  display: flex;
   align-items: center;
-  border: 1px solid rgba(20, 98, 63, 0.24);
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(209, 182, 132, 0.75);
+  background: #14110d;
+  padding: 0.85rem 1rem;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.flyerTop span,
+.flyerTop strong {
+  letter-spacing: 0;
+}
+
+.flyerTop strong {
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  padding: 0.55rem 0.8rem;
+  background: var(--yellow);
+  padding: 0.45rem 0.75rem;
+  color: #14110d;
+}
+
+.flyerMain {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr);
+  gap: clamp(1.4rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: clamp(1.4rem, 4vw, 3rem);
+}
+
+.flyerCopy {
+  min-width: 0;
+}
+
+.kicker {
+  display: inline-flex;
+  margin: 0 0 0.8rem;
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  background: white;
+  padding: 0.55rem 0.85rem;
   color: var(--green);
-  font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 h1 {
-  max-width: 780px;
-  margin: 1.15rem 0 1rem;
-  font-size: clamp(2.5rem, 9vw, 5.8rem);
-  line-height: 1.08;
+  max-width: 760px;
+  margin: 0 0 1rem;
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  line-height: 0.92;
   letter-spacing: 0;
 }
 
 .lead {
-  max-width: 690px;
+  max-width: 720px;
   margin: 0;
   color: #34302b;
-  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
-  line-height: 1.55;
+  font-size: clamp(1.08rem, 2.2vw, 1.38rem);
+  line-height: 1.5;
+}
+
+.dateRibbon {
+  display: grid;
+  gap: 0.25rem;
+  margin: 1.4rem 0 0;
+  border-left: 8px solid var(--red);
+  background: white;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 12px 26px rgba(57, 45, 24, 0.11);
+}
+
+.dateRibbon span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.dateRibbon strong {
+  font-size: clamp(1.25rem, 2.8vw, 2rem);
 }
 
 .heroActions {
@@ -113,25 +225,119 @@ h1 {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.8rem;
-  margin-top: 1.6rem;
+  margin-top: 1.4rem;
 }
 
 .primaryCta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
+  min-height: 50px;
   border-radius: 999px;
   background: var(--green);
-  padding: 0.8rem 1.2rem;
+  padding: 0.85rem 1.25rem;
   color: white;
-  font-weight: 800;
+  font-weight: 900;
   text-decoration: none;
+  box-shadow: 0 12px 24px rgba(17, 100, 62, 0.24);
 }
 
 .note {
+  max-width: 300px;
   color: var(--muted);
   font-size: 0.98rem;
+}
+
+.flyerCarousel {
+  min-width: 0;
+}
+
+.flyerCarousel > p {
+  margin: 0 0 0.75rem;
+  color: #3a342b;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.carouselMask {
+  overflow: hidden;
+  border: 1px solid rgba(20, 17, 13, 0.18);
+  border-radius: 10px;
+  background: #14110d;
+  box-shadow: 0 22px 55px rgba(57, 45, 24, 0.18);
+}
+
+.carouselTrack {
+  display: flex;
+  width: max-content;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  animation: carousel-scroll 28s linear infinite;
+}
+
+.carouselMask:hover .carouselTrack {
+  animation-play-state: paused;
+}
+
+.carouselItem {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: clamp(240px, 24vw, 360px);
+  aspect-ratio: 16 / 10;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: #211b13;
+  color: white;
+  text-decoration: none;
+}
+
+.carouselItem img,
+.carouselItem video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carouselItem img {
+  transition: transform 240ms ease;
+}
+
+.carouselItem:hover img {
+  transform: scale(1.03);
+}
+
+.bookSlide {
+  background: white;
+}
+
+.bookSlide img {
+  object-fit: contain;
+  padding: 0.8rem;
+}
+
+.carouselItem span {
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  border-radius: 6px;
+  background: rgba(20, 17, 13, 0.82);
+  padding: 0.55rem 0.65rem;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+@keyframes carousel-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.45rem));
+  }
 }
 
 .section {
@@ -159,7 +365,7 @@ h1 {
   display: block;
   color: var(--muted);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
@@ -167,7 +373,7 @@ h1 {
   display: block;
   margin-top: 0.35rem;
   font-size: 1.08rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .twoCol {
@@ -227,10 +433,11 @@ h2 {
 .field label {
   color: #35312c;
   font-size: 0.92rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.field input {
+.field input,
+.field textarea {
   width: 100%;
   min-height: 46px;
   border: 1px solid #cfc7ba;
@@ -240,7 +447,13 @@ h2 {
   color: var(--ink);
 }
 
-.field input:focus {
+.field textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
   border-color: var(--green);
   outline: 3px solid rgba(20, 98, 63, 0.16);
 }
@@ -252,7 +465,7 @@ h2 {
   background: var(--ink);
   color: white;
   cursor: pointer;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .submit:disabled {
@@ -279,17 +492,39 @@ h2 {
   text-align: center;
 }
 
-@media (max-width: 760px) {
+@media (prefers-reduced-motion: reduce) {
+  .carouselTrack {
+    animation: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .flyerMain,
   .infoBar,
   .twoCol {
     grid-template-columns: 1fr;
   }
 
-  .hero {
-    padding-top: 2rem;
+  .flyerTop {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .language {
+  .flyerMain {
+    padding: 1.1rem;
+  }
+
+  .carouselItem {
+    width: min(78vw, 320px);
+  }
+
+  .languageSwitcher {
     font-size: 0.84rem;
+  }
+
+  .currentLanguage,
+  .languageLink {
+    min-height: 36px;
+    padding: 0.45rem 0.6rem;
   }
 }
