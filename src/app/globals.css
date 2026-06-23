@@ -36,7 +36,7 @@ textarea {
   font: inherit;
 }
 
-.page {
+.page-flyer {
   min-height: 100vh;
   background:
     linear-gradient(180deg, rgba(255, 248, 234, 0.98), rgba(244, 234, 216, 0.98)),
@@ -51,6 +51,51 @@ textarea {
   max-width: 1180px;
   margin: 0 auto;
   padding: 1rem 1.25rem;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.themeSwitcher {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 8px 18px rgba(57, 45, 24, 0.08);
+}
+
+.themeOption {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.themeOption + .themeOption,
+.themeOption + .isActive,
+.isActive + .themeOption {
+  border-left: 1px solid var(--line);
+}
+
+.themeOption.isActive {
+  background: #14110d;
+  color: white;
+}
+
+.themeOption:not(.isActive):hover {
+  background: rgba(17, 100, 62, 0.12);
+  color: var(--green);
 }
 
 .brand {
@@ -348,12 +393,40 @@ h1 {
 
 .infoBar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--line);
+}
+
+.venueNotice {
+  margin-top: 1rem;
+  border: 1px solid #d7c38f;
+  border-left: 5px solid var(--gold);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.95rem 1rem;
+}
+
+.venueNotice strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.98rem;
+}
+
+.venueNotice p {
+  margin: 0;
+  color: #34302b;
+  line-height: 1.55;
+}
+
+.venueNoticeHighlighted {
+  border-color: rgba(17, 100, 62, 0.35);
+  border-left-color: var(--green);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 28px rgba(17, 100, 62, 0.12);
 }
 
 .infoItem {
@@ -385,11 +458,99 @@ h1 {
   padding-bottom: 4rem;
 }
 
-h2 {
-  margin: 0 0 1rem;
-  font-size: clamp(1.75rem, 4vw, 3rem);
-  line-height: 1.05;
-  letter-spacing: 0;
+.programmeSection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+  position: relative;
+}
+
+.programmeSection > * {
+  min-width: 0;
+}
+
+.discoverPanel {
+  min-width: 0;
+}
+
+.programmeSection::before,
+.programmeSection::after {
+  content: "";
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border: 2px solid rgba(143, 95, 63, 0.22);
+  pointer-events: none;
+}
+
+.programmeSection::before {
+  top: 1.5rem;
+  left: 0.5rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.programmeSection::after {
+  right: 0.5rem;
+  bottom: 2rem;
+  border-left: 0;
+  border-top: 0;
+}
+
+.discoverPanel h2 {
+  margin: 0 0 0.75rem;
+}
+
+.discoverIntro {
+  max-width: 640px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 1.02rem;
+}
+
+.discoverGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.discoverCard {
+  border: 1px solid rgba(143, 95, 63, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 1rem 0.95rem 1.05rem;
+  box-shadow: 0 8px 20px rgba(49, 42, 30, 0.06);
+}
+
+.discoverIcon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.55rem;
+  color: var(--green);
+}
+
+.discoverIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.discoverCard h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.discoverCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
 }
 
 .benefits {
@@ -414,6 +575,157 @@ h2 {
   background: white;
   padding: 1rem;
   box-shadow: 0 18px 40px rgba(49, 42, 30, 0.12);
+}
+
+.bookingCard {
+  border: 2px solid #2a8478;
+  border-radius: 10px;
+  padding: 1.15rem;
+  background: #fff;
+}
+
+.seatsPanel {
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 248, 234, 0.9);
+  padding: 0.85rem 0.95rem 0.75rem;
+}
+
+.seatsSkyline {
+  height: 42px;
+  margin: 0.35rem 0 0.65rem;
+  color: var(--gold);
+}
+
+.seatsSkyline svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bookingVenueNotice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  margin: 0.85rem 0 1rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 8px;
+  background: rgba(245, 232, 210, 0.55);
+  border: 1px solid rgba(143, 95, 63, 0.18);
+}
+
+.bookingVenuePin {
+  width: 22px;
+  height: 22px;
+  margin-top: 0.15rem;
+  color: #8f5f3f;
+  flex-shrink: 0;
+}
+
+.bookingVenueNotice .venueNotice {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.languageChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.55rem;
+}
+
+.languageChip {
+  border: 1px solid #cfc7ba;
+  border-radius: 999px;
+  background: #fffdf8;
+  padding: 0.38rem 0.78rem;
+  color: var(--ink);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.languageChip:hover:not(:disabled) {
+  border-color: var(--green);
+}
+
+.languageChipActive {
+  border-color: var(--green);
+  background: rgba(20, 98, 63, 0.12);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.fieldHint {
+  min-height: 1.1rem;
+  margin: 0.35rem 0 0;
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.seatsPanelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.seatsLabel {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.seatsCount {
+  color: var(--ink);
+  font-size: 0.98rem;
+}
+
+.seatsProgressTrack {
+  overflow: hidden;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(20, 17, 13, 0.08);
+}
+
+.seatsProgressFill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+  transition: width 240ms ease;
+}
+
+.seatsMeta {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+.statusSuccess {
+  color: var(--green);
+  font-weight: 700;
 }
 
 .booking h2 {
@@ -462,10 +774,14 @@ h2 {
   min-height: 48px;
   border: 0;
   border-radius: 6px;
-  background: var(--ink);
+  background: #8f5f3f;
   color: white;
   cursor: pointer;
   font-weight: 900;
+}
+
+.submit:hover:not(:disabled) {
+  background: #7a5035;
 }
 
 .submit:disabled {
@@ -492,8 +808,322 @@ h2 {
   text-align: center;
 }
 
+.statsPage {
+  min-height: 100vh;
+  background: var(--cream);
+  padding: 2rem 1.25rem 3rem;
+}
+
+.statsShell {
+  max-width: 920px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(49, 42, 30, 0.12);
+}
+
+.statsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.statsHeader h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.statsHeader p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.statsHeader a {
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.statsSummary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 248, 234, 0.9);
+  padding: 0.9rem 1rem;
+}
+
+.statsSummary strong {
+  font-size: 1.8rem;
+}
+
+.statsDenied,
+.statsEmpty {
+  color: var(--muted);
+}
+
+.statsTable {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.2fr) 80px minmax(180px, 1.8fr);
+  gap: 0.75rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.75rem 0.85rem;
+}
+
+.statsRowHead {
+  background: #14110d;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statsLanguage {
+  font-weight: 700;
+}
+
+.statsCount {
+  font-weight: 700;
+  text-align: center;
+}
+
+.statsBarCell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.statsBarTrack {
+  flex: 1;
+  overflow: hidden;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(20, 17, 13, 0.08);
+}
+
+.statsBarFill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+}
+
+.statsShare {
+  min-width: 2.5rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: right;
+}
+
+.greetingsSection {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.5rem 1.25rem 2rem;
+}
+
+.greetingsIntro {
+  margin-bottom: 1.25rem;
+}
+
+.greetingsEyebrow {
+  margin: 0 0 0.45rem;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.greetingsIntro h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.08;
+}
+
+.greetingsHint {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.greetingsRow + .greetingsRow {
+  margin-top: 1rem;
+}
+
+.greetingsRowHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.greetingsRowLabel {
+  margin: 0;
+  padding-left: 0.15rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.greetingsPhrasebookLink {
+  color: var(--green);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.greetingsPhrasebookLink:hover {
+  text-decoration: underline;
+}
+
+.greetingsMarquee {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.greetingsTrack {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  padding: 0.85rem;
+}
+
+.greetingsTrack-left {
+  animation: greetings-scroll-left 70s linear infinite;
+}
+
+.greetingsTrack-right {
+  animation: greetings-scroll-right 82s linear infinite;
+}
+
+.greetingsMarquee:hover .greetingsTrack,
+.greetingsSectionPaused .greetingsTrack {
+  animation-play-state: paused;
+}
+
+button.greetingCardAudio {
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.greetingCard {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  width: clamp(220px, 24vw, 280px);
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  padding: 0.85rem 0.95rem;
+  box-shadow: 0 10px 24px rgba(57, 45, 24, 0.08);
+  color: inherit;
+  text-align: left;
+}
+
+.greetingCardAudio {
+  padding-right: 2.4rem;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.greetingCardAudio:hover {
+  border-color: rgba(17, 100, 62, 0.35);
+  box-shadow: 0 14px 28px rgba(17, 100, 62, 0.12);
+  transform: translateY(-1px);
+}
+
+.greetingCardStatic {
+  cursor: default;
+}
+
+.greetingCardPlaying {
+  border-color: var(--green);
+  box-shadow: 0 14px 28px rgba(17, 100, 62, 0.18);
+}
+
+.greetingLanguage {
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.greetingTranslation {
+  display: block;
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.45;
+}
+
+.greetingPlay {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(17, 100, 62, 0.12);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.greetingCardPlaying .greetingPlay {
+  background: var(--green);
+  color: white;
+}
+
+@keyframes greetings-scroll-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+}
+
+@keyframes greetings-scroll-right {
+  from {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .carouselTrack {
+  .carouselTrack,
+  .greetingsTrack {
     animation: none;
   }
 }
@@ -501,8 +1131,31 @@ h2 {
 @media (max-width: 860px) {
   .flyerMain,
   .infoBar,
-  .twoCol {
+  .twoCol,
+  .programmeSection {
     grid-template-columns: 1fr;
+  }
+
+  .discoverGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .infoBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statsRow,
+  .statsRowHead {
+    grid-template-columns: 1fr;
+  }
+
+  .statsCount,
+  .statsShare {
+    text-align: left;
   }
 
   .flyerTop {
@@ -522,6 +1175,12 @@ h2 {
     font-size: 0.84rem;
   }
 
+  .navActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .themeOption,
   .currentLanguage,
   .languageLink {
     min-height: 36px;

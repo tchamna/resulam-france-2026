@@ -21,7 +21,15 @@ Open `http://localhost:3000`.
 
 ## Azure App Service
 
-Use a Node.js Azure App Service. Build command:
+This repo deploys to Azure App Service on push to `master` via GitHub Actions (`.github/workflows/azure-webapp.yml`).
+
+Target:
+
+- App: `resulam-france-2026`
+- Resource group: `rag-ai-foundations-demo-rg`
+- Plan: `ASP-ragaifoundationsdemorg-87d6` (existing)
+
+Build command:
 
 ```bash
 npm install && npm run build
@@ -30,13 +38,24 @@ npm install && npm run build
 Startup command:
 
 ```bash
-npm run start
+node server.js
+```
+
+GitHub repository secrets required:
+
+```text
+AZURE_CLIENT_ID
+AZURE_TENANT_ID
+AZURE_SUBSCRIPTION_ID
 ```
 
 Set these Azure App Service application settings:
 
 ```text
+BOOKING_CAPACITY=50
+BOOKING_DATA_DIR=/home/data
 BOOKING_NOTIFY_EMAILS=contact@resulam.com
+BOOKING_STATS_KEY=change-me-in-production
 AUTH_SMTP_HOST=your SMTP host
 AUTH_SMTP_PORT=587
 AUTH_SMTP_USERNAME=your SMTP username

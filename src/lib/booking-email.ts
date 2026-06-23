@@ -1,0 +1,207 @@
+import nodemailer from "nodemailer";
+import type { Booking, BookingAvailability } from "@/lib/bookings";
+import { getSmtpConfig, parseNotifyRecipients } from "@/lib/bookings";
+
+function createTransporter() {
+  const config = getSmtpConfig();
+  if (!config) return null;
+
+  return {
+    config,
+    transporter: nodemailer.createTransport({
+      host: config.host,
+      port: config.port,
+      secure: config.port === 465,
+      requireTLS: config.useTls && config.port !== 465,
+      auth: { user: config.user, pass: config.pass },
+    }),
+  };
+}
+
+function eventDetails(locale: Booking["locale"]) {
+  if (locale === "fr") {
+    return {
+      event: "Conférence publique gratuite Resulam France 2026",
+      date: "Dimanche 9 août 2026",
+      visit: "Séjour en France : 6-11 août 2026",
+      venue:
+        "Lieu : Paris (lieu exact à confirmer). Revenez sur le site pour les mises à jour — nous vous enverrons un email dès que le lieu sera annoncé.",
+    };
+  }
+
+  return {
+    event: "Resulam France 2026 free public conference",
+    date: "Sunday, August 9, 2026",
+    visit: "France visit: August 6-11, 2026",
+    venue:
+      "Venue: Paris (exact venue to be confirmed). Check this website for updates — we will email you once the venue is announced.",
+  };
+}
+
+function seatsLine(locale: Booking["locale"], availability: BookingAvailability) {
+  if (locale === "fr") {
+    if (availability.remaining === 0) return "Toutes les places sont réservées.";
+    if (availability.remaining === 1) return "1 place restante.";
+    return `${availability.remaining} places restantes.`;
+  }
+
+  if (availability.remaining === 0) return "All places are now booked.";
+  if (availability.remaining === 1) return "1 place left.";
+  return `${availability.remaining} places left.`;
+}
+
+function adminSubject(booking: Booking) {
+  return booking.locale === "fr"
+    ? `[Resulam France 2026] Nouvelle réservation — ${booking.name}`
+    : `[Resulam France 2026] New booking — ${booking.name}`;
+}
+
+function guestSubject(booking: Booking) {
+  return booking.locale === "fr"
+    ? "Votre place est confirmée — Resulam France 2026"
+    : "Your place is confirmed — Resulam France 2026";
+}
+
+function wrapHtml(title: string, body: string) {
+  return `<!DOCTYPE html>
+<html lang="en">
+  <body style="margin:0;padding:0;background:#f4f0e8;color:#14110d;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f0e8;padding:24px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#ffffff;border:1px solid #dfd3bf;border-radius:12px;overflow:hidden;">
+            <tr>
+              <td style="padding:20px 24px;background:#14110d;color:#ffffff;font-size:18px;font-weight:700;">${title}</td>
+            </tr>
+            <tr>
+              <td style="padding:24px;font-size:15px;line-height:1.6;">${body}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function adminHtml(booking: Booking, availability: BookingAvailability) {
+  const details = eventDetails(booking.locale);
+  return wrapHtml(
+    "Resulam France 2026",
+    `
+      <p style="margin:0 0 16px;">A new conference seat has been reserved.</p>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+        <tr><td style="padding:8px 0;color:#625c52;">Name</td><td style="padding:8px 0;font-weight:700;">${booking.name}</td></tr>
+        <tr><td style="padding:8px 0;color:#625c52;">Email</td><td style="padding:8px 0;font-weight:700;">${booking.email}</td></tr>
+        <tr><td style="padding:8px 0;color:#625c52;">Phone</td><td style="padding:8px 0;font-weight:700;">${booking.phone || "(not provided)"}</td></tr>
+        <tr><td style="padding:8px 0;color:#625c52;">Languages</td><td style="padding:8px 0;font-weight:700;">${booking.languages}</td></tr>
+        <tr><td style="padding:8px 0;color:#625c52;">Locale</td><td style="padding:8px 0;font-weight:700;">${booking.locale}</td></tr>
+      </table>
+      <p style="margin:20px 0 8px;font-weight:700;">Event</p>
+      <p style="margin:0 0 4px;">${details.event}</p>
+      <p style="margin:0 0 4px;">${details.date}</p>
+      <p style="margin:0 0 16px;">${details.visit}</p>
+      <p style="margin:0 0 16px;">${details.venue}</p>
+      <p style="margin:0;padding:12px 14px;border-radius:8px;background:#fff8ea;border:1px solid #dfd3bf;">
+        <strong>${availability.booked}/${availability.capacity}</strong> seats booked · ${seatsLine("en", availability)}
+      </p>
+    `
+  );
+}
+
+function guestHtml(booking: Booking, availability: BookingAvailability) {
+  const details = eventDetails(booking.locale);
+  const intro =
+    booking.locale === "fr"
+      ? `Bonjour ${booking.name},<br><br>Votre place pour la conférence gratuite du 9 août 2026 est confirmée.`
+      : `Hello ${booking.name},<br><br>Your seat for the free conference on August 9, 2026 is confirmed.`;
+
+  const nextStep =
+    booking.locale === "fr"
+      ? "Conservez cet email. Nous vous recontacterons si nécessaire avant l'événement."
+      : "Keep this email for your records. We will contact you if anything changes before the event.";
+
+  return wrapHtml(
+    booking.locale === "fr" ? "Réservation confirmée" : "Booking confirmed",
+    `
+      <p style="margin:0 0 16px;">${intro}</p>
+      <p style="margin:0 0 4px;font-weight:700;">${details.event}</p>
+      <p style="margin:0 0 4px;">${details.date}</p>
+      <p style="margin:0 0 16px;">${details.visit}</p>
+      <p style="margin:0 0 16px;">${details.venue}</p>
+      <p style="margin:0 0 16px;">${nextStep}</p>
+      <p style="margin:0;padding:12px 14px;border-radius:8px;background:#fff8ea;border:1px solid #dfd3bf;">
+        ${seatsLine(booking.locale, availability)}
+      </p>
+    `
+  );
+}
+
+function adminText(booking: Booking, availability: BookingAvailability) {
+  const details = eventDetails(booking.locale);
+  return [
+    "New Resulam France 2026 booking.",
+    "",
+    `Name: ${booking.name}`,
+    `Email: ${booking.email}`,
+    `Phone: ${booking.phone || "(not provided)"}`,
+    `Languages: ${booking.languages}`,
+    `Locale: ${booking.locale}`,
+    "",
+    details.event,
+    details.date,
+    details.visit,
+    details.venue,
+    "",
+    `Seats booked: ${availability.booked}/${availability.capacity}`,
+    seatsLine("en", availability),
+    "",
+    `Submitted: ${new Date().toISOString()}`,
+  ].join("\n");
+}
+
+function guestText(booking: Booking, availability: BookingAvailability) {
+  const details = eventDetails(booking.locale);
+  const greeting =
+    booking.locale === "fr"
+      ? `Bonjour ${booking.name},\n\nVotre place pour la conférence gratuite du 9 août 2026 est confirmée.`
+      : `Hello ${booking.name},\n\nYour seat for the free conference on August 9, 2026 is confirmed.`;
+
+  return [
+    greeting,
+    "",
+    details.event,
+    details.date,
+    details.visit,
+    details.venue,
+    "",
+    seatsLine(booking.locale, availability),
+  ].join("\n");
+}
+
+export async function sendBookingEmails(booking: Booking, availability: BookingAvailability) {
+  const mail = createTransporter();
+  if (!mail) return { sentAdmin: false, sentGuest: false };
+
+  const { transporter, config } = mail;
+
+  await transporter.sendMail({
+    from: config.from,
+    to: parseNotifyRecipients().join(", "),
+    replyTo: booking.email,
+    subject: adminSubject(booking),
+    text: adminText(booking, availability),
+    html: adminHtml(booking, availability),
+  });
+
+  await transporter.sendMail({
+    from: config.from,
+    to: booking.email,
+    replyTo: parseNotifyRecipients()[0] ?? config.from,
+    subject: guestSubject(booking),
+    text: guestText(booking, availability),
+    html: guestHtml(booking, availability),
+  });
+
+  return { sentAdmin: true, sentGuest: true };
+}

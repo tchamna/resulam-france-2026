@@ -1,0 +1,331 @@
+export const content = {
+  en: {
+    navLanguage: "English",
+    eyebrow: "France visit: August 6-11, 2026",
+    title: "Resulam France 2026",
+    kicker: "Free conference",
+    lead:
+      "Reconnect with your mother tongue and learn practical ways to transmit African languages at home.",
+    cta: "Book a free place",
+    limit: "Free entry. Places are limited, booking is required.",
+    dateLabel: "Conference",
+    dateValue: "Sunday, August 9, 2026",
+    visitLabel: "Resulam in France",
+    visitValue: "August 6-11, 2026",
+    costLabel: "Cost",
+    costValue: "Free entry",
+    locationLabel: "Location",
+    locationValue: "Paris (venue to be confirmed)",
+    venueNotice: {
+      title: "Paris — venue to be confirmed",
+      body:
+        "The conference will take place in Paris. The exact venue is not yet confirmed. Please check this website for updates — we will also email you once the venue is announced.",
+    },
+    mediaTitle: "Videos, books, applications and USB learning resources",
+    testimony: "Nufi testimony",
+    cartoons: "Learning videos",
+    books: "Books and grammar resources",
+    sectionTitle: "What you will discover",
+    sectionText: "A practical day for families, adults, and anyone who wants to restart language transmission.",
+    benefits: [
+      {
+        id: "teaching",
+        title: "Teaching",
+        text: "How to teach African languages to your children at home.",
+      },
+      {
+        id: "adults",
+        title: "Adults",
+        text: "How adults can start learning even if they missed the chance in childhood.",
+      },
+      {
+        id: "books",
+        title: "Books",
+        text: "Books for learning African languages.",
+      },
+      {
+        id: "apps",
+        title: "Applications",
+        text: "Applications and digital tools.",
+      },
+      {
+        id: "usb",
+        title: "USB drives",
+        text: "USB drives containing learning videos.",
+      },
+      {
+        id: "surprises",
+        title: "Surprises",
+        text: "More surprises for participants.",
+      },
+    ],
+    form: {
+      title: "Reserve your place",
+      intro: "We only need a few details to hold your seat.",
+      name: "Name",
+      email: "Email",
+      phone: "Phone",
+      languages: "African languages you are interested in",
+      languagesPlaceholder: "Example: swahili, wolof, nufi, kikongo",
+      optional: "optional",
+      button: "Confirm seat",
+      sending: "Sending...",
+      success: "Your place is confirmed. {count} places left.",
+      error: "We could not submit your booking. Please try again.",
+      seatsLabel: "Conference seats",
+      seatsAvailable: "{count} places available",
+      seatsLeft: "{count} places left",
+      seatsLeftOne: "1 place left",
+      soldOut: "Fully booked",
+      soldOutIntro: "All 50 places have been reserved. Contact us if you still want to attend.",
+      duplicate: "This email already has a reservation.",
+      fullError: "Sorry, the last places were just booked.",
+      validationError: "Please check your name, email, and languages (at least 2 characters).",
+    },
+    footer: "Resulam France 2026",
+    greetings: {
+      eyebrow: "Mother tongues",
+      title: "How we greet each other",
+      howAreYou: "How are you?",
+      welcome: "Welcome",
+      listenHint: "Tap a phrase to hear it spoken.",
+      playLabel: "Play phrase",
+      playingLabel: "Pause phrase",
+      openPhrasebook: "Open in phrasebook",
+    },
+    midnight: {
+      badge: "France 2026",
+      navVisit: "The Visit",
+      navMoments: "Moments",
+      navConference: "Conference",
+      navBook: "Book now",
+      tagline: "A celebration of our mother tongues",
+      title: "Resulam lands in France.",
+      dateRange: "6–11",
+      dateMonth: "August 2026",
+      heroLead:
+        "A week of gatherings across France — with a free public conference on August 9. Limited places.",
+      heroLeadHighlight: "free public conference on August 9",
+      ctaPrimary: "Reserve your place",
+      ctaSecondary: "See the programme",
+      momentsLabel: "In pictures & film",
+      momentsTitle: "Moments from Resulam",
+      statDaysTitle: "6 days",
+      statDaysText: "Gatherings across France, Aug 6–11.",
+      statFreeTitle: "Aug 9 • Free",
+      statFreeText: "Public conference, open to all.",
+      statLimitedTitle: "Limited",
+      statLimitedText: "Seats fill fast — reserve early.",
+    },
+  },
+  fr: {
+    navLanguage: "Français",
+    eyebrow: "Séjour en France : 6-11 août 2026",
+    title: "Resulam débarque en France.",
+    kicker: "Grande conférence gratuite",
+    lead:
+      "Retrouvez votre langue maternelle et découvrez des méthodes concrètes pour transmettre les langues africaines à la maison.",
+    cta: "Réserver gratuitement",
+    limit: "Entrée gratuite. Places limitées, réservation obligatoire.",
+    dateLabel: "Conférence",
+    dateValue: "Dimanche 9 août 2026",
+    visitLabel: "Resulam en France",
+    visitValue: "6-11 août 2026",
+    costLabel: "Tarif",
+    costValue: "Entrée gratuite",
+    locationLabel: "Lieu",
+    locationValue: "Paris (lieu à confirmer)",
+    venueNotice: {
+      title: "Paris — lieu à confirmer",
+      body:
+        "La conférence se tiendra à Paris. Le lieu exact n'est pas encore confirmé. Revenez sur ce site pour les mises à jour — nous vous enverrons aussi un email dès que le lieu sera annoncé.",
+    },
+    mediaTitle: "Vidéos, livres, applications et clés USB d'apprentissage",
+    testimony: "Témoignage en nufi",
+    cartoons: "Vidéos d'apprentissage",
+    books: "Livres et grammaire",
+    sectionTitle: "Ce que vous allez découvrir",
+    sectionText:
+      "Une journée pratique pour les familles, les adultes, et toute personne qui veut relancer la transmission des langues.",
+    benefits: [
+      {
+        id: "teaching",
+        title: "Enseignement",
+        text: "Comment enseigner les langues africaines à vos enfants à la maison.",
+      },
+      {
+        id: "adults",
+        title: "Adultes",
+        text: "Comment les adultes peuvent commencer même sans avoir appris dans l'enfance.",
+      },
+      {
+        id: "books",
+        title: "Livres",
+        text: "Des livres pour apprendre les langues africaines.",
+      },
+      {
+        id: "apps",
+        title: "Applications",
+        text: "Des applications et outils numériques.",
+      },
+      {
+        id: "usb",
+        title: "Clés USB",
+        text: "Des clés USB contenant des vidéos d'apprentissage.",
+      },
+      {
+        id: "surprises",
+        title: "Surprises",
+        text: "Et beaucoup d'autres surprises pour les participants.",
+      },
+    ],
+    form: {
+      title: "Réserver votre place",
+      intro: "Quelques informations suffisent pour garder votre place.",
+      name: "Nom",
+      email: "Email",
+      phone: "Téléphone",
+      languages: "Langues africaines qui vous intéressent",
+      languagesPlaceholder: "Exemple : swahili, wolof, nufi, kikongo",
+      optional: "facultatif",
+      button: "Confirmer ma place",
+      sending: "Envoi...",
+      success: "Votre place est confirmée. Il reste {count} places.",
+      error: "Impossible d'envoyer votre réservation. Veuillez réessayer.",
+      seatsLabel: "Places conférence",
+      seatsAvailable: "{count} places disponibles",
+      seatsLeft: "Il reste {count} places",
+      seatsLeftOne: "Il reste 1 place",
+      soldOut: "Complet",
+      soldOutIntro: "Les 50 places sont réservées. Contactez-nous si vous souhaitez encore participer.",
+      duplicate: "Cet email a déjà une réservation.",
+      fullError: "Désolé, les dernières places viennent d'être réservées.",
+      validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
+    },
+    footer: "Resulam France 2026",
+    greetings: {
+      eyebrow: "Langues maternelles",
+      title: "Comment on se salue",
+      howAreYou: "Comment ça va ?",
+      welcome: "Bienvenue",
+      listenHint: "Appuyez sur une phrase pour l'écouter.",
+      playLabel: "Écouter la phrase",
+      playingLabel: "Mettre en pause",
+      openPhrasebook: "Ouvrir dans le phrasebook",
+    },
+    midnight: {
+      badge: "France 2026",
+      navVisit: "Le séjour",
+      navMoments: "Moments",
+      navConference: "Conférence",
+      navBook: "Réserver",
+      tagline: "Une célébration de nos langues maternelles",
+      title: "Resulam débarque en France.",
+      dateRange: "6–11",
+      dateMonth: "Août 2026",
+      heroLead:
+        "Une semaine de rencontres à travers la France — avec une conférence publique gratuite le 9 août. Places limitées.",
+      heroLeadHighlight: "conférence publique gratuite le 9 août",
+      ctaPrimary: "Réserver votre place",
+      ctaSecondary: "Voir le programme",
+      momentsLabel: "En images et vidéos",
+      momentsTitle: "Moments de Resulam",
+      statDaysTitle: "6 jours",
+      statDaysText: "Rencontres en France, 6–11 août.",
+      statFreeTitle: "9 août • Gratuit",
+      statFreeText: "Conférence publique, ouverte à tous.",
+      statLimitedTitle: "Limité",
+      statLimitedText: "Les places partent vite — réservez tôt.",
+    },
+  },
+} as const;
+
+export const statsContent = {
+  en: {
+    title: "Language interest stats",
+    intro: "Number of reservations that mention each African language.",
+    totalBookings: "Total reservations",
+    language: "Language",
+    reservations: "Reservations",
+    share: "Share",
+    empty: "No bookings recorded yet.",
+    denied: "Access denied. Open this page with ?key=YOUR_KEY in the URL.",
+    back: "Back to site",
+  },
+  fr: {
+    title: "Statistiques des langues",
+    intro: "Nombre de réservations mentionnant chaque langue africaine.",
+    totalBookings: "Réservations totales",
+    language: "Langue",
+    reservations: "Réservations",
+    share: "Part",
+    empty: "Aucune réservation enregistrée.",
+    denied: "Accès refusé. Ouvrez cette page avec ?key=VOTRE_CLE dans l'URL.",
+    back: "Retour au site",
+  },
+} as const;
+
+import type { Locale } from "@/lib/locale";
+
+export type PageCopy = (typeof content)[Locale];
+
+export type MidnightCopy = PageCopy["midnight"];
+
+export type MomentSlide = {
+  id: string;
+  label: string;
+  meta: string;
+  kind: "video" | "link" | "book";
+  src: string;
+  poster?: string;
+  href?: string;
+  alt: string;
+};
+
+export function getMomentSlides(t: PageCopy): MomentSlide[] {
+  return [
+    {
+      id: "testimony",
+      label: t.testimony,
+      meta: "Aug 7",
+      kind: "video",
+      src: "/landing/pangop-temoignage-nufi-1.mp4",
+      poster: "/landing/nufi-cartoon-presentation.png",
+      alt: "Nufi testimony video",
+    },
+    {
+      id: "cartoon-nufi",
+      label: t.cartoons,
+      meta: "Aug 7",
+      kind: "link",
+      src: "/landing/nufi-cartoon-presentation.png",
+      href: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
+      alt: "Resulam Nufi cartoon preview",
+    },
+    {
+      id: "cartoon-african",
+      label: t.cartoons,
+      meta: "Aug 8",
+      kind: "link",
+      src: "https://img.youtube.com/vi/xusm6BsMVWg/hqdefault.jpg",
+      href: "https://www.youtube.com/watch?v=xusm6BsMVWg",
+      alt: "Resulam African language cartoon preview",
+    },
+    {
+      id: "tales-book",
+      label: t.books,
+      meta: "Aug 9",
+      kind: "book",
+      src: "/landing/african-tales-book.png",
+      alt: "African tales in Nufi and French",
+    },
+    {
+      id: "grammar-book",
+      label: t.books,
+      meta: "Aug 9",
+      kind: "book",
+      src: "/landing/nufi-grammar-book.png",
+      alt: "Nufi grammar book and ebook",
+    },
+  ];
+}
