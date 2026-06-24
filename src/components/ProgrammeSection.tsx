@@ -29,7 +29,6 @@ export function ProgrammeSection({
       <DiscoverGrid title={t.sectionTitle} intro={t.sectionText} items={t.benefits} />
       <BookingForm
         copy={t.form}
-        venueNotice={t.venueNotice}
         locale={locale}
         initialAvailability={initialAvailability}
         variant={variant}

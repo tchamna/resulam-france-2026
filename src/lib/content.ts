@@ -21,11 +21,6 @@ export const content = {
     costValue: "Free entry",
     locationLabel: "Location",
     locationValue: "Paris (venue to be confirmed)",
-    venueNotice: {
-      title: "Paris — venue to be confirmed",
-      body:
-        "The conference will take place in Paris. The exact venue is not yet confirmed. Please check this website for updates — we will also email you once the venue is announced.",
-    },
     mediaTitle: "Videos, books, applications and USB learning resources",
     testimony: "Nufi testimony",
     cartoons: "Learning videos",
@@ -109,9 +104,9 @@ export const content = {
       librarySubtitle: "Videos, books, apps & USBs",
       libraryNote: "Access to over 1000+ curated language lessons.",
       stamp: "Free conference",
-      urgency: "Urgency: only {count} places left",
-      urgencyOne: "Urgency: only 1 place left",
-      urgencySoldOut: "Urgency: fully booked",
+      urgency: "Only {count} places left",
+      urgencyOne: "Only 1 place left",
+      urgencySoldOut: "Fully booked",
     },
     midnight: {
       badge: "France 2026",
@@ -160,11 +155,6 @@ export const content = {
     costValue: "Entrée gratuite",
     locationLabel: "Lieu",
     locationValue: "Paris (lieu à confirmer)",
-    venueNotice: {
-      title: "Paris — lieu à confirmer",
-      body:
-        "La conférence se tiendra à Paris. Le lieu exact n'est pas encore confirmé. Revenez sur ce site pour les mises à jour — nous vous enverrons aussi un email dès que le lieu sera annoncé.",
-    },
     mediaTitle: "Vidéos, livres, applications et clés USB d'apprentissage",
     testimony: "Témoignage en nufi",
     cartoons: "Vidéos d'apprentissage",

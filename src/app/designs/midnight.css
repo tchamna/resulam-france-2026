@@ -645,22 +645,6 @@ body:has(.page-midnight) {
   color: var(--midnight-gold);
 }
 
-.page-midnight .bookingVenueNotice {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: var(--midnight-line);
-}
-
-.page-midnight .bookingVenueNotice .venueNotice {
-  margin: 0;
-  border: 0;
-  background: transparent;
-  padding: 0;
-}
-
-.page-midnight .bookingVenuePin {
-  color: var(--midnight-gold);
-}
-
 .page-midnight .fieldHint {
   color: var(--midnight-gold);
 }
@@ -687,34 +671,6 @@ body:has(.page-midnight) {
 
 .page-midnight .seatsProgressFill {
   background: linear-gradient(90deg, var(--midnight-orange), var(--midnight-gold));
-}
-
-.page-midnight .venueNotice {
-  margin-top: 1.5rem;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-left: 5px solid var(--midnight-gold);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 1rem 1.1rem;
-}
-
-.page-midnight .venueNotice strong {
-  display: block;
-  margin-bottom: 0.35rem;
-  color: var(--midnight-gold);
-}
-
-.page-midnight .venueNotice p {
-  margin: 0;
-  color: #e8edf7;
-  line-height: 1.55;
-}
-
-.page-midnight .venueNoticeHighlighted {
-  border-color: rgba(230, 126, 81, 0.45);
-  border-left-color: var(--midnight-orange);
-  background: rgba(230, 126, 81, 0.08);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 }
 
 .page-midnight .greetingsSection {

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { VenueNotice, type VenueNoticeCopy } from "@/components/VenueNotice";
 import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
@@ -55,13 +54,11 @@ function formatSuccess(copy: Copy, remaining: number) {
 
 export function BookingForm({
   copy,
-  venueNotice,
   locale,
   initialAvailability,
   variant = "flyer",
 }: {
   copy: Copy;
-  venueNotice: VenueNoticeCopy;
   locale: "en" | "fr";
   initialAvailability: Availability;
   variant?: DesignVariant;
@@ -207,19 +204,6 @@ export function BookingForm({
 
       <h2>{copy.title}</h2>
       <p className="status">{availability.full ? copy.soldOutIntro : copy.intro}</p>
-
-      <div className="bookingVenueNotice">
-        <svg className="bookingVenuePin" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <circle cx="12" cy="10" r="2.5" fill="currentColor" />
-        </svg>
-        <VenueNotice {...venueNotice} highlighted={status === "success"} />
-      </div>
 
       <form className="form" onSubmit={submit}>
         <div className="formRow">

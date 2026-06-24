@@ -2,7 +2,6 @@ import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { MomentsCarousel } from "@/components/MomentsCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
-import { VenueNotice } from "@/components/VenueNotice";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
 import { getMomentSlides } from "@/lib/content";
@@ -113,7 +112,6 @@ export function MidnightLanding({
           </article>
         </div>
 
-        <VenueNotice {...t.venueNotice} />
       </section>
 
       <GreetingsMarquee copy={t.greetings} />

@@ -3,7 +3,6 @@ import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
-import { VenueNotice } from "@/components/VenueNotice";
 import type { BookingAvailability } from "@/lib/bookings";
 import { formatHeritageUrgency, type PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
@@ -105,7 +104,6 @@ export function HeritageLanding({
             <strong>{t.locationValue}</strong>
           </div>
         </div>
-        <VenueNotice {...t.venueNotice} />
       </section>
 
       <GreetingsMarquee copy={t.greetings} />
