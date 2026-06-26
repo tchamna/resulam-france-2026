@@ -48,7 +48,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
         <div className="flyerFrame">
           <div className="flyerTop">
             <span>{t.eyebrow}</span>
-            <strong>{t.costValue}</strong>
+            <a href="#book">{t.costValue}</a>
           </div>
 
           <div className="flyerMain">

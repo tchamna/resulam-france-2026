@@ -288,15 +288,22 @@ textarea {
 }
 
 .flyerTop span,
-.flyerTop strong {
+.flyerTop a {
   letter-spacing: 0;
 }
 
-.flyerTop strong {
+.flyerTop a {
   border-radius: 999px;
   background: var(--yellow);
   padding: 0.45rem 0.75rem;
   color: #14110d;
+  text-decoration: none;
+}
+
+.flyerTop a:hover,
+.flyerTop a:focus-visible {
+  background: var(--gold);
+  outline: none;
 }
 
 .flyerMain {
@@ -314,7 +321,7 @@ textarea {
 }
 
 .kicker {
-  display: inline-flex;
+  display: none;
   width: fit-content;
   grid-column: 2;
   grid-row: 1;
@@ -1558,6 +1565,15 @@ button.greetingCardAudio {
     max-width: calc(100vw - 2rem);
   }
 
+  body:has(.page-flyer) .seatsBanner,
+  .page-flyer .nav {
+    display: none;
+  }
+
+  .page-flyer .flyerHero {
+    padding-top: 0.75rem;
+  }
+
   .infoBar,
   .twoCol,
   .programmeSection {
@@ -1587,8 +1603,13 @@ button.greetingCardAudio {
   }
 
   .flyerTop {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
+    text-align: center;
+  }
+
+  .flyerTop a {
+    justify-content: center;
   }
 
   .flyerMain {
@@ -1597,6 +1618,7 @@ button.greetingCardAudio {
 
   .flyerCopy {
     display: block;
+    text-align: center;
   }
 
   .kicker,
@@ -1618,7 +1640,44 @@ button.greetingCardAudio {
   }
 
   .heroTitle {
+    max-width: 11ch;
+    margin-right: auto;
     margin-bottom: 1rem;
+    margin-left: auto;
+    font-size: clamp(2.05rem, 10vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .lead {
+    max-width: 30rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: clamp(1.02rem, 5.2vw, 1.22rem);
+    line-height: 1.48;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  .heroActions {
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .heroContactPrompt,
+  .note {
+    max-width: 30rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: clamp(0.95rem, 4.6vw, 1.08rem);
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .primaryCta {
+    width: auto;
+    max-width: 100%;
+    padding: 0.78rem 1.2rem;
+    font-size: clamp(1rem, 5vw, 1.2rem);
   }
 
   .flyerCarouselSection {
