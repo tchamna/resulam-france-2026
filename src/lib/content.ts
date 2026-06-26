@@ -139,12 +139,12 @@ export const content = {
     designMidnight: "Midnight",
     designHeritage: "Patrimoine",
     eyebrow: "Séjour en France : 6-11 août 2026",
-    title: "Resulam débarque en France.",
+    title: "Resulam arrive en France.",
     heroDate: "9 Août 2026",
-    heroTitle: "Resulam débarque en France.",
+    heroTitle: "Resulam arrive en France.",
     kicker: "Grande conférence gratuite",
     lead:
-      "Retrouvez votre langue maternelle et découvrez des méthodes concrètes pour transmettre les langues africaines à la maison.",
+      "Venez redécouvrir votre langue maternelle et apprendre comment transmettre les langues africaines aux enfants à la maison.",
     cta: "Réserver gratuitement",
     limit: "Entrée gratuite. Places limitées, réservation obligatoire.",
     dateLabel: "Conférence",
@@ -250,7 +250,7 @@ export const content = {
       navConference: "Conférence",
       navBook: "Réserver",
       tagline: "Une célébration de nos langues maternelles",
-      title: "Resulam débarque en France.",
+      title: "Resulam arrive en France.",
       dateRange: "6–11",
       dateMonth: "Août 2026",
       heroLead:
@@ -403,7 +403,6 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       meta: "Aug 7",
       kind: "video",
       src: "/landing/pangop-temoignage-nufi-1.mp4",
-      poster: "/landing/nufi-cartoon-presentation.png",
       alt: "Nufi testimony video",
     },
     {

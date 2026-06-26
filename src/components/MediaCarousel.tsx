@@ -1,8 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import type { PageCopy } from "@/lib/content";
+import { parseYouTubeUrl } from "@/lib/youtube";
+
+type YouTubeSlide = {
+  title: string;
+  url: string;
+  label: string;
+};
 
 const literacyVideos = [
   {
@@ -27,34 +34,51 @@ const literacyVideos = [
   },
 ];
 
-function CarouselItems({ t }: { t: PageCopy }) {
+function youtubeThumbnail(url: string) {
+  const video = parseYouTubeUrl(url);
+  if (!video) return null;
+  return `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
+}
+
+function YouTubeCarouselSlide({ slide, onOpen }: { slide: YouTubeSlide; onOpen: (slide: YouTubeSlide) => void }) {
+  const thumbnail = youtubeThumbnail(slide.url);
+
+  return (
+    <div className="carouselItem carouselYoutube">
+      <button type="button" className="youtubePreviewButton" onClick={() => onOpen(slide)} aria-label={`Watch ${slide.title}`}>
+        {thumbnail ? <img src={thumbnail} alt="" loading="lazy" /> : null}
+        <i className="youtubePlayMark" aria-hidden="true">&#9658;</i>
+      </button>
+      <span>{slide.label}</span>
+    </div>
+  );
+}
+
+function CarouselItems({ t, onOpenYoutube }: { t: PageCopy; onOpenYoutube: (slide: YouTubeSlide) => void }) {
+  const youtubeSlides: YouTubeSlide[] = [
+    {
+      title: "Resulam Nufi cartoon preview",
+      url: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
+      label: t.cartoons,
+    },
+    {
+      title: "Resulam African language cartoon preview",
+      url: "https://www.youtube.com/watch?v=xusm6BsMVWg",
+      label: t.cartoons,
+    },
+    ...literacyVideos.map((video) => ({ ...video, label: video.title })),
+  ];
+
   return (
     <>
       <div className="carouselItem carouselVideo">
-        <video controls playsInline preload="metadata" poster="/landing/nufi-cartoon-presentation.png">
+        <video controls playsInline preload="metadata">
           <source src="/landing/pangop-temoignage-nufi-1.mp4" type="video/mp4" />
         </video>
         <span>{t.testimony}</span>
       </div>
-      <div className="carouselItem carouselYoutube">
-        <YouTubeEmbed
-          url="https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s"
-          title="Resulam Nufi cartoon preview"
-        />
-        <span>{t.cartoons}</span>
-      </div>
-      <div className="carouselItem carouselYoutube">
-        <YouTubeEmbed
-          url="https://www.youtube.com/watch?v=xusm6BsMVWg"
-          title="Resulam African language cartoon preview"
-        />
-        <span>{t.cartoons}</span>
-      </div>
-      {literacyVideos.map((video) => (
-        <div className="carouselItem carouselYoutube" key={video.url}>
-          <YouTubeEmbed url={video.url} title={video.title} />
-          <span>{video.title}</span>
-        </div>
+      {youtubeSlides.map((slide) => (
+        <YouTubeCarouselSlide slide={slide} onOpen={onOpenYoutube} key={slide.url} />
       ))}
     </>
   );
@@ -69,6 +93,7 @@ type MediaCarouselProps = {
 export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel" }: MediaCarouselProps) {
   const maskRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
+  const [activeYoutube, setActiveYoutube] = useState<YouTubeSlide | null>(null);
 
   function scrollBySlide(direction: -1 | 1) {
     const mask = maskRef.current;
@@ -119,6 +144,19 @@ export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel"
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
+  useEffect(() => {
+    if (!activeYoutube) return;
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setActiveYoutube(null);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeYoutube]);
+
   return (
     <div className={className} aria-label={t.mediaTitle}>
       <div className="carouselHeader">
@@ -149,10 +187,25 @@ export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel"
         }}
       >
         <div className="carouselTrack">
-          <CarouselItems t={t} />
-          <CarouselItems t={t} />
+          <CarouselItems t={t} onOpenYoutube={setActiveYoutube} />
+          <CarouselItems t={t} onOpenYoutube={setActiveYoutube} />
         </div>
       </div>
+      {activeYoutube ? (
+        <div className="youtubeWatchModal" role="dialog" aria-modal="true" aria-label={activeYoutube.title} onClick={() => setActiveYoutube(null)}>
+          <div className="youtubeWatchPanel" onClick={(event) => event.stopPropagation()}>
+            <button type="button" className="youtubeWatchClose" onClick={() => setActiveYoutube(null)} aria-label="Close video">
+              x
+            </button>
+            <YouTubeEmbed
+              url={activeYoutube.url}
+              title={activeYoutube.title}
+              className="youtubeWatchFrame"
+              autoplay
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

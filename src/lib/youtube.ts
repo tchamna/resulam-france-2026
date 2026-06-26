@@ -50,7 +50,7 @@ function readStart(params: URLSearchParams) {
   return hours * 3600 + minutes * 60 + seconds;
 }
 
-export function getYouTubeEmbedUrl(url: string) {
+export function getYouTubeEmbedUrl(url: string, options: { autoplay?: boolean } = {}) {
   const video = parseYouTubeUrl(url);
   if (!video) return null;
 
@@ -63,6 +63,10 @@ export function getYouTubeEmbedUrl(url: string) {
 
   if (video.start && video.start > 0) {
     params.set("start", String(video.start));
+  }
+
+  if (options.autoplay) {
+    params.set("autoplay", "1");
   }
 
   return `https://www.youtube-nocookie.com/embed/${video.id}?${params.toString()}`;

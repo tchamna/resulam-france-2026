@@ -400,6 +400,12 @@ body:has(.page-midnight) {
   pointer-events: none;
 }
 
+.momentsPlayYoutube {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--midnight-orange);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
 .momentsLinkHint {
   position: absolute;
   top: 1rem;

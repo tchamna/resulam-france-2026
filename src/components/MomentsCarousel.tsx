@@ -14,6 +14,7 @@ type MomentsCarouselProps = {
 
 export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCarouselProps) {
   const [index, setIndex] = useState(0);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const slide = slides[index];
   const total = slides.length;
@@ -25,6 +26,7 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
   useEffect(() => {
     const video = videoRef.current;
     video?.pause();
+    setVideoPlaying(false);
   }, [index, slide.id]);
 
   useEffect(() => {
@@ -87,18 +89,27 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
       <div className="momentsStage" aria-live="polite">
         <div className="momentsMediaFrame" key={slide.id}>
           {slide.kind === "video" ? (
-            <video
-              ref={videoRef}
-              controls
-              playsInline
-              preload="metadata"
-              poster={slide.poster}
-              className="momentsMedia"
-            >
-              <source src={slide.src} type="video/mp4" />
-            </video>
+            <>
+              <video
+                ref={videoRef}
+                controls
+                playsInline
+                preload="metadata"
+                poster={slide.poster}
+                className="momentsMedia"
+                onPlay={() => setVideoPlaying(true)}
+                onPause={() => setVideoPlaying(false)}
+                onEnded={() => setVideoPlaying(false)}
+              >
+                <source src={slide.src} type="video/mp4" />
+              </video>
+              {!videoPlaying ? <span className="momentsPlay" aria-hidden="true">&#9658;</span> : null}
+            </>
           ) : slide.kind === "youtube" ? (
-            <YouTubeEmbed url={slide.src} title={slide.alt} className="momentsMedia momentsYoutube" />
+            <>
+              <YouTubeEmbed url={slide.src} title={slide.alt} className="momentsMedia momentsYoutube" />
+              <span className="momentsPlay momentsPlayYoutube" aria-hidden="true">&#9658;</span>
+            </>
           ) : (
             <div className="momentsBook">
               <Image

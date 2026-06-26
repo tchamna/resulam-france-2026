@@ -7,11 +7,12 @@ type YouTubeEmbedProps = {
   url: string;
   title: string;
   className?: string;
+  autoplay?: boolean;
 };
 
-export function YouTubeEmbed({ url, title, className = "youtubeEmbed" }: YouTubeEmbedProps) {
+export function YouTubeEmbed({ url, title, className = "youtubeEmbed", autoplay = false }: YouTubeEmbedProps) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const embedUrl = getYouTubeEmbedUrl(url);
+  const embedUrl = getYouTubeEmbedUrl(url, { autoplay });
   if (!embedUrl) {
     return null;
   }

@@ -32,7 +32,7 @@ body {
 
 .seatsBanner {
   position: fixed;
-  bottom: 1rem;
+  top: 9.25rem;
   left: 1rem;
   z-index: 1200;
   display: inline-flex;
@@ -514,6 +514,55 @@ h1 {
   min-height: 0;
 }
 
+.youtubePreviewButton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: #111;
+  padding: 0;
+  cursor: pointer;
+}
+
+.youtubePreviewButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtubePreviewButton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.22));
+}
+
+.youtubePlayMark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--red);
+  font-size: 1.45rem;
+  line-height: 1;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+.youtubePreviewButton:hover .youtubePlayMark,
+.youtubePreviewButton:focus-visible .youtubePlayMark {
+  background: white;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
 .carouselItem img {
   transition: transform 240ms ease;
 }
@@ -556,6 +605,52 @@ h1 {
   line-height: 1.25;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.youtubeWatchModal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 17, 13, 0.82);
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.youtubeWatchPanel {
+  position: relative;
+  width: min(1120px, 94vw);
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: #000;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+}
+
+.youtubeWatchFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+}
+
+.youtubeWatchClose {
+  position: absolute;
+  top: -0.9rem;
+  right: -0.9rem;
+  z-index: 1;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid rgba(20, 17, 13, 0.16);
+  border-radius: 999px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .section {
