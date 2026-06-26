@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { DesignVariant } from "@/lib/design";
 
@@ -178,14 +177,18 @@ export function BookingForm({
           </strong>
         </div>
         <div className="seatsSkyline" aria-hidden="true">
-          <Image
-            src="/landing/seats-frieze.png"
-            alt=""
-            width={1024}
-            height={559}
-            className="seatsFriezeImage"
-            sizes="(max-width: 640px) 100vw, 440px"
-          />
+          <span className="seatsSkylineSun" />
+          <span className="seatsSkylineTower" />
+          <span className="seatsSkylineBlocks">
+            {Array.from({ length: 10 }).map((_, index) => (
+              <span key={index} />
+            ))}
+          </span>
+          <span className="seatsSkylineFrieze">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <span key={index} />
+            ))}
+          </span>
         </div>
         <div
           className="seatsProgressTrack"
