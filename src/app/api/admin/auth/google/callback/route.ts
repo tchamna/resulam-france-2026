@@ -13,6 +13,7 @@ import {
   getSessionCookieOptions,
   isAllowedAdminEmail,
   isGoogleAuthConfigured,
+  isSecureRequest,
   sanitizeAdminReturnPath,
 } from "@/lib/admin-auth";
 
@@ -52,7 +53,7 @@ export async function GET(request: Request) {
     }
 
     const sessionToken = createSessionToken(email);
-    const secure = url.protocol === "https:";
+    const secure = isSecureRequest(request);
     const response = NextResponse.redirect(new URL(returnPath, origin));
     response.cookies.set(ADMIN_SESSION_COOKIE, sessionToken, getSessionCookieOptions(secure));
     response.cookies.set(ADMIN_OAUTH_STATE_COOKIE, "", { ...getSessionCookieOptions(secure), maxAge: 0 });

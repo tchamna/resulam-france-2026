@@ -67,6 +67,12 @@ export function getAppOrigin(request: Request) {
   return `${proto}://${host}`;
 }
 
+export function isSecureRequest(request: Request) {
+  const proto = request.headers.get("x-forwarded-proto");
+  if (proto) return proto === "https";
+  return new URL(request.url).protocol === "https:";
+}
+
 export function getGoogleRedirectUri(request: Request) {
   return `${getAppOrigin(request)}/api/admin/auth/google/callback`;
 }
