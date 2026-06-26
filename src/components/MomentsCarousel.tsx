@@ -103,12 +103,18 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
               >
                 <source src={slide.src} type="video/mp4" />
               </video>
-              {!videoPlaying ? <span className="momentsPlay" aria-hidden="true">&#9658;</span> : null}
+              {!videoPlaying ? (
+                <span className="momentsPlay" aria-hidden="true">
+                  <svg viewBox="0 0 68 48" focusable="false">
+                    <path d="M45 24 27 14v20z" />
+                  </svg>
+                </span>
+              ) : null}
             </>
           ) : slide.kind === "youtube" ? (
             <>
               <YouTubeEmbed url={slide.src} title={slide.alt} className="momentsMedia momentsYoutube" />
-              <span className="momentsPlay momentsPlayYoutube" aria-hidden="true">
+              <span className="momentsPlay" aria-hidden="true">
                 <svg viewBox="0 0 68 48" focusable="false">
                   <path d="M45 24 27 14v20z" />
                 </svg>

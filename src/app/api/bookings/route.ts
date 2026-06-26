@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendBookingEmails } from "@/lib/booking-email";
+import { sendBookingEmails, sendGuestBookingEmail } from "@/lib/booking-email";
 import {
   findBookingByEmail,
   getBookingAvailability,
@@ -39,7 +39,12 @@ export async function POST(request: NextRequest) {
 
   const existing = await findBookingByEmail(booking.email);
   if (existing) {
-    return NextResponse.json({ error: "duplicate", ...availability }, { status: 409 });
+    const emailResult = await sendGuestBookingEmail(existing, availability);
+    if (!emailResult.sentGuest) {
+      console.error("[bookings] Existing booking found but confirmation email was not delivered", emailResult);
+    }
+
+    return NextResponse.json({ ok: true, duplicate: true, ...availability, email: emailResult });
   }
 
   try {
@@ -51,7 +56,7 @@ export async function POST(request: NextRequest) {
       console.error("[bookings] Saved booking but one or more emails were not delivered", emailResult);
     }
 
-    return NextResponse.json({ ok: true, ...updated });
+    return NextResponse.json({ ok: true, ...updated, email: emailResult });
   } catch (error) {
     console.error("[bookings] Failed to save booking", error);
     return NextResponse.json({ error: "save_failed" }, { status: 500 });

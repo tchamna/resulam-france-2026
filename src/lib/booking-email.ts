@@ -204,3 +204,27 @@ export async function sendBookingEmails(booking: Booking, availability: BookingA
     sentGuest: guestResult.status === "fulfilled",
   };
 }
+
+export async function sendGuestBookingEmail(booking: Booking, availability: BookingAvailability) {
+  const mail = createTransporter();
+  if (!mail) return { sentGuest: false };
+
+  const { transporter, config } = mail;
+  const notifyRecipients = parseNotifyRecipients();
+
+  try {
+    await transporter.sendMail({
+      from: config.from,
+      to: booking.email,
+      replyTo: notifyRecipients[0] ?? config.from,
+      subject: guestSubject(booking),
+      text: guestText(booking, availability),
+      html: guestHtml(booking, availability),
+    });
+
+    return { sentGuest: true };
+  } catch (error) {
+    console.error("[bookings] Guest email failed", error);
+    return { sentGuest: false };
+  }
+}
