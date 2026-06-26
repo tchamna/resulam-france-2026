@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
+import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
@@ -61,6 +62,7 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
                 <a className="primaryCta" href="#book">
                   {t.cta}
                 </a>
+                <HeroContactPrompt t={t} />
                 <span className="note">{t.limit}</span>
               </div>
             </div>

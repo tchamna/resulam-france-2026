@@ -1,5 +1,6 @@
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
+import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
@@ -81,6 +82,7 @@ export function MidnightLanding({
           <a className="midnightPrimaryCta" href="#book">
             {m.ctaPrimary}
           </a>
+          <HeroContactPrompt t={t} />
           <a className="midnightSecondaryCta" href="#programme">
             {m.ctaSecondary}
           </a>

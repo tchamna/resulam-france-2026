@@ -392,10 +392,32 @@ h1 {
   grid-column: 2;
   grid-row: 4;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.8rem;
   margin-top: 1.1rem;
+}
+
+.heroContactPrompt {
+  max-width: 640px;
+  margin: 0;
+  line-height: 1.55;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.heroContactPrompt a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.page-flyer .heroContactPrompt {
+  color: #34302b;
+}
+
+.page-flyer .heroContactPrompt a {
+  color: var(--green);
 }
 
 .primaryCta {
@@ -986,6 +1008,12 @@ h2 {
 .statusSuccess {
   color: var(--green);
   font-weight: 700;
+}
+
+.statusHint {
+  margin-top: 0.25rem;
+  font-size: 0.86rem;
+  font-weight: 400;
 }
 
 .booking h2 {

@@ -25,6 +25,7 @@ type Copy = {
   soldOutIntro: string;
   duplicate: string;
   duplicateResent: string;
+  checkSpam: string;
   emailWarning: string;
   fullError: string;
   validationError: string;
@@ -280,6 +281,11 @@ export function BookingForm({
         >
           {message}
         </p>
+        {status === "success" && (
+          <p className="status statusHint" aria-live="polite">
+            {copy.checkSpam}
+          </p>
+        )}
       </form>
     </aside>
   );

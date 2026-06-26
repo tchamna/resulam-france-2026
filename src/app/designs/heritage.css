@@ -290,6 +290,16 @@ body:has(.page-heritage) {
   line-height: 1.45;
 }
 
+.page-heritage .heroContactPrompt {
+  max-width: 22rem;
+  color: var(--heritage-muted);
+  text-align: left;
+}
+
+.page-heritage .heroContactPrompt a {
+  color: var(--heritage-green);
+}
+
 .heritageLibraryTitle {
   margin: 0 0 1rem;
   color: var(--heritage-navy);

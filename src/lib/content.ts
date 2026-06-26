@@ -1,3 +1,5 @@
+export const CONTACT_EMAIL = "contact@resulam.com";
+
 export const content = {
   en: {
     navLanguage: "English",
@@ -12,6 +14,10 @@ export const content = {
     lead:
       "Reconnect with your mother tongue and learn practical ways to transmit African languages at home.",
     cta: "Book a free place",
+    heroContactBefore:
+      "Would you like to organize a meeting in your city to learn or pass on your mother tongue? ",
+    heroContactLink: "Contact us",
+    heroContactAfter: " now.",
     limit: "Free entry. Places are limited, booking is required.",
     dateLabel: "Conference",
     dateValue: "Sunday, August 9, 2026",
@@ -81,6 +87,8 @@ export const content = {
       duplicate: "This email already has a reservation.",
       duplicateResent:
         "This email already has a reservation. We sent your confirmation email again.",
+      checkSpam:
+        "If you don't see the confirmation email, check your spam or junk folder.",
       emailWarning:
         "Your seat is saved, but we could not send a confirmation email. Check your spam folder or contact contact@resulam.com.",
       fullError: "Sorry, the last places were just booked.",
@@ -150,6 +158,10 @@ export const content = {
     lead:
       "Venez redécouvrir votre langue maternelle et découvrir des méthodes concrètes pour transmettre les langues africaines aux enfants à la maison.",
     cta: "Réserver gratuitement",
+    heroContactBefore:
+      "Vous souhaitez organiser une rencontre dans votre ville pour apprendre ou transmettre votre langue maternelle ? ",
+    heroContactLink: "Contactez-nous",
+    heroContactAfter: " dès maintenant.",
     limit: "Entrée gratuite — places limitées",
     dateLabel: "Conférence",
     dateValue: "Dimanche 9 août 2026",
@@ -220,6 +232,8 @@ export const content = {
       duplicate: "Cet email a déjà une réservation.",
       duplicateResent:
         "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation.",
+      checkSpam:
+        "Si vous ne voyez pas l'email de confirmation, vérifiez vos courriers indésirables (spam).",
       emailWarning:
         "Votre place est enregistrée, mais nous n'avons pas pu envoyer l'email de confirmation. Vérifiez vos spams ou écrivez à contact@resulam.com.",
       fullError: "Désolé, les dernières places viennent d'être réservées.",

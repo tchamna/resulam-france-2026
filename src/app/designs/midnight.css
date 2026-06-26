@@ -234,11 +234,23 @@ body:has(.page-midnight) {
 
 .midnightHeroActions {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   margin-top: 1.75rem;
+}
+
+.page-midnight .heroContactPrompt {
+  max-width: 640px;
+  color: #f5f7fb;
+  text-align: center;
+}
+
+.page-midnight .heroContactPrompt a {
+  color: white;
+  text-decoration-color: var(--midnight-gold);
 }
 
 .midnightPrimaryCta {
