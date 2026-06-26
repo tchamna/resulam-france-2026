@@ -170,23 +170,37 @@ export async function sendBookingEmails(booking: Booking, availability: BookingA
 
   const { transporter, config } = mail;
 
-  await transporter.sendMail({
-    from: config.from,
-    to: parseNotifyRecipients().join(", "),
-    replyTo: booking.email,
-    subject: adminSubject(booking),
-    text: adminText(booking, availability),
-    html: adminHtml(booking, availability),
-  });
+  const notifyRecipients = parseNotifyRecipients();
 
-  await transporter.sendMail({
-    from: config.from,
-    to: booking.email,
-    replyTo: parseNotifyRecipients()[0] ?? config.from,
-    subject: guestSubject(booking),
-    text: guestText(booking, availability),
-    html: guestHtml(booking, availability),
-  });
+  const [adminResult, guestResult] = await Promise.allSettled([
+    transporter.sendMail({
+      from: config.from,
+      to: notifyRecipients.join(", "),
+      replyTo: booking.email,
+      subject: adminSubject(booking),
+      text: adminText(booking, availability),
+      html: adminHtml(booking, availability),
+    }),
+    transporter.sendMail({
+      from: config.from,
+      to: booking.email,
+      replyTo: notifyRecipients[0] ?? config.from,
+      subject: guestSubject(booking),
+      text: guestText(booking, availability),
+      html: guestHtml(booking, availability),
+    }),
+  ]);
 
-  return { sentAdmin: true, sentGuest: true };
+  if (adminResult.status === "rejected") {
+    console.error("[bookings] Admin email failed", adminResult.reason);
+  }
+
+  if (guestResult.status === "rejected") {
+    console.error("[bookings] Guest email failed", guestResult.reason);
+  }
+
+  return {
+    sentAdmin: adminResult.status === "fulfilled",
+    sentGuest: guestResult.status === "fulfilled",
+  };
 }

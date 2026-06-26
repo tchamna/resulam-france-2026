@@ -261,7 +261,7 @@ textarea {
 .flyerHero {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 1rem 1.25rem 1.4rem;
+  padding: 8rem 1.25rem 1.4rem;
 }
 
 .flyerFrame {
@@ -545,21 +545,31 @@ h1 {
   left: 50%;
   z-index: 1;
   display: grid;
-  width: 4rem;
-  height: 4rem;
+  width: 68px;
+  height: 48px;
   place-items: center;
   transform: translate(-50%, -50%);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--red);
-  font-size: 1.45rem;
+  border-radius: 14px;
+  background: #ff0000;
+  color: transparent;
+  font-size: 0;
   line-height: 1;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+
+.youtubePlayMark svg {
+  display: block;
+  width: 68px;
+  height: 48px;
+}
+
+.youtubePlayMark path {
+  fill: white;
 }
 
 .youtubePreviewButton:hover .youtubePlayMark,
 .youtubePreviewButton:focus-visible .youtubePlayMark {
-  background: white;
+  background: #ff1a1a;
   transform: translate(-50%, -50%) scale(1.06);
 }
 
@@ -1489,6 +1499,10 @@ button.greetingCardAudio {
 }
 
 @media (max-width: 860px) {
+  .seatsBanner {
+    max-width: calc(100vw - 2rem);
+  }
+
   .flyerMain,
   .infoBar,
   .twoCol,

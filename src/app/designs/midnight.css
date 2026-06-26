@@ -401,9 +401,23 @@ body:has(.page-midnight) {
 }
 
 .momentsPlayYoutube {
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--midnight-orange);
+  width: 76px;
+  height: 54px;
+  border-radius: 14px;
+  background: #ff0000;
+  color: transparent;
+  font-size: 0;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.momentsPlayYoutube svg {
+  display: block;
+  width: 76px;
+  height: 54px;
+}
+
+.momentsPlayYoutube path {
+  fill: white;
 }
 
 .momentsLinkHint {

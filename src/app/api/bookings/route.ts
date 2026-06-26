@@ -46,9 +46,10 @@ export async function POST(request: NextRequest) {
     await saveBooking(booking);
     const updated = await getBookingAvailability();
 
-    void sendBookingEmails(booking, updated).catch((error) => {
-      console.error("[bookings] Saved booking but email delivery failed", error);
-    });
+    const emailResult = await sendBookingEmails(booking, updated);
+    if (!emailResult.sentGuest || !emailResult.sentAdmin) {
+      console.error("[bookings] Saved booking but one or more emails were not delivered", emailResult);
+    }
 
     return NextResponse.json({ ok: true, ...updated });
   } catch (error) {

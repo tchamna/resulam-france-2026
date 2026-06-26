@@ -108,7 +108,11 @@ export function MomentsCarousel({ slides, eyebrow, title, titleId }: MomentsCaro
           ) : slide.kind === "youtube" ? (
             <>
               <YouTubeEmbed url={slide.src} title={slide.alt} className="momentsMedia momentsYoutube" />
-              <span className="momentsPlay momentsPlayYoutube" aria-hidden="true">&#9658;</span>
+              <span className="momentsPlay momentsPlayYoutube" aria-hidden="true">
+                <svg viewBox="0 0 68 48" focusable="false">
+                  <path d="M45 24 27 14v20z" />
+                </svg>
+              </span>
             </>
           ) : (
             <div className="momentsBook">

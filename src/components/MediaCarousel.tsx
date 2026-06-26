@@ -47,7 +47,11 @@ function YouTubeCarouselSlide({ slide, onOpen }: { slide: YouTubeSlide; onOpen: 
     <div className="carouselItem carouselYoutube">
       <button type="button" className="youtubePreviewButton" onClick={() => onOpen(slide)} aria-label={`Watch ${slide.title}`}>
         {thumbnail ? <img src={thumbnail} alt="" loading="lazy" /> : null}
-        <i className="youtubePlayMark" aria-hidden="true">&#9658;</i>
+        <i className="youtubePlayMark" aria-hidden="true">
+          <svg viewBox="0 0 68 48" focusable="false">
+            <path d="M45 24 27 14v20z" />
+          </svg>
+        </i>
       </button>
       <span>{slide.label}</span>
     </div>
