@@ -849,94 +849,15 @@ h1 {
   overflow: hidden;
   border-radius: 6px;
   border: 1px solid rgba(212, 175, 55, 0.28);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 239, 226, 0.94)),
-    radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.22), transparent 30%);
+  background: #f3e6ca;
 }
 
-.seatsSkyline::before,
-.seatsSkyline::after {
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  content: "";
-}
-
-.seatsSkyline::before {
-  top: 54%;
-  height: 3px;
-  background: #6f5522;
-}
-
-.seatsSkyline::after {
-  bottom: 14%;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(20, 17, 13, 0.08);
-}
-
-.seatsSkylineSun {
-  position: absolute;
-  top: 13%;
-  left: 50%;
-  width: clamp(50px, 10vw, 86px);
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(245, 210, 91, 0.7), rgba(212, 175, 55, 0.16) 66%, transparent 68%);
-  transform: translateX(-50%);
-}
-
-.seatsSkylineTower {
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  z-index: 2;
-  width: clamp(28px, 5vw, 46px);
-  height: 34%;
-  border: 2px solid rgba(111, 85, 34, 0.85);
-  border-bottom: 0;
-  background: linear-gradient(135deg, #b98b22, #f0d568 45%, #9b761d);
-  clip-path: polygon(50% 0, 72% 22%, 64% 22%, 64% 100%, 36% 100%, 36% 22%, 28% 22%);
-  transform: translateX(-50%);
-  box-shadow: 0 8px 18px rgba(111, 85, 34, 0.22);
-}
-
-.seatsSkylineBlocks {
-  position: absolute;
-  left: 7%;
-  right: 7%;
-  bottom: 46%;
-  display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: clamp(6px, 1.7vw, 18px);
-}
-
-.seatsSkylineBlocks span {
+.seatsArtworkImage {
   display: block;
-  aspect-ratio: 1 / 1.18;
-  border: 1px solid rgba(111, 85, 34, 0.45);
-  border-bottom: 4px solid rgba(111, 85, 34, 0.88);
-  background: linear-gradient(135deg, #b88919, #f0d568 54%, #a67d1c);
-  clip-path: polygon(50% 0, 100% 34%, 100% 100%, 0 100%, 0 34%);
-}
-
-.seatsSkylineFrieze {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  bottom: 24%;
-  display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-  gap: clamp(5px, 1.4vw, 12px);
-}
-
-.seatsSkylineFrieze span {
-  min-height: clamp(28px, 5vw, 48px);
-  border: 2px solid rgba(111, 85, 34, 0.65);
-  background:
-    linear-gradient(45deg, transparent 42%, rgba(111, 85, 34, 0.58) 44%, rgba(111, 85, 34, 0.58) 56%, transparent 58%),
-    linear-gradient(-45deg, transparent 42%, rgba(111, 85, 34, 0.58) 44%, rgba(111, 85, 34, 0.58) 56%, transparent 58%),
-    linear-gradient(135deg, #b88919, #f2d66e 56%, #a67d1c);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
 }
 
 .seatsSkyline svg {

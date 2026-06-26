@@ -1,16 +1,16 @@
 export type DesignVariant = "flyer" | "midnight" | "heritage";
 
-export const DEFAULT_DESIGN: DesignVariant = "heritage";
+export const DEFAULT_DESIGN: DesignVariant = "flyer";
 
-export const DESIGN_VARIANTS: DesignVariant[] = ["heritage", "midnight", "flyer"];
+export const DESIGN_VARIANTS: DesignVariant[] = ["flyer", "midnight"];
 
 export function getDesign(design?: string): DesignVariant {
-  if (design === "midnight" || design === "flyer" || design === "heritage") {
+  if (design === "midnight" || design === "flyer") {
     return design;
   }
 
   const envDefault = process.env.NEXT_PUBLIC_DEFAULT_DESIGN;
-  if (envDefault === "midnight" || envDefault === "flyer" || envDefault === "heritage") {
+  if (envDefault === "midnight" || envDefault === "flyer") {
     return envDefault;
   }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { DesignVariant } from "@/lib/design";
 
@@ -177,18 +178,15 @@ export function BookingForm({
           </strong>
         </div>
         <div className="seatsSkyline" aria-hidden="true">
-          <span className="seatsSkylineSun" />
-          <span className="seatsSkylineTower" />
-          <span className="seatsSkylineBlocks">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <span key={index} />
-            ))}
-          </span>
-          <span className="seatsSkylineFrieze">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <span key={index} />
-            ))}
-          </span>
+          <Image
+            src="/landing/african-polyglot-children.png"
+            alt=""
+            width={1686}
+            height={948}
+            className="seatsArtworkImage"
+            sizes="(max-width: 640px) 100vw, 720px"
+            priority={variant === "flyer"}
+          />
         </div>
         <div
           className="seatsProgressTrack"
