@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import type { GreetingEntry, GreetingsCopy } from "@/lib/greetings";
 import { howAreYouGreetings, phrasebookLinks, welcomeGreetings } from "@/lib/greetings";
+import { dispatchMediaRelease } from "@/lib/media-focus";
 
 function GreetingCard({
   item,
@@ -135,6 +136,7 @@ function GreetingTrack({
       audio.pause();
       setPlayingId(null);
       setMarqueePaused(false);
+      dispatchMediaRelease();
       return;
     }
 
@@ -201,6 +203,7 @@ export function GreetingsMarquee({ copy }: { copy: GreetingsCopy }) {
   function handleAudioEnded() {
     setPlayingId(null);
     setMarqueePaused(false);
+    dispatchMediaRelease();
   }
 
   return (

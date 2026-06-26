@@ -406,23 +406,6 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       alt: "Pangop lit parfaitement en langues africaines",
     },
     {
-      id: "cartoon-nufi",
-      label: t.cartoons,
-      meta: "Aug 7",
-      kind: "youtube",
-      src: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
-      poster: "/landing/nufi-cartoon-presentation.png",
-      alt: "Resulam Nufi cartoon preview",
-    },
-    {
-      id: "cartoon-african",
-      label: t.cartoons,
-      meta: "Aug 8",
-      kind: "youtube",
-      src: "https://www.youtube.com/watch?v=xusm6BsMVWg",
-      alt: "Resulam African language cartoon preview",
-    },
-    {
       id: "literacy-basaa",
       label: "(Basaa-Cameroun) - Alphabetisation en langues africaines",
       meta: "Aug 9",
@@ -461,6 +444,23 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       kind: "youtube",
       src: "https://www.youtube.com/watch?v=ddwGaTng6xo",
       alt: "(Duala-Douala) - Alphabetisation en langues africaines",
+    },
+    {
+      id: "cartoon-nufi",
+      label: t.cartoons,
+      meta: "Aug 7",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
+      poster: "/landing/nufi-cartoon-presentation.png",
+      alt: "Resulam Nufi cartoon preview",
+    },
+    {
+      id: "cartoon-african",
+      label: t.cartoons,
+      meta: "Aug 8",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=xusm6BsMVWg",
+      alt: "Resulam African language cartoon preview",
     },
   ];
 }

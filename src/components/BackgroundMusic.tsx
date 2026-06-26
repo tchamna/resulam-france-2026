@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PageCopy } from "@/lib/content";
-import { MEDIA_FOCUS_EVENT } from "@/lib/media-focus";
+import { MEDIA_FOCUS_EVENT, MEDIA_RELEASE_EVENT } from "@/lib/media-focus";
 import { createShuffledPlaylist, pickRandomStartIndex } from "@/lib/soundtracks";
 
 const BACKGROUND_VOLUME = 0.4;
@@ -27,6 +27,8 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
   const playlistRef = useRef<string[]>([]);
   const trackIndexRef = useRef(0);
   const stoppedByUserRef = useRef(false);
+  const pausedForOtherMediaRef = useRef(false);
+  const otherYouTubePlayingRef = useRef(false);
   const lastShiftAtRef = useRef(0);
   const playFromGestureRef = useRef<(() => void) | null>(null);
   const togglePlaybackRef = useRef<(() => void) | null>(null);
@@ -139,13 +141,42 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     }
 
     function pauseForMediaPlayback() {
+      if (stoppedByUserRef.current) {
+        return;
+      }
+
       if (!audio.paused) {
+        pausedForOtherMediaRef.current = true;
         audio.pause();
         setPlaying(false);
       }
     }
 
+    let resumeTimer = 0;
+
+    function tryResumeBackgroundMusic() {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        if (stoppedByUserRef.current || !pausedForOtherMediaRef.current || isOtherMediaPlaying()) {
+          return;
+        }
+
+        pausedForOtherMediaRef.current = false;
+        const attempt = audio.play();
+        if (attempt === undefined) {
+          setPlaying(!audio.paused);
+          return;
+        }
+
+        attempt.then(() => setPlaying(true)).catch(() => setPlaying(false));
+      }, 50);
+    }
+
     function isOtherMediaPlaying() {
+      if (otherYouTubePlayingRef.current) {
+        return true;
+      }
+
       return [...document.querySelectorAll("audio, video")].some(
         (element) =>
           element instanceof HTMLMediaElement &&
@@ -159,6 +190,13 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       const target = event.target;
       if (target instanceof HTMLMediaElement && target !== audio) {
         pauseForMediaPlayback();
+      }
+    }
+
+    function resumeWhenMediaStops(event: Event) {
+      const target = event.target;
+      if (target instanceof HTMLMediaElement && target !== audio) {
+        tryResumeBackgroundMusic();
       }
     }
 
@@ -181,9 +219,25 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       }
 
       const message = data as { event?: unknown; info?: unknown };
-      if (message.event === "onStateChange" && message.info === 1) {
-        pauseForMediaPlayback();
+      if (message.event !== "onStateChange") {
+        return;
       }
+
+      if (message.info === 1) {
+        otherYouTubePlayingRef.current = true;
+        pauseForMediaPlayback();
+        return;
+      }
+
+      if (message.info === 0 || message.info === 2) {
+        otherYouTubePlayingRef.current = false;
+        tryResumeBackgroundMusic();
+      }
+    }
+
+    function onMediaRelease() {
+      otherYouTubePlayingRef.current = false;
+      tryResumeBackgroundMusic();
     }
 
     audio.addEventListener("play", onPlay);
@@ -191,7 +245,10 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     audio.addEventListener("ended", playNextTrack);
 
     document.addEventListener("play", pauseWhenMediaPlays, CAPTURE);
+    document.addEventListener("pause", resumeWhenMediaStops, CAPTURE);
+    document.addEventListener("ended", resumeWhenMediaStops, CAPTURE);
     window.addEventListener(MEDIA_FOCUS_EVENT, pauseForMediaPlayback);
+    window.addEventListener(MEDIA_RELEASE_EVENT, onMediaRelease);
     window.addEventListener("message", pauseWhenYouTubePlays);
     window.addEventListener("pointerdown", onStartGesture, CAPTURE);
     window.addEventListener("touchstart", onStartGesture, CAPTURE);
@@ -205,6 +262,7 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     };
 
     return () => {
+      window.clearTimeout(resumeTimer);
       removeStartListeners();
       playFromGestureRef.current = null;
       togglePlaybackRef.current = null;
@@ -212,7 +270,10 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", playNextTrack);
       document.removeEventListener("play", pauseWhenMediaPlays, CAPTURE);
+      document.removeEventListener("pause", resumeWhenMediaStops, CAPTURE);
+      document.removeEventListener("ended", resumeWhenMediaStops, CAPTURE);
       window.removeEventListener(MEDIA_FOCUS_EVENT, pauseForMediaPlayback);
+      window.removeEventListener(MEDIA_RELEASE_EVENT, onMediaRelease);
       window.removeEventListener("message", pauseWhenYouTubePlays);
       window.removeEventListener("keydown", stopOnDoubleShift);
       audio.pause();

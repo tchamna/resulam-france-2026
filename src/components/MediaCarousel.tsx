@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import { getMomentSlides, type MomentSlide, type PageCopy } from "@/lib/content";
-import { dispatchMediaFocus } from "@/lib/media-focus";
+import { dispatchMediaFocus, dispatchMediaRelease } from "@/lib/media-focus";
 import { parseYouTubeUrl } from "@/lib/youtube";
 
 type YouTubeSlide = {
@@ -215,6 +215,7 @@ export function MediaCarousel({
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        dispatchMediaRelease();
         setActiveMedia(null);
       }
     }
@@ -222,6 +223,11 @@ export function MediaCarousel({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeMedia]);
+
+  function closeModal() {
+    dispatchMediaRelease();
+    setActiveMedia(null);
+  }
 
   function openYoutube(slide: YouTubeSlide) {
     dispatchMediaFocus();
@@ -292,19 +298,26 @@ export function MediaCarousel({
           role="dialog"
           aria-modal="true"
           aria-label={activeMedia.title}
-          onClick={() => setActiveMedia(null)}
+          onClick={closeModal}
         >
           <div className="youtubeWatchPanel" onClick={(event) => event.stopPropagation()}>
             <button
               type="button"
               className="youtubeWatchClose"
-              onClick={() => setActiveMedia(null)}
+              onClick={closeModal}
               aria-label="Close video"
             >
               x
             </button>
             {activeMedia.kind === "video" ? (
-              <video controls autoPlay playsInline className="youtubeWatchFrame" src={activeMedia.src} />
+              <video
+                controls
+                autoPlay
+                playsInline
+                className="youtubeWatchFrame"
+                src={activeMedia.src}
+                onEnded={dispatchMediaRelease}
+              />
             ) : (
               <YouTubeEmbed
                 url={activeMedia.src}
