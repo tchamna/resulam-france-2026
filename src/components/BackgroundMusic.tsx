@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PageCopy } from "@/lib/content";
+import { MEDIA_FOCUS_EVENT } from "@/lib/media-focus";
 import { createShuffledPlaylist, pickRandomStartIndex } from "@/lib/soundtracks";
 
 const BACKGROUND_VOLUME = 0.4;
@@ -71,7 +72,7 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     playFromGestureRef.current = playFromUserGesture;
 
     function onStartGesture() {
-      if (stoppedByUserRef.current || !audio.paused) {
+      if (stoppedByUserRef.current || !audio.paused || isOtherMediaPlaying()) {
         return;
       }
 
@@ -96,7 +97,7 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     togglePlaybackRef.current = togglePlayback;
 
     function playNextTrack() {
-      if (stoppedByUserRef.current) {
+      if (stoppedByUserRef.current || isOtherMediaPlaying()) {
         return;
       }
 
@@ -144,8 +145,19 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       }
     }
 
-    function pauseWhenVideoPlays(event: Event) {
-      if (event.target instanceof HTMLVideoElement) {
+    function isOtherMediaPlaying() {
+      return [...document.querySelectorAll("audio, video")].some(
+        (element) =>
+          element instanceof HTMLMediaElement &&
+          element !== audio &&
+          !element.paused &&
+          !element.ended,
+      );
+    }
+
+    function pauseWhenMediaPlays(event: Event) {
+      const target = event.target;
+      if (target instanceof HTMLMediaElement && target !== audio) {
         pauseForMediaPlayback();
       }
     }
@@ -178,7 +190,8 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", playNextTrack);
 
-    document.addEventListener("play", pauseWhenVideoPlays, CAPTURE);
+    document.addEventListener("play", pauseWhenMediaPlays, CAPTURE);
+    window.addEventListener(MEDIA_FOCUS_EVENT, pauseForMediaPlayback);
     window.addEventListener("message", pauseWhenYouTubePlays);
     window.addEventListener("pointerdown", onStartGesture, CAPTURE);
     window.addEventListener("touchstart", onStartGesture, CAPTURE);
@@ -198,7 +211,8 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", playNextTrack);
-      document.removeEventListener("play", pauseWhenVideoPlays, CAPTURE);
+      document.removeEventListener("play", pauseWhenMediaPlays, CAPTURE);
+      window.removeEventListener(MEDIA_FOCUS_EVENT, pauseForMediaPlayback);
       window.removeEventListener("message", pauseWhenYouTubePlays);
       window.removeEventListener("keydown", stopOnDoubleShift);
       audio.pause();

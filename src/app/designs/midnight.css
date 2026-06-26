@@ -274,6 +274,40 @@ body:has(.page-midnight) {
   padding-bottom: 2rem;
 }
 
+.midnightCarousel {
+  min-width: 0;
+}
+
+.midnightCarousel .carouselHeader h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.page-midnight .midnightCarousel .carouselMask {
+  border-color: var(--midnight-line);
+  background: var(--midnight-panel);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+}
+
+.page-midnight .midnightCarousel .carouselButton {
+  border-color: var(--midnight-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f7fb;
+}
+
+.page-midnight .midnightCarousel .carouselButton:hover,
+.page-midnight .midnightCarousel .carouselButton:focus-visible {
+  border-color: rgba(212, 175, 55, 0.45);
+  color: var(--midnight-gold);
+  outline: none;
+}
+
+.page-midnight .midnightCarousel .carouselItem {
+  border-color: var(--midnight-line);
+  background: #0d1320;
+}
+
 .midnightEyebrow {
   margin: 0 0 0.45rem;
   color: var(--midnight-gold);
@@ -343,8 +377,7 @@ body:has(.page-midnight) {
 .momentsStage {
   position: relative;
   overflow: hidden;
-  min-height: clamp(240px, 52vw, 520px);
-  aspect-ratio: 16 / 9;
+  height: clamp(220px, 38vw, 390px);
   border: 1px solid var(--midnight-line);
   border-radius: 16px;
   background: var(--midnight-panel);
@@ -362,6 +395,26 @@ body:has(.page-midnight) {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.momentsPreviewButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: #0d1320;
+  cursor: pointer;
+}
+
+.momentsPreviewButton:hover .momentsPlay,
+.momentsPreviewButton:focus-visible .momentsPlay {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.momentsPreviewButton img.momentsMedia {
+  object-fit: cover;
 }
 
 .momentsStage video,
@@ -755,6 +808,13 @@ body:has(.page-midnight) {
 @media (prefers-reduced-motion: reduce) {
   .momentsMediaFrame {
     animation: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .momentsStage {
+    width: min(100%, 980px);
+    margin: 0 auto;
   }
 }
 

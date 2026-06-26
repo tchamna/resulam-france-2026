@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
-import type { PageCopy } from "@/lib/content";
+import { getMomentSlides, type MomentSlide, type PageCopy } from "@/lib/content";
+import { dispatchMediaFocus } from "@/lib/media-focus";
 import { parseYouTubeUrl } from "@/lib/youtube";
 
 type YouTubeSlide = {
@@ -11,28 +12,11 @@ type YouTubeSlide = {
   label: string;
 };
 
-const literacyVideos = [
-  {
-    title: "(Basaa-Cameroun) - Alphabetisation en langues africaines",
-    url: "https://www.youtube.com/watch?v=UotEdTkPrBk",
-  },
-  {
-    title: "(Ewondo-BetiFang) - Alphabetisation en langues africaines",
-    url: "https://www.youtube.com/watch?v=VD7cGtU5rfU",
-  },
-  {
-    title: "(Bamileke-Nufi) - Alphabetisation en langues africaines",
-    url: "https://www.youtube.com/watch?v=XRrEKXUwny4",
-  },
-  {
-    title: "(Bamileke-Ghomala') - Alphabetisation en langues africaines",
-    url: "https://www.youtube.com/watch?v=FtGEI6UHM9o",
-  },
-  {
-    title: "(Duala-Douala) - Alphabetisation en langues africaines",
-    url: "https://www.youtube.com/watch?v=ddwGaTng6xo",
-  },
-];
+type ActiveMedia = {
+  kind: "video" | "youtube";
+  src: string;
+  title: string;
+};
 
 function youtubeThumbnail(url: string) {
   const video = parseYouTubeUrl(url);
@@ -40,12 +24,23 @@ function youtubeThumbnail(url: string) {
   return `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
 }
 
-function YouTubeCarouselSlide({ slide, onOpen }: { slide: YouTubeSlide; onOpen: (slide: YouTubeSlide) => void }) {
+function YouTubeCarouselSlide({
+  slide,
+  onOpen,
+}: {
+  slide: YouTubeSlide;
+  onOpen: (slide: YouTubeSlide) => void;
+}) {
   const thumbnail = youtubeThumbnail(slide.url);
 
   return (
     <div className="carouselItem carouselYoutube">
-      <button type="button" className="youtubePreviewButton" onClick={() => onOpen(slide)} aria-label={`Watch ${slide.title}`}>
+      <button
+        type="button"
+        className="youtubePreviewButton"
+        onClick={() => onOpen(slide)}
+        aria-label={`Watch ${slide.title}`}
+      >
         {thumbnail ? <img src={thumbnail} alt="" loading="lazy" /> : null}
         <i className="youtubePlayMark" aria-hidden="true">
           <svg viewBox="0 0 68 48" focusable="false">
@@ -58,32 +53,85 @@ function YouTubeCarouselSlide({ slide, onOpen }: { slide: YouTubeSlide; onOpen: 
   );
 }
 
-function CarouselItems({ t, onOpenYoutube }: { t: PageCopy; onOpenYoutube: (slide: YouTubeSlide) => void }) {
-  const youtubeSlides: YouTubeSlide[] = [
-    {
-      title: "Resulam Nufi cartoon preview",
-      url: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
-      label: t.cartoons,
-    },
-    {
-      title: "Resulam African language cartoon preview",
-      url: "https://www.youtube.com/watch?v=xusm6BsMVWg",
-      label: t.cartoons,
-    },
-    ...literacyVideos.map((video) => ({ ...video, label: video.title })),
-  ];
+function VideoCarouselSlide({
+  slide,
+  openInModal,
+  onOpen,
+}: {
+  slide: MomentSlide;
+  openInModal: boolean;
+  onOpen: (slide: MomentSlide) => void;
+}) {
+  if (openInModal) {
+    return (
+      <div className="carouselItem carouselVideo">
+        <button
+          type="button"
+          className="youtubePreviewButton"
+          onClick={() => onOpen(slide)}
+          aria-label={`Watch ${slide.label}`}
+        >
+          <video preload="metadata" muted playsInline poster={slide.poster}>
+            <source src={slide.src} type="video/mp4" />
+          </video>
+          <i className="youtubePlayMark" aria-hidden="true">
+            <svg viewBox="0 0 68 48" focusable="false">
+              <path d="M45 24 27 14v20z" />
+            </svg>
+          </i>
+        </button>
+        <span>{slide.label}</span>
+      </div>
+    );
+  }
 
   return (
+    <div className="carouselItem carouselVideo">
+      <video controls playsInline preload="metadata">
+        <source src={slide.src} type="video/mp4" />
+      </video>
+      <span>{slide.label}</span>
+    </div>
+  );
+}
+
+function CarouselItems({
+  slides,
+  openLocalVideosInModal,
+  onOpenYoutube,
+  onOpenVideo,
+}: {
+  slides: MomentSlide[];
+  openLocalVideosInModal: boolean;
+  onOpenYoutube: (slide: YouTubeSlide) => void;
+  onOpenVideo: (slide: MomentSlide) => void;
+}) {
+  return (
     <>
-      <div className="carouselItem carouselVideo">
-        <video controls playsInline preload="metadata">
-          <source src="/landing/pangop-temoignage-nufi-1.mp4" type="video/mp4" />
-        </video>
-        <span>{t.testimony}</span>
-      </div>
-      {youtubeSlides.map((slide) => (
-        <YouTubeCarouselSlide slide={slide} onOpen={onOpenYoutube} key={slide.url} />
-      ))}
+      {slides.map((slide) => {
+        if (slide.kind === "video") {
+          return (
+            <VideoCarouselSlide
+              key={slide.id}
+              slide={slide}
+              openInModal={openLocalVideosInModal}
+              onOpen={onOpenVideo}
+            />
+          );
+        }
+
+        if (slide.kind === "youtube") {
+          return (
+            <YouTubeCarouselSlide
+              key={slide.id}
+              slide={{ title: slide.alt, url: slide.src, label: slide.label }}
+              onOpen={onOpenYoutube}
+            />
+          );
+        }
+
+        return null;
+      })}
     </>
   );
 }
@@ -92,12 +140,26 @@ type MediaCarouselProps = {
   t: PageCopy;
   showTitle?: boolean;
   className?: string;
+  eyebrow?: string;
+  title?: string;
+  titleId?: string;
+  openLocalVideosInModal?: boolean;
 };
 
-export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel" }: MediaCarouselProps) {
+export function MediaCarousel({
+  t,
+  showTitle = true,
+  className = "flyerCarousel",
+  eyebrow,
+  title,
+  titleId,
+  openLocalVideosInModal = false,
+}: MediaCarouselProps) {
   const maskRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
-  const [activeYoutube, setActiveYoutube] = useState<YouTubeSlide | null>(null);
+  const [activeMedia, setActiveMedia] = useState<ActiveMedia | null>(null);
+  const slides = getMomentSlides(t);
+  const carouselLabel = title ?? t.mediaTitle;
 
   function scrollBySlide(direction: -1 | 1) {
     const mask = maskRef.current;
@@ -149,22 +211,41 @@ export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel"
   }, []);
 
   useEffect(() => {
-    if (!activeYoutube) return;
+    if (!activeMedia) return;
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActiveYoutube(null);
+        setActiveMedia(null);
       }
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [activeYoutube]);
+  }, [activeMedia]);
+
+  function openYoutube(slide: YouTubeSlide) {
+    dispatchMediaFocus();
+    setActiveMedia({ kind: "youtube", src: slide.url, title: slide.title });
+  }
+
+  function openVideo(slide: MomentSlide) {
+    dispatchMediaFocus();
+    setActiveMedia({ kind: "video", src: slide.src, title: slide.alt });
+  }
 
   return (
-    <div className={className} aria-label={t.mediaTitle}>
+    <div className={className} aria-label={carouselLabel}>
       <div className="carouselHeader">
-        {showTitle ? <p>{t.mediaTitle}</p> : <span aria-hidden="true" />}
+        {title ? (
+          <div>
+            {eyebrow ? <p className="midnightEyebrow">{eyebrow}</p> : null}
+            <h2 id={titleId}>{title}</h2>
+          </div>
+        ) : showTitle ? (
+          <p>{t.mediaTitle}</p>
+        ) : (
+          <span aria-hidden="true" />
+        )}
         <div className="carouselControls" aria-label="Carousel controls">
           <button type="button" className="carouselButton" onClick={() => scrollBySlide(-1)} aria-label="Previous slide">
             ←
@@ -191,22 +272,47 @@ export function MediaCarousel({ t, showTitle = true, className = "flyerCarousel"
         }}
       >
         <div className="carouselTrack">
-          <CarouselItems t={t} onOpenYoutube={setActiveYoutube} />
-          <CarouselItems t={t} onOpenYoutube={setActiveYoutube} />
+          <CarouselItems
+            slides={slides}
+            openLocalVideosInModal={openLocalVideosInModal}
+            onOpenYoutube={openYoutube}
+            onOpenVideo={openVideo}
+          />
+          <CarouselItems
+            slides={slides}
+            openLocalVideosInModal={openLocalVideosInModal}
+            onOpenYoutube={openYoutube}
+            onOpenVideo={openVideo}
+          />
         </div>
       </div>
-      {activeYoutube ? (
-        <div className="youtubeWatchModal" role="dialog" aria-modal="true" aria-label={activeYoutube.title} onClick={() => setActiveYoutube(null)}>
+      {activeMedia ? (
+        <div
+          className="youtubeWatchModal"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeMedia.title}
+          onClick={() => setActiveMedia(null)}
+        >
           <div className="youtubeWatchPanel" onClick={(event) => event.stopPropagation()}>
-            <button type="button" className="youtubeWatchClose" onClick={() => setActiveYoutube(null)} aria-label="Close video">
+            <button
+              type="button"
+              className="youtubeWatchClose"
+              onClick={() => setActiveMedia(null)}
+              aria-label="Close video"
+            >
               x
             </button>
-            <YouTubeEmbed
-              url={activeYoutube.url}
-              title={activeYoutube.title}
-              className="youtubeWatchFrame"
-              autoplay
-            />
+            {activeMedia.kind === "video" ? (
+              <video controls autoPlay playsInline className="youtubeWatchFrame" src={activeMedia.src} />
+            ) : (
+              <YouTubeEmbed
+                url={activeMedia.src}
+                title={activeMedia.title}
+                className="youtubeWatchFrame"
+                autoplay
+              />
+            )}
           </div>
         </div>
       ) : null}

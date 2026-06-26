@@ -1,10 +1,9 @@
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
-import { MomentsCarousel } from "@/components/MomentsCarousel";
+import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
-import { getMomentSlides } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
 import type { Locale } from "@/lib/locale";
@@ -42,7 +41,6 @@ export function MidnightLanding({
   initialAvailability,
 }: MidnightLandingProps) {
   const m = t.midnight;
-  const slides = getMomentSlides(t);
 
   return (
     <main className="page-midnight">
@@ -90,11 +88,13 @@ export function MidnightLanding({
       </section>
 
       <section className="midnightMoments scrollSection" id="moments" aria-labelledby="moments-title">
-        <MomentsCarousel
-          slides={slides}
+        <MediaCarousel
+          t={t}
+          className="midnightCarousel"
           eyebrow={m.momentsLabel}
           title={m.momentsTitle}
           titleId="moments-title"
+          openLocalVideosInModal
         />
 
         <div className="midnightStats" id="visit">

@@ -64,10 +64,12 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
                 <span className="note">{t.limit}</span>
               </div>
             </div>
-
-            <MediaCarousel t={t} />
           </div>
         </div>
+      </section>
+
+      <section className="flyerCarouselSection scrollSection" aria-label={t.mediaTitle}>
+        <MediaCarousel t={t} />
       </section>
 
       <section className="section scrollSection" aria-label="Event details">

@@ -1,6 +1,6 @@
 export type DesignVariant = "flyer" | "midnight" | "heritage";
 
-export const DEFAULT_DESIGN: DesignVariant = "flyer";
+export const DEFAULT_DESIGN: DesignVariant = "midnight";
 
 export const DESIGN_VARIANTS: DesignVariant[] = ["flyer", "midnight"];
 
