@@ -832,6 +832,10 @@ body:has(.page-midnight) {
 
 @media (max-width: 900px) {
   .midnightNav {
+    display: none;
+  }
+
+  .midnightNav {
     flex-wrap: wrap;
   }
 
