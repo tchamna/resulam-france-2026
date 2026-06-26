@@ -116,22 +116,45 @@ export type SmtpConfig = {
   useTls: boolean;
 };
 
+function readSmtpEnv(primary: string, fallback: string) {
+  return process.env[primary]?.trim() || process.env[fallback]?.trim() || "";
+}
+
+function normalizeSmtpPassword(value: string) {
+  // Gmail app passwords are 16 chars; Google often displays them in groups of four.
+  return value.replace(/\s+/g, "");
+}
+
+export function describeMissingSmtpConfig() {
+  const host = readSmtpEnv("AUTH_SMTP_HOST", "DOCUMENTPROCESSING_AUTH_SMTP_HOST");
+  const portRaw = readSmtpEnv("AUTH_SMTP_PORT", "DOCUMENTPROCESSING_AUTH_SMTP_PORT");
+  const port = Number(portRaw || "0");
+  const user = readSmtpEnv("AUTH_SMTP_USERNAME", "DOCUMENTPROCESSING_AUTH_SMTP_USERNAME");
+  const pass = readSmtpEnv("AUTH_SMTP_PASSWORD", "DOCUMENTPROCESSING_AUTH_SMTP_PASSWORD");
+  const from =
+    readSmtpEnv("AUTH_SMTP_FROM", "DOCUMENTPROCESSING_AUTH_SMTP_FROM") || user;
+  const missing: string[] = [];
+
+  if (!host) missing.push("AUTH_SMTP_HOST");
+  if (!portRaw || !Number.isFinite(port) || port <= 0) missing.push("AUTH_SMTP_PORT");
+  if (!user) missing.push("AUTH_SMTP_USERNAME");
+  if (!pass) missing.push("AUTH_SMTP_PASSWORD");
+  if (!from) missing.push("AUTH_SMTP_FROM (or AUTH_SMTP_USERNAME)");
+
+  return missing;
+}
+
 export function getSmtpConfig(): SmtpConfig | null {
-  const host =
-    process.env.AUTH_SMTP_HOST?.trim() || process.env.DOCUMENTPROCESSING_AUTH_SMTP_HOST?.trim();
+  const host = readSmtpEnv("AUTH_SMTP_HOST", "DOCUMENTPROCESSING_AUTH_SMTP_HOST");
   const port = Number(
     process.env.AUTH_SMTP_PORT ?? process.env.DOCUMENTPROCESSING_AUTH_SMTP_PORT ?? "0"
   );
-  const user =
-    process.env.AUTH_SMTP_USERNAME?.trim() ||
-    process.env.DOCUMENTPROCESSING_AUTH_SMTP_USERNAME?.trim();
-  const pass =
-    process.env.AUTH_SMTP_PASSWORD?.trim() ||
-    process.env.DOCUMENTPROCESSING_AUTH_SMTP_PASSWORD?.trim();
+  const user = readSmtpEnv("AUTH_SMTP_USERNAME", "DOCUMENTPROCESSING_AUTH_SMTP_USERNAME");
+  const pass = normalizeSmtpPassword(
+    readSmtpEnv("AUTH_SMTP_PASSWORD", "DOCUMENTPROCESSING_AUTH_SMTP_PASSWORD")
+  );
   const from =
-    process.env.AUTH_SMTP_FROM?.trim() ||
-    process.env.DOCUMENTPROCESSING_AUTH_SMTP_FROM?.trim() ||
-    user;
+    readSmtpEnv("AUTH_SMTP_FROM", "DOCUMENTPROCESSING_AUTH_SMTP_FROM") || user;
   const useTls =
     (process.env.AUTH_SMTP_USE_TLS ?? process.env.DOCUMENTPROCESSING_AUTH_SMTP_USE_TLS ?? "true")
       .toLowerCase()

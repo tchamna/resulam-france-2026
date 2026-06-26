@@ -1,11 +1,22 @@
 import nodemailer from "nodemailer";
 import type { Booking, BookingAvailability } from "@/lib/bookings";
-import { getSmtpConfig, parseNotifyRecipients } from "@/lib/bookings";
+import {
+  describeMissingSmtpConfig,
+  getSmtpConfig,
+  parseNotifyRecipients,
+} from "@/lib/bookings";
 import { getEventCopy } from "@/lib/event";
 
 function createTransporter() {
   const config = getSmtpConfig();
-  if (!config) return null;
+  if (!config) {
+    const missing = describeMissingSmtpConfig();
+    console.error(
+      "[bookings] SMTP is not configured; confirmation emails cannot be sent",
+      missing.length ? { missing } : undefined
+    );
+    return null;
+  }
 
   return {
     config,

@@ -62,11 +62,20 @@ BOOKING_REMINDER_CRON_KEY=change-me-in-production
 AUTH_SMTP_HOST=your SMTP host
 AUTH_SMTP_PORT=587
 AUTH_SMTP_USERNAME=your SMTP username
-AUTH_SMTP_PASSWORD=your SMTP password
+AUTH_SMTP_PASSWORD=your-gmail-app-password-without-spaces
 AUTH_SMTP_FROM=Resulam France 2026 <contact@resulam.com>
+AUTH_SMTP_USE_TLS=true
 ```
 
 For production, use SMTP so bookings are emailed immediately. The local JSONL file is useful as a fallback and for testing.
+
+SMTP notes:
+
+- `BOOKING_NOTIFY_EMAILS` receives admin alerts; the guest receives confirmation at the email they enter in the form.
+- Gmail app passwords are 16 characters. Store them without spaces in Azure (Google displays them as four groups, e.g. `abcd efgh ijkl mnop` → use `abcdefghijklmnop`).
+- In `.env.local`, quote values that contain spaces: `AUTH_SMTP_PASSWORD="your value"`.
+- After changing App Service settings, restart the app (`Overview` → `Restart`) so the container picks up new values.
+- If a guest did not receive email but their booking exists, they can submit the form again with the same email to trigger a confirmation resend.
 
 ## Participant reminders
 

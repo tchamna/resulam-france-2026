@@ -79,6 +79,10 @@ export const content = {
       soldOut: "Fully booked",
       soldOutIntro: "All 50 places have been reserved. Contact us if you still want to attend.",
       duplicate: "This email already has a reservation.",
+      duplicateResent:
+        "This email already has a reservation. We sent your confirmation email again.",
+      emailWarning:
+        "Your seat is saved, but we could not send a confirmation email. Check your spam folder or contact contact@resulam.com.",
       fullError: "Sorry, the last places were just booked.",
       validationError: "Please check your name, email, and languages (at least 2 characters).",
     },
@@ -214,6 +218,10 @@ export const content = {
       soldOut: "Complet",
       soldOutIntro: "Les 50 places sont réservées. Contactez-nous si vous souhaitez encore participer.",
       duplicate: "Cet email a déjà une réservation.",
+      duplicateResent:
+        "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation.",
+      emailWarning:
+        "Votre place est enregistrée, mais nous n'avons pas pu envoyer l'email de confirmation. Vérifiez vos spams ou écrivez à contact@resulam.com.",
       fullError: "Désolé, les dernières places viennent d'être réservées.",
       validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
     },

@@ -24,8 +24,17 @@ type Copy = {
   soldOut: string;
   soldOutIntro: string;
   duplicate: string;
+  duplicateResent: string;
+  emailWarning: string;
   fullError: string;
   validationError: string;
+};
+
+type BookingResponse = Availability & {
+  error?: string;
+  ok?: boolean;
+  duplicate?: boolean;
+  email?: { sentGuest?: boolean; sentAdmin?: boolean };
 };
 
 type Availability = {
@@ -123,7 +132,7 @@ export function BookingForm({
         body: JSON.stringify(payload),
       });
 
-      let data: Availability & { error?: string; ok?: boolean } = {
+      let data: BookingResponse = {
         capacity: availability.capacity,
         booked: availability.booked,
         remaining: availability.remaining,
@@ -131,16 +140,14 @@ export function BookingForm({
       };
 
       try {
-        data = (await response.json()) as typeof data;
+        data = (await response.json()) as BookingResponse;
       } catch {
         throw new Error("invalid_response");
       }
 
       if (!response.ok) {
         setStatus("error");
-        if (data.error === "duplicate") {
-          setMessage(copy.duplicate);
-        } else if (data.error === "full") {
+        if (data.error === "full") {
           setAvailability(data);
           setMessage(copy.fullError);
         } else if (data.error === "invalid_booking") {
@@ -152,8 +159,24 @@ export function BookingForm({
       }
 
       setAvailability(data);
-      setStatus("success");
-      setMessage(formatSuccess(copy, data.remaining));
+      const emailSent = data.email?.sentGuest !== false;
+
+      if (data.duplicate) {
+        setStatus(emailSent ? "success" : "error");
+        setMessage(
+          emailSent
+            ? copy.duplicateResent
+            : `${copy.duplicate} ${copy.emailWarning}`
+        );
+        return;
+      }
+
+      setStatus(emailSent ? "success" : "error");
+      setMessage(
+        emailSent
+          ? formatSuccess(copy, data.remaining)
+          : `${formatSuccess(copy, data.remaining)} ${copy.emailWarning}`
+      );
       formElement.reset();
     } catch {
       setStatus("error");
