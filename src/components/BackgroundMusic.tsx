@@ -87,8 +87,10 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
         return;
       }
 
+      stoppedByUserRef.current = true;
       audio.pause();
       setPlaying(false);
+      removeStartListeners();
     }
 
     togglePlaybackRef.current = togglePlayback;
@@ -135,10 +137,49 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       setPlaying(true);
     }
 
+    function pauseForMediaPlayback() {
+      if (!audio.paused) {
+        audio.pause();
+        setPlaying(false);
+      }
+    }
+
+    function pauseWhenVideoPlays(event: Event) {
+      if (event.target instanceof HTMLVideoElement) {
+        pauseForMediaPlayback();
+      }
+    }
+
+    function pauseWhenYouTubePlays(event: MessageEvent) {
+      if (!event.origin.includes("youtube.com") && !event.origin.includes("youtube-nocookie.com")) {
+        return;
+      }
+
+      let data: unknown = event.data;
+      if (typeof data === "string") {
+        try {
+          data = JSON.parse(data) as unknown;
+        } catch {
+          return;
+        }
+      }
+
+      if (!data || typeof data !== "object") {
+        return;
+      }
+
+      const message = data as { event?: unknown; info?: unknown };
+      if (message.event === "onStateChange" && message.info === 1) {
+        pauseForMediaPlayback();
+      }
+    }
+
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", playNextTrack);
 
+    document.addEventListener("play", pauseWhenVideoPlays, CAPTURE);
+    window.addEventListener("message", pauseWhenYouTubePlays);
     window.addEventListener("pointerdown", onStartGesture, CAPTURE);
     window.addEventListener("touchstart", onStartGesture, CAPTURE);
     window.addEventListener("keydown", onStartGesture, CAPTURE);
@@ -157,6 +198,8 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", playNextTrack);
+      document.removeEventListener("play", pauseWhenVideoPlays, CAPTURE);
+      window.removeEventListener("message", pauseWhenYouTubePlays);
       window.removeEventListener("keydown", stopOnDoubleShift);
       audio.pause();
     };

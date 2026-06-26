@@ -55,6 +55,7 @@ export function getYouTubeEmbedUrl(url: string) {
   if (!video) return null;
 
   const params = new URLSearchParams({
+    enablejsapi: "1",
     rel: "0",
     modestbranding: "1",
     playsinline: "1",

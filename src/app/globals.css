@@ -32,13 +32,12 @@ body {
 
 .seatsBanner {
   position: fixed;
-  top: 0.85rem;
-  left: 50%;
+  bottom: 1rem;
+  left: 1rem;
   z-index: 1200;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  transform: translateX(-50%);
   border: 1px solid rgba(17, 100, 62, 0.28);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
@@ -409,31 +408,70 @@ h1 {
   min-width: 0;
 }
 
-.flyerCarousel > p {
-  margin: 0 0 0.75rem;
+.carouselHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.carouselHeader p {
+  margin: 0;
   color: #3a342b;
   font-size: 1rem;
   font-weight: 900;
 }
 
+.carouselControls {
+  display: flex;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+}
+
+.carouselButton {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(20, 17, 13, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #211b13;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.carouselButton:hover,
+.carouselButton:focus-visible {
+  border-color: rgba(17, 100, 62, 0.45);
+  color: var(--green);
+  outline: none;
+}
+
 .carouselMask {
+  --carousel-gap: 0.9rem;
   overflow: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
   border: 1px solid rgba(20, 17, 13, 0.18);
   border-radius: 10px;
   background: #14110d;
   box-shadow: 0 22px 55px rgba(57, 45, 24, 0.18);
 }
 
+.carouselMask::-webkit-scrollbar {
+  display: none;
+}
+
 .carouselTrack {
   display: flex;
   width: max-content;
-  gap: 0.9rem;
+  gap: var(--carousel-gap);
   padding: 0.9rem;
-  animation: carousel-scroll 28s linear infinite;
-}
-
-.carouselMask:hover .carouselTrack {
-  animation-play-state: paused;
 }
 
 .carouselItem {
@@ -466,7 +504,14 @@ h1 {
 }
 
 .carouselYoutube {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   background: #000;
+}
+
+.carouselYoutube iframe,
+.carouselYoutube .youtubeEmbed {
+  min-height: 0;
 }
 
 .carouselItem img {
@@ -475,15 +520,6 @@ h1 {
 
 .carouselItem:hover img {
   transform: scale(1.03);
-}
-
-.bookSlide {
-  background: white;
-}
-
-.bookSlide img {
-  object-fit: contain;
-  padding: 0.8rem;
 }
 
 .carouselItem span {
@@ -497,16 +533,29 @@ h1 {
   color: white;
   font-size: 0.9rem;
   font-weight: 900;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
-@keyframes carousel-scroll {
-  from {
-    transform: translateX(0);
-  }
+.carouselVideo:hover span,
+.carouselVideo:focus-within span {
+  opacity: 0;
+  transform: translateY(0.5rem);
+}
 
-  to {
-    transform: translateX(calc(-50% - 0.45rem));
-  }
+.carouselItem.carouselYoutube span {
+  position: static;
+  display: -webkit-box;
+  overflow: hidden;
+  border-radius: 0;
+  background: rgba(20, 17, 13, 0.96);
+  padding: 0.55rem 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .section {
@@ -852,15 +901,16 @@ h2 {
 .submit {
   min-height: 48px;
   border: 0;
-  border-radius: 6px;
-  background: #8f5f3f;
+  border-radius: 999px;
+  background: var(--green);
   color: white;
   cursor: pointer;
   font-weight: 900;
+  box-shadow: 0 12px 24px rgba(17, 100, 62, 0.24);
 }
 
 .submit:hover:not(:disabled) {
-  background: #7a5035;
+  background: #0d5133;
 }
 
 .submit:disabled {
