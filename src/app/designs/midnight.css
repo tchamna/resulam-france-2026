@@ -281,6 +281,34 @@ body:has(.page-midnight) {
   text-decoration-line: underline;
 }
 
+.midnightContactSection {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+
+.midnightContactPrompt {
+  max-width: 760px;
+  margin: 0 auto;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-left: 6px solid var(--midnight-gold);
+  border-radius: 12px;
+  background: rgba(21, 30, 51, 0.72);
+  padding: 1.1rem 1.25rem;
+  color: #f5f7fb;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.midnightContactPrompt a {
+  color: white;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-color: var(--midnight-gold);
+  text-underline-offset: 0.2rem;
+}
+
 .midnightMoments {
   padding-top: 1rem;
   padding-bottom: 2rem;
@@ -831,8 +859,65 @@ body:has(.page-midnight) {
 }
 
 @media (max-width: 900px) {
+  body:has(.page-midnight) .seatsBanner {
+    display: none;
+  }
+
   .midnightNav {
     display: none;
+  }
+
+  .page-midnight .heroMobileSeats {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin: 0.2rem auto 0.9rem;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 0.55rem 1rem 0.55rem 0.8rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    color: #101726;
+    font-size: 0.92rem;
+    font-weight: 800;
+  }
+
+  .page-midnight .heroMobileSeats strong {
+    white-space: nowrap;
+  }
+
+  .midnightHero {
+    padding-top: 1.6rem;
+    padding-bottom: 2.2rem;
+  }
+
+  .page-midnight .heroDate {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .page-midnight .heroTitle {
+    margin-top: 0.55rem;
+    font-size: clamp(1.35rem, 6.3vw, 2rem);
+  }
+
+  .midnightLead {
+    max-width: 25rem;
+    margin-top: 1rem;
+    font-size: clamp(1rem, 4.8vw, 1.12rem);
+    line-height: 1.45;
+  }
+
+  .midnightHeroActions {
+    gap: 0.65rem;
+    margin-top: 1.2rem;
+  }
+
+  .midnightPrimaryCta {
+    width: min(100%, 21rem);
+    max-width: calc(100vw - 3rem);
+    border-radius: 18px;
+    padding: 0.78rem 1rem;
   }
 
   .midnightNav {

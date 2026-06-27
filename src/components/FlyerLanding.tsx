@@ -8,6 +8,7 @@ import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
+import { formatPlacesLeft } from "@/lib/format-places-left";
 import type { Locale } from "@/lib/locale";
 
 type FlyerLandingProps = {
@@ -20,6 +21,8 @@ type FlyerLandingProps = {
 };
 
 export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabel, initialAvailability }: FlyerLandingProps) {
+  const mobileSeatsLabel = formatPlacesLeft(t.form, initialAvailability.remaining, initialAvailability.full);
+
   return (
     <main className="page-flyer">
       <nav className="nav" aria-label="Main">
@@ -54,24 +57,26 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
           <div className="flyerMain">
             <div className="flyerCopy">
               <p className="kicker">{t.kicker}</p>
+              <p className="heroMobileSeats">
+                <span className="seatsBannerDot" aria-hidden="true" />
+                <strong>{mobileSeatsLabel}</strong>
+              </p>
               <h1 className="heroDate">{t.heroDate}</h1>
               <p className="heroTitle">{t.heroTitle}</p>
+              <p className="heroLocation">{t.locationValue}</p>
               <p className="lead">{t.lead}</p>
 
               <div className="heroActions">
                 <a className="primaryCta" href="#book">
                   {t.cta}
                 </a>
-                <HeroContactPrompt t={t} />
-                <span className="note">{t.limit}</span>
+                <a className="secondaryCta" href="#programme">
+                  {t.midnight.ctaSecondary}
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="flyerCarouselSection scrollSection" aria-label={t.mediaTitle}>
-        <MediaCarousel t={t} />
       </section>
 
       <section className="section scrollSection" aria-label="Event details">
@@ -98,6 +103,14 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
       <GreetingsMarquee copy={t.greetings} />
 
       <ProgrammeSection locale={locale} t={t} initialAvailability={initialAvailability} variant="flyer" />
+
+      <section className="flyerCarouselSection scrollSection" aria-label={t.mediaTitle}>
+        <MediaCarousel t={t} />
+      </section>
+
+      <section className="section cityContactSection scrollSection">
+        <HeroContactPrompt t={t} className="cityContactPrompt" />
+      </section>
 
       <footer className="footer scrollSection">
         <p>{t.footer}</p>

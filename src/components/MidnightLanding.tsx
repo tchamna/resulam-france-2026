@@ -7,6 +7,7 @@ import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
+import { formatPlacesLeft } from "@/lib/format-places-left";
 import type { Locale } from "@/lib/locale";
 
 type MidnightLandingProps = {
@@ -42,6 +43,7 @@ export function MidnightLanding({
   initialAvailability,
 }: MidnightLandingProps) {
   const m = t.midnight;
+  const mobileSeatsLabel = formatPlacesLeft(t.form, initialAvailability.remaining, initialAvailability.full);
 
   return (
     <main className="page-midnight">
@@ -73,6 +75,10 @@ export function MidnightLanding({
 
       <section className="midnightHero scrollSection">
         <p className="midnightTagline">• {m.tagline}</p>
+        <p className="heroMobileSeats">
+          <span className="seatsBannerDot" aria-hidden="true" />
+          <strong>{mobileSeatsLabel}</strong>
+        </p>
         <h1 className="heroDate">{t.heroDate}</h1>
         <p className="heroTitle">{t.heroTitle}</p>
 
@@ -82,7 +88,6 @@ export function MidnightLanding({
           <a className="midnightPrimaryCta" href="#book">
             {m.ctaPrimary}
           </a>
-          <HeroContactPrompt t={t} />
           <a className="midnightSecondaryCta" href="#programme">
             {m.ctaSecondary}
           </a>
@@ -124,6 +129,10 @@ export function MidnightLanding({
         initialAvailability={initialAvailability}
         variant="midnight"
       />
+
+      <section className="midnightContactSection scrollSection">
+        <HeroContactPrompt t={t} className="midnightContactPrompt" />
+      </section>
 
       <footer className="midnightFooter scrollSection">
         <p>{t.footer}</p>
