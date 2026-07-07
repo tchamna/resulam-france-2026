@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
+import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
@@ -99,6 +100,8 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
           </div>
         </div>
       </section>
+
+      <EventVenues t={t} variant="flyer" />
 
       <GreetingsMarquee copy={t.greetings} />
 

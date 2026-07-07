@@ -54,6 +54,7 @@ Set these Azure App Service application settings:
 
 ```text
 BOOKING_CAPACITY=50
+BOOKING_AVAILABILITY_SOURCE_URL=
 BOOKING_DATA_DIR=/home/data
 BOOKING_NOTIFY_EMAILS=contact@resulam.com
 BOOKING_STATS_KEY=change-me-in-production

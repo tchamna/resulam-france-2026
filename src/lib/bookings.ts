@@ -34,6 +34,42 @@ export function getBookingsFilePath() {
   return path.join(getBookingDataDir(), "bookings.jsonl");
 }
 
+function getBookingAvailabilitySourceUrl() {
+  return process.env.BOOKING_AVAILABILITY_SOURCE_URL?.trim() || "";
+}
+
+function isBookingAvailability(value: unknown): value is BookingAvailability {
+  if (!value || typeof value !== "object") return false;
+  const availability = value as Partial<BookingAvailability>;
+  return (
+    Number.isFinite(availability.capacity) &&
+    Number.isFinite(availability.booked) &&
+    Number.isFinite(availability.remaining) &&
+    typeof availability.full === "boolean"
+  );
+}
+
+async function readRemoteBookingAvailability(): Promise<BookingAvailability | null> {
+  const url = getBookingAvailabilitySourceUrl();
+  if (!url) return null;
+
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (!isBookingAvailability(data)) return null;
+    return {
+      capacity: Math.max(Math.floor(data.capacity), 0),
+      booked: Math.max(Math.floor(data.booked), 0),
+      remaining: Math.max(Math.floor(data.remaining), 0),
+      full: data.full,
+    };
+  } catch (error) {
+    console.error("[bookings] Failed to read remote availability", error);
+    return null;
+  }
+}
+
 export async function readBookings(): Promise<StoredBooking[]> {
   const filePath = getBookingsFilePath();
   let raw = "";
@@ -64,6 +100,9 @@ export function getDefaultAvailability(): BookingAvailability {
 
 export async function getBookingAvailability(): Promise<BookingAvailability> {
   try {
+    const remoteAvailability = await readRemoteBookingAvailability();
+    if (remoteAvailability) return remoteAvailability;
+
     const capacity = getBookingCapacity();
     const booked = (await readBookings()).length;
     const remaining = Math.max(capacity - booked, 0);

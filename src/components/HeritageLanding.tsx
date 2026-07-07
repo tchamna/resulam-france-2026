@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
+import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
@@ -106,6 +107,7 @@ export function HeritageLanding({
             <strong>{t.locationValue}</strong>
           </div>
         </div>
+        <EventVenues t={t} variant="heritage" />
       </section>
 
       <GreetingsMarquee copy={t.greetings} />

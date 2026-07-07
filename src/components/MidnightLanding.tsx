@@ -1,4 +1,5 @@
 import { DesignSwitcher } from "@/components/DesignSwitcher";
+import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
 import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
@@ -119,6 +120,7 @@ export function MidnightLanding({
           </article>
         </div>
 
+        <EventVenues t={t} variant="midnight" />
       </section>
 
       <GreetingsMarquee copy={t.greetings} />

@@ -583,6 +583,39 @@ body:has(.page-midnight) {
   margin-top: 1.5rem;
 }
 
+.page-midnight .eventVenues {
+  max-width: none;
+  padding: 1.5rem 0 0;
+}
+
+.page-midnight .eventVenuesHeader p,
+.page-midnight .venueAddress span,
+.page-midnight .venueDetails dt {
+  color: var(--midnight-muted);
+}
+
+.page-midnight .eventVenuesHeader h2,
+.page-midnight .venueCard h3,
+.page-midnight .venueAddress,
+.page-midnight .venueDetails dd {
+  color: #f5f7fb;
+}
+
+.page-midnight .venueCard {
+  border-color: var(--midnight-line);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+}
+
+.page-midnight .venueCardHead {
+  color: var(--midnight-gold);
+}
+
+.page-midnight .venueCardHead strong {
+  background: rgba(212, 175, 55, 0.14);
+  color: #f5f7fb;
+}
+
 .midnightStat {
   border: 1px solid var(--midnight-line);
   border-radius: 16px;

@@ -389,6 +389,45 @@ body:has(.page-heritage) {
   line-height: 1.35;
 }
 
+.page-heritage .eventVenues {
+  max-width: none;
+  padding: 0.5rem 0 0;
+}
+
+.page-heritage .eventVenuesHeader h2 {
+  color: var(--heritage-on-dark);
+}
+
+.page-heritage .eventVenuesHeader p {
+  color: var(--heritage-on-dark-muted);
+}
+
+.page-heritage .venueCard {
+  border-color: rgba(26, 39, 68, 0.14);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--heritage-navy);
+}
+
+.page-heritage .venueCardHead {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .venueCardHead strong {
+  background: rgba(196, 90, 42, 0.1);
+  color: var(--heritage-navy);
+}
+
+.page-heritage .venueCard h3,
+.page-heritage .venueAddress,
+.page-heritage .venueDetails dd {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .venueAddress span,
+.page-heritage .venueDetails dt {
+  color: var(--heritage-muted);
+}
+
 .programmeSectionHeritage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);

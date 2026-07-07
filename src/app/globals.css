@@ -802,6 +802,108 @@ h1 {
   font-weight: 900;
 }
 
+.eventVenues {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem 2rem;
+}
+
+.eventVenuesHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.eventVenuesHeader h2 {
+  order: -1;
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.eventVenuesHeader p {
+  max-width: 420px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+  text-align: right;
+}
+
+.venueGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.venueCard {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 1rem;
+  box-shadow: 0 10px 24px rgba(57, 45, 24, 0.08);
+}
+
+.venueCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.venueCardHead strong {
+  border-radius: 999px;
+  background: rgba(17, 100, 62, 0.1);
+  padding: 0.3rem 0.6rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.venueCard h3 {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.25;
+}
+
+.venueAddress {
+  margin: 0.7rem 0 0;
+  color: #34302b;
+  line-height: 1.45;
+}
+
+.venueAddress span,
+.venueDetails dt {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.venueDetails {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.85rem 0 0;
+}
+
+.venueDetails div {
+  min-width: 0;
+}
+
+.venueDetails dd {
+  margin: 0;
+  color: #34302b;
+  line-height: 1.45;
+}
+
 .twoCol {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -1639,6 +1741,20 @@ button.greetingCardAudio {
 
   .infoBar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .eventVenuesHeader {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .eventVenuesHeader p {
+    max-width: none;
+    text-align: left;
+  }
+
+  .venueGrid {
+    grid-template-columns: 1fr;
   }
 
   .statsRow,
