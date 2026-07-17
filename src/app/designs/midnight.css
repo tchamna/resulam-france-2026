@@ -882,6 +882,10 @@ body:has(.page-midnight) {
   color: #f5f7fb;
 }
 
+.bookstoreBannerMidnight .bookstoreHint {
+  color: var(--midnight-muted);
+}
+
 .bookstoreBannerMidnight .bookstoreLink {
   border-color: var(--midnight-line);
   background: rgba(255, 255, 255, 0.04);

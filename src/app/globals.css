@@ -1277,8 +1277,15 @@ h2 {
 }
 
 .bookstoreBanner h2 {
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.55rem;
   font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  text-align: center;
+}
+
+.bookstoreHint {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
   text-align: center;
 }
 

@@ -623,6 +623,10 @@ body:has(.page-heritage) {
   color: var(--heritage-on-dark);
 }
 
+.bookstoreBannerHeritage .bookstoreHint {
+  color: var(--heritage-on-dark-muted);
+}
+
 .bookstoreBannerHeritage .bookstoreLink {
   border-color: rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.92);

@@ -29,6 +29,7 @@ export function BookstoreBanner({ t, variant = "flyer" }: BookstoreBannerProps) 
   return (
     <section className={className} aria-labelledby="bookstore-title">
       <h2 id="bookstore-title">{t.bookstoreTitle}</h2>
+      <p className="bookstoreHint">{t.bookstoreHint}</p>
       <div className="bookstoreGrid">
         {BOOKSTORE_IMAGES.map(({ src, altKey }) => (
           <a
