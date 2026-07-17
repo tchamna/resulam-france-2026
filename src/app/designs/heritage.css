@@ -82,6 +82,21 @@ body:has(.page-heritage) {
   gap: 0.65rem;
 }
 
+.heritageNavResourcesLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  color: var(--heritage-on-dark);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heritageNavResourcesLink:hover {
+  color: var(--heritage-green);
+}
+
 .page-heritage .themeSwitcher {
   border-color: rgba(26, 39, 68, 0.18);
   background: rgba(255, 255, 255, 0.82);
@@ -602,6 +617,20 @@ body:has(.page-heritage) {
   padding-bottom: 2rem;
   color: var(--heritage-on-dark-muted);
   text-align: center;
+}
+
+.bookstoreBannerHeritage h2 {
+  color: var(--heritage-on-dark);
+}
+
+.bookstoreBannerHeritage .bookstoreLink {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 30px rgba(26, 39, 68, 0.14);
+}
+
+.bookstoreBannerHeritage .bookstoreLink:hover {
+  box-shadow: 0 18px 36px rgba(26, 39, 68, 0.2);
 }
 
 @media (min-width: 961px) {

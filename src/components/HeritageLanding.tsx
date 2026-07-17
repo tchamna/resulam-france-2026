@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BookstoreBanner } from "@/components/BookstoreBanner";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
@@ -6,7 +7,7 @@ import { HeroContactPrompt } from "@/components/HeroContactPrompt";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
-import { formatHeritageUrgency, type PageCopy } from "@/lib/content";
+import { AFRICAN_LANGUAGE_LIBRARY_URL, formatHeritageUrgency, type PageCopy } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
 import type { Locale } from "@/lib/locale";
@@ -42,6 +43,14 @@ export function HeritageLanding({
         </div>
 
         <div className="heritageNavActions">
+          <a
+            href={AFRICAN_LANGUAGE_LIBRARY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="heritageNavResourcesLink"
+          >
+            {t.navResources}
+          </a>
           <DesignSwitcher locale={locale} design={design} />
           <div className="heritageLang" aria-label="Language switcher">
             <span>{t.navLanguage}</span>
@@ -118,6 +127,8 @@ export function HeritageLanding({
         initialAvailability={initialAvailability}
         variant="heritage"
       />
+
+      <BookstoreBanner t={t} variant="heritage" />
 
       <footer className="heritageFooter scrollSection">
         <p>{t.footer}</p>

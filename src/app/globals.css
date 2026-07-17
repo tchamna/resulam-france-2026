@@ -156,6 +156,21 @@ textarea {
   gap: 0.65rem;
 }
 
+.navResourcesLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navResourcesLink:hover {
+  color: var(--green);
+}
+
 .themeSwitcher {
   display: inline-flex;
   align-items: center;
@@ -1253,6 +1268,51 @@ h2 {
   padding: 1.5rem 1.25rem;
   color: var(--muted);
   text-align: center;
+}
+
+.bookstoreBanner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 1.5rem;
+}
+
+.bookstoreBanner h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  text-align: center;
+}
+
+.bookstoreGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.bookstoreLink {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 12px 28px rgba(57, 45, 24, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bookstoreLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(57, 45, 24, 0.12);
+}
+
+.bookstoreImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 720px) {
+  .bookstoreGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .statsPage {

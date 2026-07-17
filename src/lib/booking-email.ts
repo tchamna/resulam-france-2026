@@ -109,8 +109,8 @@ function guestHtml(booking: Booking, availability: BookingAvailability) {
   const details = eventDetails(booking.locale);
   const intro =
     booking.locale === "fr"
-      ? `Bonjour ${booking.name},<br><br>Votre place pour la conférence gratuite du 9 août 2026 est confirmée.`
-      : `Hello ${booking.name},<br><br>Your seat for the free conference on August 9, 2026 is confirmed.`;
+      ? `Bonjour ${booking.name},<br><br>Votre place pour la conférence gratuite des 9 et 10 août 2026 est confirmée.`
+      : `Hello ${booking.name},<br><br>Your seat for the free conference on August 9-10, 2026 is confirmed.`;
 
   const nextStep =
     booking.locale === "fr"
@@ -160,8 +160,8 @@ function guestText(booking: Booking, availability: BookingAvailability) {
   const details = eventDetails(booking.locale);
   const greeting =
     booking.locale === "fr"
-      ? `Bonjour ${booking.name},\n\nVotre place pour la conférence gratuite du 9 août 2026 est confirmée.`
-      : `Hello ${booking.name},\n\nYour seat for the free conference on August 9, 2026 is confirmed.`;
+      ? `Bonjour ${booking.name},\n\nVotre place pour la conférence gratuite des 9 et 10 août 2026 est confirmée.`
+      : `Hello ${booking.name},\n\nYour seat for the free conference on August 9-10, 2026 is confirmed.`;
 
   return [
     greeting,

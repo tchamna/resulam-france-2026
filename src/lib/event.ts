@@ -56,7 +56,7 @@ export function getEventCopy(locale: EventLocale) {
   if (locale === "fr") {
     return {
       event: "Conférence publique gratuite Resulam France 2026",
-      date: "Dimanche 9 août 2026",
+      date: "9 et 10 août 2026",
       visit: "Séjour en France : 6-11 août 2026",
       venue: "Lieu : Paris.",
       siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",
@@ -65,7 +65,7 @@ export function getEventCopy(locale: EventLocale) {
 
   return {
     event: "Resulam France 2026 free public conference",
-    date: "Sunday, August 9, 2026",
+    date: "August 9-10, 2026",
     visit: "France visit: August 6-11, 2026",
     venue: "Venue: Paris.",
     siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",

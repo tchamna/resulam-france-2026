@@ -1,14 +1,16 @@
 export const CONTACT_EMAIL = "contact@resulam.com";
+export const AFRICAN_LANGUAGE_LIBRARY_URL = "https://africanlanguagelibrary.tchamna.com/";
 
 export const content = {
   en: {
     navLanguage: "English",
+    navResources: "Resources",
     designFlyer: "Classic",
     designMidnight: "Midnight",
     designHeritage: "Heritage",
     eyebrow: "France visit: August 6-11, 2026",
     title: "Resulam France 2026",
-    heroDate: "August 8-9, 2026",
+    heroDate: "August 9-10, 2026",
     heroTitle: "Resulam lands in France.",
     kicker: "Free conference",
     lead:
@@ -20,7 +22,7 @@ export const content = {
     heroContactAfter: " now.",
     limit: "Free entry. Places are limited, booking is required.",
     dateLabel: "Conference",
-    dateValue: "August 8-9, 2026",
+    dateValue: "August 9-10, 2026",
     visitLabel: "Resulam in France",
     visitValue: "August 6-11, 2026",
     costLabel: "Cost",
@@ -37,15 +39,15 @@ export const content = {
     },
     venues: [
       {
-        date: "August 8",
-        time: "17h-21h",
-        name: "Meeting in Paris 19e",
+        date: "August 9",
+        time: "14h-18h",
+        name: "NDABC",
         address: "80 rue de Meaux, 75019 Paris",
         details: [],
       },
       {
-        date: "August 9",
-        time: "14h-18h",
+        date: "August 10",
+        time: "12h-14h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         details: [
@@ -123,6 +125,10 @@ export const content = {
       validationError: "Please check your name, email, and languages (at least 2 characters).",
     },
     footer: "Resulam France 2026",
+    bookstoreTitle: "African language books & resources",
+    bookstoreLinkLabel: "Visit the African Language Library bookstore",
+    bookstoreAltNufi: "Nufi phrasebook, grammar, and Bamileke tales on a bookshelf",
+    bookstoreAltEwondo: "Fè'éfě'è and Ewondo visual dictionaries and conversation guides on a bookshelf",
     music: {
       play: "Play music",
       pause: "Pause music",
@@ -139,7 +145,7 @@ export const content = {
     },
     heritage: {
       headline: "Reconnect with your mother tongue",
-      eventLine: "August 8-9, 2026 - Resulam in France",
+      eventLine: "August 9-10, 2026 - Resulam in France",
       libraryTitle: "Explore our complete heritage resource library",
       librarySubtitle: "Videos, books, apps & USBs",
       libraryNote: "Access to over 1000+ curated language lessons.",
@@ -159,15 +165,15 @@ export const content = {
       dateRange: "6–11",
       dateMonth: "August 2026",
       heroLead:
-        "A week of gatherings across France — with a free public conference on August 9. Limited places.",
-      heroLeadHighlight: "free public conference on August 9",
+        "A week of gatherings across France — with a free public conference on August 9 and 10. Limited places.",
+      heroLeadHighlight: "free public conference on August 9 and 10",
       ctaPrimary: "Reserve your place",
       ctaSecondary: "See the programme",
       momentsLabel: "In pictures & film",
       momentsTitle: "Moments from Resulam",
       statDaysTitle: "6 days",
       statDaysText: "Gatherings across France, Aug 6–11.",
-      statFreeTitle: "Aug 9 • Free",
+      statFreeTitle: "Aug 9-10 • Free",
       statFreeText: "Public conference, open to all.",
       statLimitedTitle: "Limited",
       statLimitedText: "Seats fill fast — reserve early.",
@@ -175,12 +181,13 @@ export const content = {
   },
   fr: {
     navLanguage: "Français",
+    navResources: "Ressources",
     designFlyer: "Classique",
     designMidnight: "Midnight",
     designHeritage: "Patrimoine",
     eyebrow: "CONFÉRENCE SUR LES LANGUES AFRICAINES",
     title: "RESULAM arrive en France",
-    heroDate: "8-9 Août 2026",
+    heroDate: "9-10 Août 2026",
     heroTitle: "RESULAM arrive en France",
     kicker: "CONFÉRENCE SUR LES LANGUES AFRICAINES",
     lead:
@@ -192,7 +199,7 @@ export const content = {
     heroContactAfter: " dès maintenant.",
     limit: "Entrée gratuite — places limitées",
     dateLabel: "Conférence",
-    dateValue: "8-9 août 2026",
+    dateValue: "9-10 août 2026",
     visitLabel: "Resulam en France",
     visitValue: "6-11 août 2026",
     costLabel: "Tarif",
@@ -209,15 +216,15 @@ export const content = {
     },
     venues: [
       {
-        date: "8 août",
-        time: "17h-21h",
-        name: "Rencontre à Paris 19e",
+        date: "9 août",
+        time: "14h à 18h",
+        name: "NDABC",
         address: "80 rue de Meaux, 75019 Paris",
         details: [],
       },
       {
-        date: "9 août",
-        time: "14h-18h",
+        date: "10 août",
+        time: "12h-14h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         details: [
@@ -296,6 +303,10 @@ export const content = {
       validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
     },
     footer: "Resulam France 2026",
+    bookstoreTitle: "Livres et ressources en langues africaines",
+    bookstoreLinkLabel: "Visiter la librairie African Language Library",
+    bookstoreAltNufi: "Phrasebook, grammaire et contes bamilékés en nufi sur une étagère",
+    bookstoreAltEwondo: "Syllabaires visuels et guides de conversation fè'éfě'è et ewondo sur une étagère",
     music: {
       play: "Lancer la musique",
       pause: "Couper la musique",
@@ -312,7 +323,7 @@ export const content = {
     },
     heritage: {
       headline: "Retrouvez votre langue maternelle",
-      eventLine: "8-9 août 2026 - Resulam en France",
+      eventLine: "9-10 août 2026 - Resulam en France",
       libraryTitle: "Explorez notre bibliothèque patrimoniale complète",
       librarySubtitle: "Vidéos, livres, apps et clés USB",
       libraryNote: "Accès à plus de 1000 leçons de langues sélectionnées.",
@@ -340,7 +351,7 @@ export const content = {
       momentsTitle: "Moments de Resulam",
       statDaysTitle: "6 jours",
       statDaysText: "Rencontres en France, 6–11 août.",
-      statFreeTitle: "9 août • Gratuit",
+      statFreeTitle: "9-10 août • Gratuit",
       statFreeText: "Conférence publique, ouverte à tous.",
       statLimitedTitle: "Limité",
       statLimitedText: "Les places partent vite — réservez tôt.",

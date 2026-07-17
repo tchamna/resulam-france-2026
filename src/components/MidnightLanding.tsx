@@ -1,3 +1,4 @@
+import { BookstoreBanner } from "@/components/BookstoreBanner";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
@@ -6,6 +7,7 @@ import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
+import { AFRICAN_LANGUAGE_LIBRARY_URL } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
 import { formatPlacesLeft } from "@/lib/format-places-left";
@@ -60,6 +62,9 @@ export function MidnightLanding({
           <a href="#visit">{m.navVisit}</a>
           <a href="#moments">{m.navMoments}</a>
           <a href="#conference">{m.navConference}</a>
+          <a href={AFRICAN_LANGUAGE_LIBRARY_URL} target="_blank" rel="noopener noreferrer">
+            {t.navResources}
+          </a>
           <a href="#book" className="midnightNavCta">
             {m.navBook}
           </a>
@@ -135,6 +140,8 @@ export function MidnightLanding({
       <section className="midnightContactSection scrollSection">
         <HeroContactPrompt t={t} className="midnightContactPrompt" />
       </section>
+
+      <BookstoreBanner t={t} variant="midnight" />
 
       <footer className="midnightFooter scrollSection">
         <p>{t.footer}</p>

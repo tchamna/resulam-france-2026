@@ -73,6 +73,20 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
 
     playFromGestureRef.current = playFromUserGesture;
 
+    function attemptInitialAutoplay() {
+      if (stoppedByUserRef.current || isOtherMediaPlaying()) {
+        return;
+      }
+
+      const attempt = audio.play();
+      if (attempt === undefined) {
+        setPlaying(!audio.paused);
+        return;
+      }
+
+      attempt.then(() => setPlaying(true)).catch(() => setPlaying(false));
+    }
+
     function onStartGesture() {
       if (stoppedByUserRef.current || !audio.paused || isOtherMediaPlaying()) {
         return;
@@ -254,6 +268,8 @@ export function BackgroundMusic({ copy }: BackgroundMusicProps) {
     window.addEventListener("touchstart", onStartGesture, CAPTURE);
     window.addEventListener("keydown", onStartGesture, CAPTURE);
     window.addEventListener("keydown", stopOnDoubleShift);
+
+    attemptInitialAutoplay();
 
     removeStartListeners = () => {
       window.removeEventListener("pointerdown", onStartGesture, CAPTURE);

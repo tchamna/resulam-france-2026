@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BookstoreBanner } from "@/components/BookstoreBanner";
 import { DesignSwitcher } from "@/components/DesignSwitcher";
 import { EventVenues } from "@/components/EventVenues";
 import { GreetingsMarquee } from "@/components/GreetingsMarquee";
@@ -7,6 +8,7 @@ import { MediaCarousel } from "@/components/MediaCarousel";
 import { ProgrammeSection } from "@/components/ProgrammeSection";
 import type { BookingAvailability } from "@/lib/bookings";
 import type { PageCopy } from "@/lib/content";
+import { AFRICAN_LANGUAGE_LIBRARY_URL } from "@/lib/content";
 import { buildPageHref } from "@/lib/design";
 import type { DesignVariant } from "@/lib/design";
 import { formatPlacesLeft } from "@/lib/format-places-left";
@@ -32,6 +34,9 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
           <span>Resulam</span>
         </div>
         <div className="navActions">
+          <a href={AFRICAN_LANGUAGE_LIBRARY_URL} target="_blank" rel="noopener noreferrer" className="navResourcesLink">
+            {t.navResources}
+          </a>
           <DesignSwitcher locale={locale} design={design} />
           <div className="languageSwitcher" aria-label="Language switcher">
             <span className="currentLanguage">
@@ -114,6 +119,8 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
       <section className="section cityContactSection scrollSection">
         <HeroContactPrompt t={t} className="cityContactPrompt" />
       </section>
+
+      <BookstoreBanner t={t} variant="flyer" />
 
       <footer className="footer scrollSection">
         <p>{t.footer}</p>
