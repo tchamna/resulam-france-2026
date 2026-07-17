@@ -78,10 +78,46 @@ export const content = {
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         mapsUrl:
           "https://www.google.com/maps/search/?api=1&query=15-17-19+rue+du+Chalet%2C+75010+Paris",
+        accessRoutes: [
+          {
+            mode: "metro",
+            line: "2",
+            title: "Metro line 2 · Belleville",
+            steps: [
+              { text: "Take line 2 to Belleville" },
+              { text: "5 min walk", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "metro",
+            line: "11",
+            title: "Metro line 11 · Belleville",
+            steps: [
+              { text: "Take line 11 to Belleville" },
+              { text: "5 min walk", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "bus",
+            line: "20",
+            title: "Bus 20 or 71 · Belleville",
+            steps: [
+              { text: "Take bus 20 or 71 to Belleville" },
+              { text: "5 min walk", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "bus",
+            line: "46",
+            title: "Bus 46 · Hôpital Saint-Louis",
+            steps: [
+              { text: "Take bus 46 to Hôpital Saint-Louis" },
+              { text: "4 min walk", hint: "~300 m" },
+            ],
+          },
+        ],
         details: [
           { label: "intercom", text: "TAMERY - scroll through the names and ring; courtyard access on the right." },
-          { label: "metro", text: "Belleville, lines 2 and 11." },
-          { label: "bus", text: "20 or 71, Belleville stop; 46, Hôpital Saint-Louis stop." },
         ],
       },
     ],
@@ -288,10 +324,46 @@ export const content = {
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         mapsUrl:
           "https://www.google.com/maps/search/?api=1&query=15-17-19+rue+du+Chalet%2C+75010+Paris",
+        accessRoutes: [
+          {
+            mode: "metro",
+            line: "2",
+            title: "Métro ligne 2 · Belleville",
+            steps: [
+              { text: "Prenez la ligne 2 jusqu’à Belleville" },
+              { text: "5 min à pied", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "metro",
+            line: "11",
+            title: "Métro ligne 11 · Belleville",
+            steps: [
+              { text: "Prenez la ligne 11 jusqu’à Belleville" },
+              { text: "5 min à pied", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "bus",
+            line: "20",
+            title: "Bus 20 ou 71 · Belleville",
+            steps: [
+              { text: "Prenez le bus 20 ou 71 jusqu’à Belleville" },
+              { text: "5 min à pied", hint: "~400 m" },
+            ],
+          },
+          {
+            mode: "bus",
+            line: "46",
+            title: "Bus 46 · Hôpital Saint-Louis",
+            steps: [
+              { text: "Prenez le bus 46 jusqu’à Hôpital Saint-Louis" },
+              { text: "4 min à pied", hint: "~300 m" },
+            ],
+          },
+        ],
         details: [
           { label: "intercom", text: "TAMERY - faire défiler les noms et sonner ; accès cour à droite." },
-          { label: "metro", text: "Belleville, lignes 2 et 11." },
-          { label: "bus", text: "20 ou 71, arrêt Belleville ; 46, arrêt Hôpital Saint-Louis." },
         ],
       },
     ],

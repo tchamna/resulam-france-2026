@@ -997,6 +997,21 @@ h1 {
   color: #1a1410;
 }
 
+.venueAccessRoute-metro .venueAccessBadge-line-2 {
+  background: #003ca6;
+  color: #fff;
+}
+
+.venueAccessRoute-metro .venueAccessBadge-line-5 {
+  background: #ffbe00;
+  color: #1a1410;
+}
+
+.venueAccessRoute-metro .venueAccessBadge-line-11 {
+  background: #8d5e2a;
+  color: #fff;
+}
+
 .venueAccessRoute-bus .venueAccessBadge {
   background: #0b5cab;
   color: #fff;

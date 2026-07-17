@@ -83,7 +83,10 @@ export function EventVenues({ t, variant = "flyer" }: EventVenuesProps) {
                     {accessRoutes.map((route) => (
                       <li key={route.title} className={`venueAccessRoute venueAccessRoute-${route.mode}`}>
                         <div className="venueAccessRouteHead">
-                          <span className="venueAccessBadge" aria-hidden="true">
+                          <span
+                            className={`venueAccessBadge venueAccessBadge-line-${route.line}`}
+                            aria-hidden="true"
+                          >
                             {route.line}
                           </span>
                           <strong>{route.title}</strong>
