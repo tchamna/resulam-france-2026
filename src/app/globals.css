@@ -886,6 +886,12 @@ h1 {
   line-height: 1.25;
 }
 
+.venueDescription {
+  margin: 0.55rem 0 0;
+  color: #34302b;
+  line-height: 1.45;
+}
+
 .venueAddress {
   margin: 0.7rem 0 0;
   color: #34302b;
@@ -917,6 +923,134 @@ h1 {
   margin: 0;
   color: #34302b;
   line-height: 1.45;
+}
+
+.venueMapsLink {
+  display: inline-flex;
+  margin-top: 0.45rem;
+  color: var(--green);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.venueMapsLink:hover {
+  color: var(--ink);
+}
+
+.venueAccess {
+  margin-top: 0.9rem;
+}
+
+.venueAccessTitle {
+  margin: 0 0 0.55rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.venueAccessRoutes {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.venueAccessRoute {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.7rem 0.75rem;
+}
+
+.venueAccessRouteHead {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.venueAccessRouteHead strong {
+  color: #34302b;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.venueAccessBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 0.35rem;
+  padding: 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.venueAccessRoute-metro .venueAccessBadge {
+  background: #ffbe00;
+  color: #1a1410;
+}
+
+.venueAccessRoute-bus .venueAccessBadge {
+  background: #0b5cab;
+  color: #fff;
+}
+
+.venueAccessSteps {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: venue-step;
+}
+
+.venueAccessSteps li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  position: relative;
+  padding-left: 1.35rem;
+  color: #34302b;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  counter-increment: venue-step;
+}
+
+.venueAccessSteps li::before {
+  content: counter(venue-step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: rgba(17, 100, 62, 0.12);
+  color: var(--green);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.venueAccessStepText {
+  min-width: 0;
+}
+
+.venueAccessHint {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .twoCol {

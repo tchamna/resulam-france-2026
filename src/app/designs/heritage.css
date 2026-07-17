@@ -433,14 +433,37 @@ body:has(.page-heritage) {
 }
 
 .page-heritage .venueCard h3,
+.page-heritage .venueDescription,
 .page-heritage .venueAddress,
-.page-heritage .venueDetails dd {
+.page-heritage .venueDetails dd,
+.page-heritage .venueAccessRouteHead strong,
+.page-heritage .venueAccessSteps li {
   color: var(--heritage-navy);
 }
 
 .page-heritage .venueAddress span,
-.page-heritage .venueDetails dt {
+.page-heritage .venueDetails dt,
+.page-heritage .venueAccessTitle,
+.page-heritage .venueAccessHint {
   color: var(--heritage-muted);
+}
+
+.page-heritage .venueMapsLink {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .venueMapsLink:hover {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .venueAccessRoute {
+  border-color: rgba(26, 39, 68, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.page-heritage .venueAccessSteps li::before {
+  background: rgba(196, 90, 42, 0.12);
+  color: var(--heritage-terracotta);
 }
 
 .programmeSectionHeritage {

@@ -55,19 +55,21 @@ export function shouldSendReminderOnDate(todayParis = getParisDateString()) {
 export function getEventCopy(locale: EventLocale) {
   if (locale === "fr") {
     return {
-      event: "Conférence publique gratuite Resulam France 2026",
-      date: "9 et 10 août 2026",
+      event: "Conférence des langues africaines avec petits ateliers sur le Nufi — Resulam France 2026",
+      date: "9 août 2026, 14h–18h",
       visit: "Séjour en France : 6-11 août 2026",
-      venue: "Lieu : Paris.",
+      venue:
+        "NDABC, 80 rue de Meaux, 75019 Paris. Métro ligne 5, station Laumière (sortie 3), 5 min à pied. Bus 48, arrêt Rue de Meaux, 5 min à pied.",
       siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",
     };
   }
 
   return {
-    event: "Resulam France 2026 free public conference",
-    date: "August 9-10, 2026",
+    event: "African languages conference with small Nufi workshops — Resulam France 2026",
+    date: "August 9, 2026, 2–6 pm",
     visit: "France visit: August 6-11, 2026",
-    venue: "Venue: Paris.",
+    venue:
+      "NDABC, 80 Rue de Meaux, 75019 Paris. Metro line 5, Laumière station (exit 3), 5 min walk. Bus 48, Rue de Meaux stop, 5 min walk.",
     siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",
   };
 }

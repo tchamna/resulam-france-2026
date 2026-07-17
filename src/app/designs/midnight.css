@@ -590,14 +590,19 @@ body:has(.page-midnight) {
 
 .page-midnight .eventVenuesHeader p,
 .page-midnight .venueAddress span,
-.page-midnight .venueDetails dt {
+.page-midnight .venueDetails dt,
+.page-midnight .venueAccessTitle,
+.page-midnight .venueAccessHint {
   color: var(--midnight-muted);
 }
 
 .page-midnight .eventVenuesHeader h2,
 .page-midnight .venueCard h3,
+.page-midnight .venueDescription,
 .page-midnight .venueAddress,
-.page-midnight .venueDetails dd {
+.page-midnight .venueDetails dd,
+.page-midnight .venueAccessRouteHead strong,
+.page-midnight .venueAccessSteps li {
   color: #f5f7fb;
 }
 
@@ -607,6 +612,11 @@ body:has(.page-midnight) {
   box-shadow: none;
 }
 
+.page-midnight .venueCard:first-child {
+  border-color: rgba(212, 175, 55, 0.38);
+  background: rgba(212, 175, 55, 0.07);
+}
+
 .page-midnight .venueCardHead {
   color: var(--midnight-gold);
 }
@@ -614,6 +624,24 @@ body:has(.page-midnight) {
 .page-midnight .venueCardHead strong {
   background: rgba(212, 175, 55, 0.14);
   color: #f5f7fb;
+}
+
+.page-midnight .venueMapsLink {
+  color: var(--midnight-gold);
+}
+
+.page-midnight .venueMapsLink:hover {
+  color: #f5f7fb;
+}
+
+.page-midnight .venueAccessRoute {
+  border-color: var(--midnight-line);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.page-midnight .venueAccessSteps li::before {
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--midnight-gold);
 }
 
 .midnightStat {

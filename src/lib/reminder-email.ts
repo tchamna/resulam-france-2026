@@ -64,7 +64,7 @@ function reminderSubject(booking: StoredBooking, phase: ReminderPhase, daysLeft:
         ? "Aujourd'hui — Conférence Resulam France 2026"
         : "Demain — Conférence Resulam France 2026";
     }
-    return "Rappel — Conférence Resulam France 2026 (9-10 août)";
+    return "Rappel — Conférence Resulam France 2026 (9 août)";
   }
 
   if (phase === "daily" && daysLeft <= 1) {
@@ -72,7 +72,7 @@ function reminderSubject(booking: StoredBooking, phase: ReminderPhase, daysLeft:
       ? "Today — Resulam France 2026 conference"
       : "Tomorrow — Resulam France 2026 conference";
   }
-  return "Reminder — Resulam France 2026 conference (August 9-10)";
+  return "Reminder — Resulam France 2026 conference (August 9)";
 }
 
 function reminderHtml(booking: StoredBooking, phase: ReminderPhase, todayParis: string) {
