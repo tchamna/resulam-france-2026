@@ -7,11 +7,11 @@ import "./designs/heritage.css";
 export const metadata: Metadata = {
   title: "Resulam France 2026",
   description:
-    "Free African languages conference with Nufi workshops in France on August 9, 2026, for families who want to learn and teach their mother tongue.",
+    "Free African languages conference with Nufi workshops in France on August 9-10, 2026, for families who want to learn and teach their mother tongue.",
   openGraph: {
     title: "Resulam France 2026",
     description:
-      "Free African languages conference with Nufi workshops in France on August 9, 2026, for families who want to learn and teach their mother tongue.",
+      "Free African languages conference with Nufi workshops in France on August 9-10, 2026, for families who want to learn and teach their mother tongue.",
     type: "website",
   },
 };

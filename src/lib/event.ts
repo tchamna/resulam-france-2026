@@ -56,7 +56,7 @@ export function getEventCopy(locale: EventLocale) {
   if (locale === "fr") {
     return {
       event: "Conférence des langues africaines avec petits ateliers sur le Nufi — Resulam France 2026",
-      date: "9 août 2026, 14h–18h",
+      date: "9 et 10 août 2026",
       visit: "Séjour en France : 6-11 août 2026",
       venue:
         "NDABC, 80 rue de Meaux, 75019 Paris. Métro ligne 5, station Laumière (sortie 3), 5 min à pied. Bus 48, arrêt Rue de Meaux, 5 min à pied.",
@@ -66,7 +66,7 @@ export function getEventCopy(locale: EventLocale) {
 
   return {
     event: "African languages conference with small Nufi workshops — Resulam France 2026",
-    date: "August 9, 2026, 2–6 pm",
+    date: "August 9-10, 2026",
     visit: "France visit: August 6-11, 2026",
     venue:
       "NDABC, 80 Rue de Meaux, 75019 Paris. Metro line 5, Laumière station (exit 3), 5 min walk. Bus 48, Rue de Meaux stop, 5 min walk.",

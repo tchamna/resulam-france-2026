@@ -432,8 +432,9 @@ body:has(.page-heritage) {
   color: var(--heritage-navy);
 }
 
-.page-heritage .venueCard h3,
+.page-heritage .venueCardTitle,
 .page-heritage .venueDescription,
+.page-heritage .venuePreviewText,
 .page-heritage .venueAddress,
 .page-heritage .venueDetails dd,
 .page-heritage .venueAccessRouteHead strong,
@@ -453,6 +454,18 @@ body:has(.page-heritage) {
 }
 
 .page-heritage .venueMapsLink:hover {
+  color: var(--heritage-navy);
+}
+
+.page-heritage .venueCardToggle:hover {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .venueExpandAction {
+  color: var(--heritage-terracotta);
+}
+
+.page-heritage .venueExpandAction:hover {
   color: var(--heritage-navy);
 }
 

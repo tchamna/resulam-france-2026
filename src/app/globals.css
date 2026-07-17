@@ -880,10 +880,100 @@ h1 {
   white-space: nowrap;
 }
 
-.venueCard h3 {
+.venueCardTitle {
   margin: 0;
   font-size: clamp(1rem, 2vw, 1.18rem);
   line-height: 1.25;
+}
+
+.venueCardToggle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.venueCardToggle:hover {
+  color: var(--green);
+}
+
+.venueCardToggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.venueToggleIcon {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.35rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.venueToggleIcon-isOpen {
+  margin-top: 0.55rem;
+  transform: rotate(-135deg);
+}
+
+.venuePreviewText {
+  margin: 0.45rem 0 0;
+  color: #34302b;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.venueExpandAction {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.65rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--green);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+}
+
+.venueExpandAction:hover {
+  color: var(--ink);
+}
+
+.venueExpandAction:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.venueCard-isCollapsed {
+  padding-bottom: 0.85rem;
+}
+
+.venueCardPreview {
+  margin-top: 0.15rem;
+}
+
+.venueCardBody {
+  margin-top: 0.15rem;
 }
 
 .venueDescription {

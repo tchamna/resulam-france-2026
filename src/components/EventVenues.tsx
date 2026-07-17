@@ -1,3 +1,6 @@
+"use client";
+
+import { useId, useState } from "react";
 import type { PageCopy } from "@/lib/content";
 
 type Venue = PageCopy["venues"][number];
@@ -39,6 +42,120 @@ function getAccessRoutes(venue: Venue): AccessRoute[] | null {
   return routes.length > 0 ? routes : null;
 }
 
+type VenueCardProps = {
+  venue: Venue;
+  t: PageCopy;
+};
+
+function VenueCard({ venue, t }: VenueCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const bodyId = useId();
+  const mapsUrl = getMapsUrl(venue);
+  const accessRoutes = getAccessRoutes(venue);
+
+  function toggleExpanded() {
+    setExpanded((open) => !open);
+  }
+
+  return (
+    <article
+      className={`venueCard ${expanded ? "venueCard-isExpanded" : "venueCard-isCollapsed"}`}
+    >
+      <div className="venueCardHead">
+        <span>{venue.date}</span>
+        <strong>{venue.time}</strong>
+      </div>
+
+      <h3 className="venueCardTitle">
+        <button
+          type="button"
+          className="venueCardToggle"
+          aria-expanded={expanded}
+          aria-controls={bodyId}
+          onClick={toggleExpanded}
+        >
+          <span>{venue.name}</span>
+          <span
+            className={`venueToggleIcon ${expanded ? "venueToggleIcon-isOpen" : ""}`}
+            aria-hidden="true"
+          />
+        </button>
+      </h3>
+
+      <div className="venueCardPreview">
+        {"description" in venue && venue.description ? (
+          <p className="venueDescription">{venue.description}</p>
+        ) : null}
+        <p className="venueAddress">
+          <span>{t.venueDetailLabels.address}</span>
+          {venue.address}
+        </p>
+        {mapsUrl ? (
+          <a
+            className="venueMapsLink"
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.venueDetailLabels.openMaps}
+          </a>
+        ) : null}
+        {!expanded && accessRoutes ? (
+          <button type="button" className="venueExpandAction" onClick={toggleExpanded}>
+            {t.venueDetailLabels.showDirections}
+          </button>
+        ) : null}
+      </div>
+
+      {expanded ? (
+        <div id={bodyId} className="venueCardBody">
+          {accessRoutes ? (
+            <div className="venueAccess">
+              <p className="venueAccessTitle">{t.venueDetailLabels.getThere}</p>
+              <ul className="venueAccessRoutes">
+                {accessRoutes.map((route) => (
+                  <li key={route.title} className={`venueAccessRoute venueAccessRoute-${route.mode}`}>
+                    <div className="venueAccessRouteHead">
+                      <span
+                        className={`venueAccessBadge venueAccessBadge-line-${route.line}`}
+                        aria-hidden="true"
+                      >
+                        {route.line}
+                      </span>
+                      <strong>{route.title}</strong>
+                    </div>
+                    <ol className="venueAccessSteps">
+                      {route.steps.map((step) => (
+                        <li key={step.text}>
+                          <span className="venueAccessStepText">{step.text}</span>
+                          {step.hint ? <span className="venueAccessHint">{step.hint}</span> : null}
+                        </li>
+                      ))}
+                    </ol>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {venue.details.length > 0 ? (
+            <dl className="venueDetails">
+              {venue.details.map((detail) => (
+                <div key={`${detail.label}-${detail.text}`}>
+                  <dt>{detailLabel(t, detail)}</dt>
+                  <dd>{detail.text}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+          <button type="button" className="venueExpandAction" onClick={toggleExpanded}>
+            {t.venueDetailLabels.hideDirections}
+          </button>
+        </div>
+      ) : null}
+    </article>
+  );
+}
+
 export function EventVenues({ t, variant = "flyer" }: EventVenuesProps) {
   return (
     <section className={`eventVenues eventVenues-${variant} scrollSection`} aria-labelledby="venues-title">
@@ -48,75 +165,13 @@ export function EventVenues({ t, variant = "flyer" }: EventVenuesProps) {
       </div>
 
       <div className="venueGrid">
-        {t.venues.map((venue) => {
-          const mapsUrl = getMapsUrl(venue);
-          const accessRoutes = getAccessRoutes(venue);
-
-          return (
-            <article className="venueCard" key={`${venue.date}-${venue.address}`}>
-              <div className="venueCardHead">
-                <span>{venue.date}</span>
-                <strong>{venue.time}</strong>
-              </div>
-              <h3>{venue.name}</h3>
-              {"description" in venue && venue.description ? (
-                <p className="venueDescription">{venue.description}</p>
-              ) : null}
-              <p className="venueAddress">
-                <span>{t.venueDetailLabels.address}</span>
-                {venue.address}
-              </p>
-              {mapsUrl ? (
-                <a
-                  className="venueMapsLink"
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t.venueDetailLabels.openMaps}
-                </a>
-              ) : null}
-              {accessRoutes ? (
-                <div className="venueAccess">
-                  <p className="venueAccessTitle">{t.venueDetailLabels.getThere}</p>
-                  <ul className="venueAccessRoutes">
-                    {accessRoutes.map((route) => (
-                      <li key={route.title} className={`venueAccessRoute venueAccessRoute-${route.mode}`}>
-                        <div className="venueAccessRouteHead">
-                          <span
-                            className={`venueAccessBadge venueAccessBadge-line-${route.line}`}
-                            aria-hidden="true"
-                          >
-                            {route.line}
-                          </span>
-                          <strong>{route.title}</strong>
-                        </div>
-                        <ol className="venueAccessSteps">
-                          {route.steps.map((step) => (
-                            <li key={step.text}>
-                              <span className="venueAccessStepText">{step.text}</span>
-                              {step.hint ? <span className="venueAccessHint">{step.hint}</span> : null}
-                            </li>
-                          ))}
-                        </ol>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {venue.details.length > 0 ? (
-                <dl className="venueDetails">
-                  {venue.details.map((detail) => (
-                    <div key={`${detail.label}-${detail.text}`}>
-                      <dt>{detailLabel(t, detail)}</dt>
-                      <dd>{detail.text}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-            </article>
-          );
-        })}
+        {t.venues.map((venue) => (
+          <VenueCard
+            key={`${venue.date}-${venue.address}`}
+            venue={venue}
+            t={t}
+          />
+        ))}
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ export const content = {
     designHeritage: "Heritage",
     eyebrow: "France visit: August 6-11, 2026",
     title: "Resulam France 2026",
-    heroDate: "August 9, 2026",
+    heroDate: "August 9-10, 2026",
     heroTitle: "Resulam lands in France.",
     kicker: "Free conference",
     lead:
@@ -22,7 +22,7 @@ export const content = {
     heroContactAfter: " now.",
     limit: "Free entry. Places are limited, booking is required.",
     dateLabel: "Conference",
-    dateValue: "August 9, 2026",
+    dateValue: "August 9-10, 2026",
     visitLabel: "Resulam in France",
     visitValue: "August 6-11, 2026",
     costLabel: "Cost",
@@ -30,7 +30,7 @@ export const content = {
     locationLabel: "Location",
     locationValue: "Paris",
     venuesTitle: "Venues",
-    venuesIntro: "Main conference on August 9 at NDABC. Additional gathering on August 10 at the bookstore.",
+    venuesIntro: "Two Paris gatherings, with separate places and times.",
     venueDetailLabels: {
       address: "Address",
       intercom: "Left intercom",
@@ -38,6 +38,8 @@ export const content = {
       bus: "Bus",
       getThere: "How to get there",
       openMaps: "Open in Google Maps",
+      showDirections: "Show directions",
+      hideDirections: "Hide directions",
     },
     venues: [
       {
@@ -72,7 +74,7 @@ export const content = {
         details: [],
       },
       {
-        date: "August 10 — additional gathering",
+        date: "August 10",
         time: "12h-14h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
@@ -214,7 +216,7 @@ export const content = {
     },
     heritage: {
       headline: "Reconnect with your mother tongue",
-      eventLine: "August 9, 2026 — Resulam in France",
+      eventLine: "August 9-10, 2026 — Resulam in France",
       libraryTitle: "Explore our complete heritage resource library",
       librarySubtitle: "Videos, books, apps & USBs",
       libraryNote: "Access to over 1000+ curated language lessons.",
@@ -234,15 +236,15 @@ export const content = {
       dateRange: "6–11",
       dateMonth: "August 2026",
       heroLead:
-        "A week of gatherings across France — with a free African languages conference and Nufi workshops on August 9. Limited places.",
-      heroLeadHighlight: "free African languages conference and Nufi workshops on August 9",
+        "A week of gatherings across France — with a free African languages conference and Nufi workshops on August 9 and 10. Limited places.",
+      heroLeadHighlight: "free African languages conference and Nufi workshops on August 9 and 10",
       ctaPrimary: "Reserve your place",
       ctaSecondary: "See the programme",
       momentsLabel: "In pictures & film",
       momentsTitle: "Moments from Resulam",
       statDaysTitle: "6 days",
       statDaysText: "Gatherings across France, Aug 6–11.",
-      statFreeTitle: "Aug 9 • Free",
+      statFreeTitle: "Aug 9-10 • Free",
       statFreeText: "African languages conference, Nufi workshops.",
       statLimitedTitle: "Limited",
       statLimitedText: "Seats fill fast — reserve early.",
@@ -256,7 +258,7 @@ export const content = {
     designHeritage: "Patrimoine",
     eyebrow: "CONFÉRENCE SUR LES LANGUES AFRICAINES",
     title: "RESULAM arrive en France",
-    heroDate: "9 août 2026",
+    heroDate: "9-10 Août 2026",
     heroTitle: "RESULAM arrive en France",
     kicker: "CONFÉRENCE SUR LES LANGUES AFRICAINES",
     lead:
@@ -268,7 +270,7 @@ export const content = {
     heroContactAfter: " dès maintenant.",
     limit: "Entrée gratuite — places limitées",
     dateLabel: "Conférence",
-    dateValue: "9 août 2026",
+    dateValue: "9-10 août 2026",
     visitLabel: "Resulam en France",
     visitValue: "6-11 août 2026",
     costLabel: "Tarif",
@@ -276,7 +278,7 @@ export const content = {
     locationLabel: "Lieu",
     locationValue: "Paris",
     venuesTitle: "Lieux",
-    venuesIntro: "Conférence principale le 9 août au NDABC. Rencontre complémentaire le 10 août à la librairie.",
+    venuesIntro: "Deux rencontres à Paris, avec des lieux et horaires distincts.",
     venueDetailLabels: {
       address: "Adresse",
       intercom: "Interphone de gauche",
@@ -284,6 +286,8 @@ export const content = {
       bus: "Bus",
       getThere: "Comment y aller",
       openMaps: "Ouvrir dans Google Maps",
+      showDirections: "Voir l'accès",
+      hideDirections: "Masquer l'accès",
     },
     venues: [
       {
@@ -318,7 +322,7 @@ export const content = {
         details: [],
       },
       {
-        date: "10 août — rencontre complémentaire",
+        date: "10 août",
         time: "12h-14h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
@@ -460,7 +464,7 @@ export const content = {
     },
     heritage: {
       headline: "Retrouvez votre langue maternelle",
-      eventLine: "9 août 2026 — Resulam en France",
+      eventLine: "9-10 août 2026 — Resulam en France",
       libraryTitle: "Explorez notre bibliothèque patrimoniale complète",
       librarySubtitle: "Vidéos, livres, apps et clés USB",
       libraryNote: "Accès à plus de 1000 leçons de langues sélectionnées.",
@@ -488,7 +492,7 @@ export const content = {
       momentsTitle: "Moments de Resulam",
       statDaysTitle: "6 jours",
       statDaysText: "Rencontres en France, 6–11 août.",
-      statFreeTitle: "9 août • Gratuit",
+      statFreeTitle: "9-10 août • Gratuit",
       statFreeText: "Conférence des langues africaines, ateliers Nufi.",
       statLimitedTitle: "Limité",
       statLimitedText: "Les places partent vite — réservez tôt.",

@@ -597,8 +597,9 @@ body:has(.page-midnight) {
 }
 
 .page-midnight .eventVenuesHeader h2,
-.page-midnight .venueCard h3,
+.page-midnight .venueCardTitle,
 .page-midnight .venueDescription,
+.page-midnight .venuePreviewText,
 .page-midnight .venueAddress,
 .page-midnight .venueDetails dd,
 .page-midnight .venueAccessRouteHead strong,
@@ -631,6 +632,18 @@ body:has(.page-midnight) {
 }
 
 .page-midnight .venueMapsLink:hover {
+  color: #f5f7fb;
+}
+
+.page-midnight .venueCardToggle:hover {
+  color: var(--midnight-gold);
+}
+
+.page-midnight .venueExpandAction {
+  color: var(--midnight-gold);
+}
+
+.page-midnight .venueExpandAction:hover {
   color: #f5f7fb;
 }
 
