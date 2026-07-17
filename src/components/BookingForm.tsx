@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BookstorePopup } from "@/components/BookstorePopup";
+import { DuplicateBookingPopup } from "@/components/DuplicateBookingPopup";
 import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
@@ -26,6 +27,8 @@ type Copy = {
   soldOutIntro: string;
   duplicate: string;
   duplicateResent: string;
+  duplicatePopupTitle: string;
+  duplicatePopupOk: string;
   checkSpam: string;
   emailWarning: string;
   fullError: string;
@@ -89,6 +92,24 @@ export function BookingForm({
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [showBookstorePopup, setShowBookstorePopup] = useState(false);
+  const [showDuplicatePopup, setShowDuplicatePopup] = useState(false);
+  const [duplicatePopupMessage, setDuplicatePopupMessage] = useState("");
+  const [bookstoreAfterDuplicate, setBookstoreAfterDuplicate] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+
+    const blockNativeNavigation = (event: Event) => {
+      event.preventDefault();
+    };
+
+    form.addEventListener("submit", blockNativeNavigation, { capture: true });
+    return () => {
+      form.removeEventListener("submit", blockNativeNavigation, { capture: true });
+    };
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -114,11 +135,9 @@ export function BookingForm({
     ? Math.min(100, Math.round((availability.booked / availability.capacity) * 100))
     : 0;
 
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const submitBooking = useCallback(async (formElement: HTMLFormElement) => {
     if (availability.full) return;
 
-    const formElement = event.currentTarget;
     const form = new FormData(formElement);
     const languages = String(form.get("languages") ?? "").trim();
 
@@ -176,13 +195,14 @@ export function BookingForm({
       const emailSent = data.email?.sentGuest !== false;
 
       if (data.duplicate) {
+        const duplicateMessage = emailSent
+          ? copy.duplicateResent
+          : `${copy.duplicate} ${copy.emailWarning}`;
         setStatus(emailSent ? "success" : "error");
-        setMessage(
-          emailSent
-            ? copy.duplicateResent
-            : `${copy.duplicate} ${copy.emailWarning}`
-        );
-        if (emailSent) setShowBookstorePopup(true);
+        setMessage(duplicateMessage);
+        setDuplicatePopupMessage(duplicateMessage);
+        setShowDuplicatePopup(true);
+        setBookstoreAfterDuplicate(emailSent);
         return;
       }
 
@@ -198,12 +218,36 @@ export function BookingForm({
       setStatus("error");
       setMessage(copy.error);
     }
-  }
+  }, [availability, copy, locale]);
+
+  const onFormSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      void submitBooking(event.currentTarget);
+    },
+    [submitBooking]
+  );
 
   const disabled = availability.full || status === "sending";
 
+  function closeDuplicatePopup() {
+    setShowDuplicatePopup(false);
+    if (bookstoreAfterDuplicate) {
+      setBookstoreAfterDuplicate(false);
+      setShowBookstorePopup(true);
+    }
+  }
+
   return (
     <>
+      <DuplicateBookingPopup
+        open={showDuplicatePopup}
+        onClose={closeDuplicatePopup}
+        title={copy.duplicatePopupTitle}
+        message={duplicatePopupMessage}
+        okLabel={copy.duplicatePopupOk}
+        variant={variant}
+      />
       <BookstorePopup
         open={showBookstorePopup}
         onClose={() => setShowBookstorePopup(false)}
@@ -252,7 +296,14 @@ export function BookingForm({
       <h2>{copy.title}</h2>
       <p className="status">{availability.full ? copy.soldOutIntro : copy.intro}</p>
 
-      <form className="form" onSubmit={submit}>
+      <form
+        ref={formRef}
+        className="form"
+        action="#book"
+        method="post"
+        noValidate
+        onSubmit={onFormSubmit}
+      >
         <div className="formRow">
           <div className="field">
             <label htmlFor="name">{copy.name}</label>

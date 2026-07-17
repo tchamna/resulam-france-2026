@@ -1624,6 +1624,65 @@ h2 {
   line-height: 1.45;
 }
 
+.duplicateBookingPopupPanel {
+  width: min(520px, 94vw);
+  border-width: 2px;
+  border-color: #c9922a;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(201, 146, 42, 0.2);
+  text-align: center;
+}
+
+.duplicateBookingPopupBadge {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4d078, #c9922a);
+  color: #2a1f08;
+  font-size: 1.65rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 10px 24px rgba(201, 146, 42, 0.35);
+}
+
+.duplicateBookingPopupTitle {
+  margin-right: 0;
+  text-align: center;
+}
+
+.duplicateBookingPopupMessage {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.duplicateBookingPopupOk {
+  min-height: 48px;
+  min-width: min(100%, 220px);
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4d078, #c9922a);
+  color: #2a1f08;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 1rem;
+  box-shadow: 0 12px 28px rgba(201, 146, 42, 0.35);
+}
+
+.duplicateBookingPopupOk:hover {
+  filter: brightness(1.05);
+}
+
+.duplicateBookingPopupOk:focus-visible {
+  outline: 3px solid rgba(201, 146, 42, 0.45);
+  outline-offset: 3px;
+}
+
 @media (max-width: 720px) {
   .bookstoreBanner h2 {
     font-size: clamp(1.15rem, 4.8vw, 1.45rem);

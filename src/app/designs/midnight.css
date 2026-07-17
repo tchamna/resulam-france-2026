@@ -964,6 +964,23 @@ body:has(.page-midnight) {
   color: #f5f7fb;
 }
 
+.duplicateBookingPopupModalMidnight .duplicateBookingPopupPanel {
+  border-color: rgba(212, 175, 55, 0.78);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(212, 175, 55, 0.22);
+}
+
+.duplicateBookingPopupModalMidnight .duplicateBookingPopupMessage {
+  color: #f0f3fa;
+}
+
+.duplicateBookingPopupModalMidnight .duplicateBookingPopupOk {
+  background: linear-gradient(180deg, #f4d078, #d4af37);
+  color: #101726;
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.28);
+}
+
 @media (max-width: 720px) {
   .bookstoreBannerMidnight h2 {
     font-size: clamp(1.15rem, 4.8vw, 1.45rem);

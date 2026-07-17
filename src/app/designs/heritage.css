@@ -699,6 +699,14 @@ body:has(.page-heritage) {
   color: var(--heritage-navy);
 }
 
+.duplicateBookingPopupModalHeritage .duplicateBookingPopupPanel {
+  border-color: rgba(244, 208, 120, 0.75);
+}
+
+.duplicateBookingPopupModalHeritage .duplicateBookingPopupMessage {
+  color: var(--heritage-on-dark);
+}
+
 @media (min-width: 961px) {
   .heritageCarousel .carouselMask {
     min-height: clamp(280px, 34vw, 380px);

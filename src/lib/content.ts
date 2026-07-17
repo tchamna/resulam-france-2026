@@ -75,7 +75,7 @@ export const content = {
       },
       {
         date: "August 10",
-        time: "12h-14h",
+        time: "9h-12h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         mapsUrl:
@@ -184,6 +184,8 @@ export const content = {
       duplicate: "This email already has a reservation.",
       duplicateResent:
         "This email already has a reservation. We sent your confirmation email again.",
+      duplicatePopupTitle: "You already have a reservation",
+      duplicatePopupOk: "OK, got it",
       checkSpam:
         "If you don't see the confirmation email, check your spam or junk folder.",
       emailWarning:
@@ -323,7 +325,7 @@ export const content = {
       },
       {
         date: "10 août",
-        time: "12h-14h",
+        time: "9h-12h",
         name: "TAMERY SEMATAWY, Librairie Kamite Panafricaine",
         address: "15-17-19 rue du Chalet, 75010 Paris, France",
         mapsUrl:
@@ -432,6 +434,8 @@ export const content = {
       duplicate: "Cet email a déjà une réservation.",
       duplicateResent:
         "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation.",
+      duplicatePopupTitle: "Vous avez déjà une réservation",
+      duplicatePopupOk: "D'accord",
       checkSpam:
         "Si vous ne voyez pas l'email de confirmation, vérifiez vos courriers indésirables (spam).",
       emailWarning:
