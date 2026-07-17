@@ -631,6 +631,10 @@ body:has(.page-midnight) {
   color: var(--midnight-gold);
 }
 
+.page-midnight .venueCardActionsSep {
+  color: var(--midnight-muted);
+}
+
 .page-midnight .venueMapsLink:hover {
   color: #f5f7fb;
 }

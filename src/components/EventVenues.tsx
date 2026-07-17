@@ -90,20 +90,29 @@ function VenueCard({ venue, t }: VenueCardProps) {
           <span>{t.venueDetailLabels.address}</span>
           {venue.address}
         </p>
-        {mapsUrl ? (
-          <a
-            className="venueMapsLink"
-            href={mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.venueDetailLabels.openMaps}
-          </a>
-        ) : null}
-        {!expanded && accessRoutes ? (
-          <button type="button" className="venueExpandAction" onClick={toggleExpanded}>
-            {t.venueDetailLabels.showDirections}
-          </button>
+        {mapsUrl || (!expanded && accessRoutes) ? (
+          <div className="venueCardActions">
+            {mapsUrl ? (
+              <a
+                className="venueMapsLink"
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.venueDetailLabels.openMaps}
+              </a>
+            ) : null}
+            {mapsUrl && !expanded && accessRoutes ? (
+              <span className="venueCardActionsSep" aria-hidden="true">
+                ·
+              </span>
+            ) : null}
+            {!expanded && accessRoutes ? (
+              <button type="button" className="venueExpandAction" onClick={toggleExpanded}>
+                {t.venueDetailLabels.showDirections}
+              </button>
+            ) : null}
+          </div>
         ) : null}
       </div>
 
