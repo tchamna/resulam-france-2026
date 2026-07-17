@@ -72,6 +72,7 @@ export default async function AdminPage({
   const attendees = sortBookingsNewestFirst(bookings);
   const maxCount = stats.languages[0]?.count ?? 1;
   const statsHref = buildProtectedHref("/stats", params?.lang);
+  const normalizedStatsHref = buildProtectedHref("/stats/normalized", params?.lang);
 
   return (
     <main className="statsPage adminPage">
@@ -88,6 +89,7 @@ export default async function AdminPage({
           </div>
           <div className="adminHeaderLinks">
             <Link href={statsHref}>{t.statsLink}</Link>
+            <Link href={normalizedStatsHref}>{t.normalizedStatsLink}</Link>
             <form action="/api/admin/auth/logout" method="POST">
               <input type="hidden" name="returnTo" value={returnTo} />
               <button type="submit" className="adminSignOutButton">

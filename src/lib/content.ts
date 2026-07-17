@@ -515,6 +515,7 @@ export const statsContent = {
     empty: "No bookings recorded yet.",
     denied: "Access denied. Open this page with ?key=YOUR_KEY in the URL.",
     back: "Back to site",
+    normalizedStatsLink: "Normalized stats",
   },
   fr: {
     title: "Statistiques des langues",
@@ -526,6 +527,40 @@ export const statsContent = {
     empty: "Aucune réservation enregistrée.",
     denied: "Accès refusé. Ouvrez cette page avec ?key=VOTRE_CLE dans l'URL.",
     back: "Retour au site",
+    normalizedStatsLink: "Stats normalisées",
+  },
+} as const;
+
+export const normalizedStatsContent = {
+  en: {
+    title: "Normalized language stats",
+    intro:
+      "Languages merged by alias (e.g. Fefe → Nufi) and split when several names appear in one field.",
+    totalBookings: "Total reservations",
+    language: "Language",
+    reservations: "Reservations",
+    share: "Share",
+    empty: "No bookings recorded yet.",
+    denied: "Access denied. Open this page with ?key=YOUR_KEY in the URL.",
+    back: "Back to site",
+    rawStatsLink: "Raw language stats",
+    splitNote:
+      "Normalized reservation counts can exceed total bookings when one reservation lists several languages (e.g. “Ghomala Medumba”).",
+  },
+  fr: {
+    title: "Statistiques langues normalisées",
+    intro:
+      "Langues fusionnées par alias (ex. Fefe → Nufi) et séparées lorsque plusieurs noms figurent dans un même champ.",
+    totalBookings: "Réservations totales",
+    language: "Langue",
+    reservations: "Réservations",
+    share: "Part",
+    empty: "Aucune réservation enregistrée.",
+    denied: "Accès refusé. Ouvrez cette page avec ?key=VOTRE_CLE dans l'URL.",
+    back: "Retour au site",
+    rawStatsLink: "Stats langues brutes",
+    splitNote:
+      "Le total des réservations normalisées peut dépasser le nombre de réservations lorsqu'une inscription mentionne plusieurs langues (ex. « Ghomala Medumba »).",
   },
 } as const;
 
@@ -549,6 +584,7 @@ export const adminContent = {
     denied: "Access denied. Open this page with ?key=YOUR_KEY in the URL.",
     back: "Back to site",
     statsLink: "Language stats only",
+    normalizedStatsLink: "Normalized stats",
     loginTitle: "Admin sign in",
     loginIntro: "Enter your admin email, then continue with Google to receive a secure session.",
     loginEmailLabel: "Admin email",
@@ -581,6 +617,7 @@ export const adminContent = {
     denied: "Accès refusé. Ouvrez cette page avec ?key=VOTRE_CLE dans l'URL.",
     back: "Retour au site",
     statsLink: "Statistiques langues seules",
+    normalizedStatsLink: "Stats normalisées",
     loginTitle: "Connexion admin",
     loginIntro: "Saisissez votre e-mail admin, puis continuez avec Google pour obtenir une session sécurisée.",
     loginEmailLabel: "E-mail admin",

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { AdminLoginPanel } from "@/components/AdminLoginPanel";
-import { adminContent, statsContent } from "@/lib/content";
+import { adminContent, normalizedStatsContent } from "@/lib/content";
 import {
   getAdminSession,
   isAdminAccessGranted,
   type AdminAuthErrorCode,
 } from "@/lib/admin-auth";
-import { getLanguageStats } from "@/lib/language-stats";
+import { getNormalizedLanguageStats } from "@/lib/language-stats-normalize";
 import { getLocale } from "@/lib/locale";
 
 function buildProtectedHref(path: string, lang?: string) {
@@ -29,16 +29,16 @@ function parseAuthError(value?: string): AdminAuthErrorCode | undefined {
   return undefined;
 }
 
-export default async function StatsPage({
+export default async function NormalizedStatsPage({
   searchParams,
 }: {
   searchParams?: Promise<{ lang?: string; key?: string; error?: string }>;
 }) {
   const params = await searchParams;
   const locale = await getLocale(params?.lang);
-  const t = statsContent[locale];
+  const t = normalizedStatsContent[locale];
   const auth = adminContent[locale];
-  const returnTo = buildProtectedHref("/stats", params?.lang);
+  const returnTo = buildProtectedHref("/stats/normalized", params?.lang);
 
   if (!(await isAdminAccessGranted(params?.key))) {
     return (
@@ -51,10 +51,11 @@ export default async function StatsPage({
   }
 
   const session = await getAdminSession();
-  const stats = await getLanguageStats();
+  const stats = await getNormalizedLanguageStats();
   const maxCount = stats.languages[0]?.count ?? 1;
   const adminHref = buildProtectedHref("/admin", params?.lang);
-  const normalizedStatsHref = buildProtectedHref("/stats/normalized", params?.lang);
+  const rawStatsHref = buildProtectedHref("/stats", params?.lang);
+  const normalizedTotal = stats.languages.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <main className="statsPage">
@@ -71,7 +72,7 @@ export default async function StatsPage({
           </div>
           <div className="adminHeaderLinks">
             <Link href={adminHref}>{locale === "fr" ? "Administration" : "Admin"}</Link>
-            <Link href={normalizedStatsHref}>{t.normalizedStatsLink}</Link>
+            <Link href={rawStatsHref}>{t.rawStatsLink}</Link>
             <form action="/api/admin/auth/logout" method="POST">
               <input type="hidden" name="returnTo" value={returnTo} />
               <button type="submit" className="adminSignOutButton">
@@ -86,6 +87,10 @@ export default async function StatsPage({
           <span>{t.totalBookings}</span>
           <strong>{stats.totalBookings}</strong>
         </div>
+
+        {normalizedTotal > stats.totalBookings && stats.totalBookings > 0 ? (
+          <p className="statsNote">{t.splitNote}</p>
+        ) : null}
 
         {stats.languages.length === 0 ? (
           <p className="statsEmpty">{t.empty}</p>
