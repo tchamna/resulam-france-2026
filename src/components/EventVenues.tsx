@@ -91,7 +91,7 @@ function VenueCard({ venue, t }: VenueCardProps) {
           {venue.address}
         </p>
         {mapsUrl || (!expanded && accessRoutes) ? (
-          <div className="venueCardActions">
+          <div className="venuePreviewActions">
             {mapsUrl ? (
               <a
                 className="venueMapsLink"
@@ -101,11 +101,6 @@ function VenueCard({ venue, t }: VenueCardProps) {
               >
                 {t.venueDetailLabels.openMaps}
               </a>
-            ) : null}
-            {mapsUrl && !expanded && accessRoutes ? (
-              <span className="venueCardActionsSep" aria-hidden="true">
-                ·
-              </span>
             ) : null}
             {!expanded && accessRoutes ? (
               <button type="button" className="venueExpandAction" onClick={toggleExpanded}>

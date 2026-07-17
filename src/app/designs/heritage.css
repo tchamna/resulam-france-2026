@@ -453,10 +453,6 @@ body:has(.page-heritage) {
   color: var(--heritage-terracotta);
 }
 
-.page-heritage .venueCardActionsSep {
-  color: var(--heritage-muted);
-}
-
 .page-heritage .venueMapsLink:hover {
   color: var(--heritage-navy);
 }
