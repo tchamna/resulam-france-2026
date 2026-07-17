@@ -130,6 +130,9 @@ export const content = {
     bookstoreLinkLabel: "Visit the African Language Library bookstore",
     bookstoreAltNufi: "Nufi phrasebook, grammar, and Bamileke tales on a bookshelf",
     bookstoreAltEwondo: "Fè'éfě'è and Ewondo visual dictionaries and conversation guides on a bookshelf",
+    bookstorePopupTitle: "Explore African language resources",
+    bookstorePopupMessage: "Click here to get resources from African Languages.",
+    bookstorePopupClose: "Close",
     music: {
       play: "Play music",
       pause: "Pause music",
@@ -309,6 +312,9 @@ export const content = {
     bookstoreLinkLabel: "Visiter la librairie African Language Library",
     bookstoreAltNufi: "Phrasebook, grammaire et contes bamilékés en nufi sur une étagère",
     bookstoreAltEwondo: "Syllabaires visuels et guides de conversation fè'éfě'è et ewondo sur une étagère",
+    bookstorePopupTitle: "Découvrez les ressources en langues africaines",
+    bookstorePopupMessage: "Cliquez ici pour accéder aux ressources en langues africaines.",
+    bookstorePopupClose: "Fermer",
     music: {
       play: "Lancer la musique",
       pause: "Couper la musique",

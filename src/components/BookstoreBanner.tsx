@@ -2,7 +2,7 @@ import Image from "next/image";
 import { AFRICAN_LANGUAGE_LIBRARY_URL, type PageCopy } from "@/lib/content";
 import type { DesignVariant } from "@/lib/design";
 
-const BOOKSTORE_IMAGES = [
+export const BOOKSTORE_IMAGES = [
   {
     src: "/landing/bookstore-nufi-collection.png",
     altKey: "bookstoreAltNufi",

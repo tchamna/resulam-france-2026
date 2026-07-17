@@ -29,6 +29,14 @@ export function ProgrammeSection({
       <DiscoverGrid title={t.sectionTitle} intro={t.sectionText} items={t.benefits} />
       <BookingForm
         copy={t.form}
+        bookstorePopupCopy={{
+          bookstorePopupTitle: t.bookstorePopupTitle,
+          bookstorePopupMessage: t.bookstorePopupMessage,
+          bookstorePopupClose: t.bookstorePopupClose,
+          bookstoreLinkLabel: t.bookstoreLinkLabel,
+          bookstoreAltNufi: t.bookstoreAltNufi,
+          bookstoreAltEwondo: t.bookstoreAltEwondo,
+        }}
         locale={locale}
         initialAvailability={initialAvailability}
         variant={variant}

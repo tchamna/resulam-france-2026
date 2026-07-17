@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { BookstorePopup } from "@/components/BookstorePopup";
 import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
@@ -29,6 +30,15 @@ type Copy = {
   emailWarning: string;
   fullError: string;
   validationError: string;
+};
+
+type BookstorePopupCopy = {
+  bookstorePopupTitle: string;
+  bookstorePopupMessage: string;
+  bookstorePopupClose: string;
+  bookstoreLinkLabel: string;
+  bookstoreAltNufi: string;
+  bookstoreAltEwondo: string;
 };
 
 type BookingResponse = Availability & {
@@ -64,11 +74,13 @@ function formatSuccess(copy: Copy, remaining: number) {
 
 export function BookingForm({
   copy,
+  bookstorePopupCopy,
   locale,
   initialAvailability,
   variant = "flyer",
 }: {
   copy: Copy;
+  bookstorePopupCopy: BookstorePopupCopy;
   locale: "en" | "fr";
   initialAvailability: Availability;
   variant?: DesignVariant;
@@ -76,6 +88,7 @@ export function BookingForm({
   const [availability, setAvailability] = useState(initialAvailability);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [showBookstorePopup, setShowBookstorePopup] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -169,6 +182,7 @@ export function BookingForm({
             ? copy.duplicateResent
             : `${copy.duplicate} ${copy.emailWarning}`
         );
+        if (emailSent) setShowBookstorePopup(true);
         return;
       }
 
@@ -178,6 +192,7 @@ export function BookingForm({
           ? formatSuccess(copy, data.remaining)
           : `${formatSuccess(copy, data.remaining)} ${copy.emailWarning}`
       );
+      if (emailSent) setShowBookstorePopup(true);
       formElement.reset();
     } catch {
       setStatus("error");
@@ -188,7 +203,14 @@ export function BookingForm({
   const disabled = availability.full || status === "sending";
 
   return (
-    <aside
+    <>
+      <BookstorePopup
+        open={showBookstorePopup}
+        onClose={() => setShowBookstorePopup(false)}
+        copy={bookstorePopupCopy}
+        variant={variant}
+      />
+      <aside
       className={variant === "midnight" ? "booking bookingCard bookingCardMidnight" : "booking bookingCard"}
       id="book"
     >
@@ -288,5 +310,6 @@ export function BookingForm({
         )}
       </form>
     </aside>
+    </>
   );
 }
