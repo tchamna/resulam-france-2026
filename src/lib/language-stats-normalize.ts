@@ -7,6 +7,7 @@ export const LANGUAGE_ALIAS_GROUPS = [
     canonical: "Nufi",
     aliases: [
       "Nufi",
+      "Nufí",
       "fefe",
       "Fée Fee",
       "Fee Fee",
@@ -14,6 +15,16 @@ export const LANGUAGE_ALIAS_GROUPS = [
       "Feefee",
       "Nufi..",
       "Nugi",
+    ],
+  },
+  {
+    canonical: "Ghomala",
+    aliases: [
+      "Ghomala",
+      "Ghomalah",
+      "Ghomalah (Ouest)",
+      "Ghomalah(ouest)",
+      "Yogam",
     ],
   },
 ] as const;
