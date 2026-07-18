@@ -24,6 +24,7 @@ export const LANGUAGE_ALIAS_GROUPS = [
       "Ghomalah",
       "Ghomalah (Ouest)",
       "Ghomalah(ouest)",
+      "Ghomalah(ouest",
       "Yogam",
     ],
   },
