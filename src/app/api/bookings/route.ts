@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendBookingEmails, sendGuestBookingEmail } from "@/lib/booking-email";
+import {
+  sendBookingEmails,
+  sendGuestBookingEmail,
+  sendWaitlistEmails,
+  sendGuestWaitlistEmail,
+} from "@/lib/booking-email";
 import {
   findBookingByEmail,
   getBookingAvailability,
@@ -33,11 +38,41 @@ export async function POST(request: NextRequest) {
   }
 
   const availability = await getBookingAvailability();
+  const existing = await findBookingByEmail(booking.email);
+
   if (availability.full) {
-    return NextResponse.json({ error: "full", ...availability }, { status: 409 });
+    if (existing) {
+      const emailResult = existing.waitlist
+        ? await sendGuestWaitlistEmail(existing, availability)
+        : await sendGuestBookingEmail(existing, availability);
+
+      if (!emailResult.sentGuest) {
+        console.error("[bookings] Existing entry found but confirmation email was not delivered", emailResult);
+      }
+
+      return NextResponse.json({
+        ok: true,
+        duplicate: true,
+        waitlist: Boolean(existing.waitlist),
+        ...availability,
+        email: emailResult,
+      });
+    }
+
+    try {
+      await saveBooking(booking, { waitlist: true });
+      const emailResult = await sendWaitlistEmails(booking, availability);
+      if (!emailResult.sentGuest || !emailResult.sentAdmin) {
+        console.error("[bookings] Saved waitlist entry but one or more emails were not delivered", emailResult);
+      }
+
+      return NextResponse.json({ ok: true, waitlist: true, ...availability, email: emailResult });
+    } catch (error) {
+      console.error("[bookings] Failed to save waitlist entry", error);
+      return NextResponse.json({ error: "save_failed" }, { status: 500 });
+    }
   }
 
-  const existing = await findBookingByEmail(booking.email);
   if (existing) {
     const emailResult = await sendGuestBookingEmail(existing, availability);
     if (!emailResult.sentGuest) {

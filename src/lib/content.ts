@@ -172,25 +172,34 @@ export const content = {
       languagesPlaceholder: "Example: swahili, wolof, nufi, kikongo",
       optional: "optional",
       button: "Confirm seat",
+      buttonWaitlist: "Join waiting list",
       sending: "Sending...",
       success: "Your place is confirmed. {count} places left.",
+      successWaitlist:
+        "You are on the waiting list. We will contact you if a place opens up.",
       error: "We could not submit your booking. Please try again.",
       seatsLabel: "Conference seats",
       seatsAvailable: "{count} places available",
       seatsLeft: "{count} places left",
       seatsLeftOne: "1 place left",
-      soldOut: "Fully booked",
-      soldOutIntro: "All 50 places have been reserved. Contact us if you still want to attend.",
+      waitlistBadge: "Waitinglist: +{count}",
+      soldOut: "Fully booked — waiting list open",
+      soldOutIntro:
+        "All 50 places have been reserved. You can still sign up for the waiting list if someone drops out or changes their mind.",
       duplicate: "This email already has a reservation.",
+      duplicateWaitlist: "This email is already on the waiting list.",
       duplicateResent:
         "This email already has a reservation. We sent your confirmation email again.",
+      duplicateWaitlistResent:
+        "This email is already on the waiting list. We sent your confirmation email again.",
       duplicatePopupTitle: "You already have a reservation",
       duplicatePopupOk: "OK, got it",
       checkSpam:
         "If you don't see the confirmation email, check your spam or junk folder.",
       emailWarning:
         "Your seat is saved, but we could not send a confirmation email. Check your spam folder or contact contact@resulam.com.",
-      fullError: "Sorry, the last places were just booked.",
+      fullError:
+        "Sorry, the last places were just booked. You can join the waiting list below.",
       validationError: "Please check your name, email, and languages (at least 2 characters).",
     },
     footer: "Resulam France 2026",
@@ -225,7 +234,7 @@ export const content = {
       stamp: "Free conference",
       urgency: "Only {count} places left",
       urgencyOne: "Only 1 place left",
-      urgencySoldOut: "Fully booked",
+      urgencySoldOut: "Fully booked — join the waiting list",
     },
     midnight: {
       badge: "France 2026",
@@ -422,25 +431,34 @@ export const content = {
       languagesPlaceholder: "Exemple : swahili, wolof, nufi, kikongo",
       optional: "facultatif",
       button: "Confirmer ma place",
+      buttonWaitlist: "Rejoindre la liste d'attente",
       sending: "Envoi...",
       success: "Votre place est confirmée. Il reste {count} places.",
+      successWaitlist:
+        "Vous êtes inscrit(e) sur la liste d'attente. Nous vous contacterons si une place se libère.",
       error: "Impossible d'envoyer votre réservation. Veuillez réessayer.",
       seatsLabel: "Places conférence",
       seatsAvailable: "{count} places disponibles",
       seatsLeft: "Il reste {count} places",
       seatsLeftOne: "Il reste 1 place",
-      soldOut: "Complet",
-      soldOutIntro: "Les 50 places sont réservées. Contactez-nous si vous souhaitez encore participer.",
+      waitlistBadge: "Liste d'attente : +{count}",
+      soldOut: "Complet — liste d'attente ouverte",
+      soldOutIntro:
+        "Les 50 places sont réservées. Vous pouvez encore vous inscrire sur la liste d'attente si une personne se désiste ou change d'avis.",
       duplicate: "Cet email a déjà une réservation.",
+      duplicateWaitlist: "Cet email est déjà inscrit sur la liste d'attente.",
       duplicateResent:
         "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation.",
+      duplicateWaitlistResent:
+        "Cet email est déjà inscrit sur la liste d'attente. Nous avons renvoyé l'email de confirmation.",
       duplicatePopupTitle: "Vous avez déjà une réservation",
       duplicatePopupOk: "D'accord",
       checkSpam:
         "Si vous ne voyez pas l'email de confirmation, vérifiez vos courriers indésirables (spam).",
       emailWarning:
         "Votre place est enregistrée, mais nous n'avons pas pu envoyer l'email de confirmation. Vérifiez vos spams ou écrivez à contact@resulam.com.",
-      fullError: "Désolé, les dernières places viennent d'être réservées.",
+      fullError:
+        "Désolé, les dernières places viennent d'être réservées. Vous pouvez vous inscrire sur la liste d'attente ci-dessous.",
       validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
     },
     footer: "Resulam France 2026",
@@ -475,7 +493,8 @@ export const content = {
       stamp: "Conférence gratuite",
       urgency: "Plus que {count} places",
       urgencyOne: "Plus qu'une place",
-      urgencySoldOut: "Complet, mais vous pouvez vous inscrire sur la liste d'attente",
+      urgencySoldOut:
+        "Complet, mais vous pouvez vous inscrire sur la liste d'attente si une place se libère",
     },
     midnight: {
       badge: "France 2026",

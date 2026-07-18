@@ -8,7 +8,7 @@ import type { DesignVariant } from "@/lib/design";
 type SeatsBannerCopy = {
   seatsLeft: string;
   seatsLeftOne: string;
-  soldOut: string;
+  waitlistBadge: string;
 };
 
 type SeatsBannerProps = {
@@ -48,7 +48,12 @@ export function SeatsBanner({ copy, initialAvailability, variant = "flyer" }: Se
     };
   }, []);
 
-  const label = formatPlacesLeft(copy, availability.remaining, availability.full);
+  const label = formatPlacesLeft(
+    copy,
+    availability.remaining,
+    availability.full,
+    availability.waitlistCount,
+  );
 
   return (
     <a

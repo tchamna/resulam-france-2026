@@ -24,7 +24,12 @@ type FlyerLandingProps = {
 };
 
 export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabel, initialAvailability }: FlyerLandingProps) {
-  const mobileSeatsLabel = formatPlacesLeft(t.form, initialAvailability.remaining, initialAvailability.full);
+  const mobileSeatsLabel = formatPlacesLeft(
+    t.form,
+    initialAvailability.remaining,
+    initialAvailability.full,
+    initialAvailability.waitlistCount,
+  );
 
   return (
     <main className="page-flyer">

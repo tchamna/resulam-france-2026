@@ -116,6 +116,8 @@ export async function runBookingReminders(todayParis = getParisDateString()): Pr
   );
 
   for (const booking of uniqueBookingsByEmail(bookings)) {
+    if (booking.waitlist) continue;
+
     const email = booking.email.trim().toLowerCase();
     if (sentToday.has(email)) {
       result.alreadySent += 1;

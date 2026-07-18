@@ -16,8 +16,10 @@ type Copy = {
   languagesPlaceholder: string;
   optional: string;
   button: string;
+  buttonWaitlist: string;
   sending: string;
   success: string;
+  successWaitlist: string;
   error: string;
   seatsLabel: string;
   seatsAvailable: string;
@@ -26,7 +28,9 @@ type Copy = {
   soldOut: string;
   soldOutIntro: string;
   duplicate: string;
+  duplicateWaitlist: string;
   duplicateResent: string;
+  duplicateWaitlistResent: string;
   duplicatePopupTitle: string;
   duplicatePopupOk: string;
   checkSpam: string;
@@ -48,6 +52,7 @@ type BookingResponse = Availability & {
   error?: string;
   ok?: boolean;
   duplicate?: boolean;
+  waitlist?: boolean;
   email?: { sentGuest?: boolean; sentAdmin?: boolean };
 };
 
@@ -136,8 +141,6 @@ export function BookingForm({
     : 0;
 
   const submitBooking = useCallback(async (formElement: HTMLFormElement) => {
-    if (availability.full) return;
-
     const form = new FormData(formElement);
     const languages = String(form.get("languages") ?? "").trim();
 
@@ -193,26 +196,31 @@ export function BookingForm({
 
       setAvailability(data);
       const emailSent = data.email?.sentGuest !== false;
+      const isWaitlist = Boolean(data.waitlist);
 
       if (data.duplicate) {
         const duplicateMessage = emailSent
-          ? copy.duplicateResent
-          : `${copy.duplicate} ${copy.emailWarning}`;
+          ? isWaitlist
+            ? copy.duplicateWaitlistResent
+            : copy.duplicateResent
+          : `${isWaitlist ? copy.duplicateWaitlist : copy.duplicate} ${copy.emailWarning}`;
         setStatus(emailSent ? "success" : "error");
         setMessage(duplicateMessage);
         setDuplicatePopupMessage(duplicateMessage);
         setShowDuplicatePopup(true);
-        setBookstoreAfterDuplicate(emailSent);
+        setBookstoreAfterDuplicate(!isWaitlist && emailSent);
         return;
       }
 
       setStatus(emailSent ? "success" : "error");
       setMessage(
         emailSent
-          ? formatSuccess(copy, data.remaining)
-          : `${formatSuccess(copy, data.remaining)} ${copy.emailWarning}`
+          ? isWaitlist
+            ? copy.successWaitlist
+            : formatSuccess(copy, data.remaining)
+          : `${isWaitlist ? copy.successWaitlist : formatSuccess(copy, data.remaining)} ${copy.emailWarning}`
       );
-      if (emailSent) setShowBookstorePopup(true);
+      if (emailSent && !isWaitlist) setShowBookstorePopup(true);
       formElement.reset();
     } catch {
       setStatus("error");
@@ -228,7 +236,7 @@ export function BookingForm({
     [submitBooking]
   );
 
-  const disabled = availability.full || status === "sending";
+  const disabled = status === "sending";
 
   function closeDuplicatePopup() {
     setShowDuplicatePopup(false);
@@ -346,7 +354,13 @@ export function BookingForm({
           />
         </div>
         <button className="submit" type="submit" disabled={disabled}>
-          {availability.full ? copy.soldOut : status === "sending" ? copy.sending : copy.button}
+          {availability.full
+            ? status === "sending"
+              ? copy.sending
+              : copy.buttonWaitlist
+            : status === "sending"
+              ? copy.sending
+              : copy.button}
         </button>
         <p
           className={`status ${status === "error" ? "statusError" : status === "success" ? "statusSuccess" : ""}`}

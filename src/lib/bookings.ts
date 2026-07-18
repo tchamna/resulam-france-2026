@@ -11,6 +11,7 @@ export type Booking = {
 
 export type StoredBooking = Booking & {
   createdAt: string;
+  waitlist?: boolean;
 };
 
 export type BookingAvailability = {
@@ -18,12 +19,38 @@ export type BookingAvailability = {
   booked: number;
   remaining: number;
   full: boolean;
+  waitlistCount: number;
 };
 
 export function getBookingCapacity() {
   const parsed = Number(process.env.BOOKING_CAPACITY ?? "50");
   if (!Number.isFinite(parsed) || parsed < 1) return 50;
   return Math.floor(parsed);
+}
+
+/** Dev/preview only: force sold-out UI without changing real booking data. */
+export function isBookingForceSoldOut() {
+  return process.env.BOOKING_FORCE_SOLD_OUT?.trim().toLowerCase() === "true";
+}
+
+export function getForcedSoldOutAvailability(): BookingAvailability {
+  const capacity = getBookingCapacity();
+  return { capacity, booked: capacity, remaining: 0, full: true, waitlistCount: 0 };
+}
+
+/** Dev/preview only: override waitlist count shown when sold out. */
+function getForcedWaitlistCount() {
+  const raw = process.env.BOOKING_FORCE_WAITLIST_COUNT?.trim();
+  if (!raw) return null;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed < 0) return null;
+  return Math.floor(parsed);
+}
+
+async function getWaitlistCount() {
+  const forced = getForcedWaitlistCount();
+  if (forced !== null) return forced;
+  return (await readBookings()).filter((entry) => entry.waitlist).length;
 }
 
 export function getBookingDataDir() {
@@ -63,6 +90,7 @@ async function readRemoteBookingAvailability(): Promise<BookingAvailability | nu
       booked: Math.max(Math.floor(data.booked), 0),
       remaining: Math.max(Math.floor(data.remaining), 0),
       full: data.full,
+      waitlistCount: 0,
     };
   } catch (error) {
     console.error("[bookings] Failed to read remote availability", error);
@@ -93,20 +121,32 @@ export async function readBookings(): Promise<StoredBooking[]> {
     .filter((entry): entry is StoredBooking => Boolean(entry?.email));
 }
 
+export function isConfirmedBooking(entry: StoredBooking) {
+  return !entry.waitlist;
+}
+
 export function getDefaultAvailability(): BookingAvailability {
   const capacity = getBookingCapacity();
-  return { capacity, booked: 0, remaining: capacity, full: false };
+  return { capacity, booked: 0, remaining: capacity, full: false, waitlistCount: 0 };
 }
 
 export async function getBookingAvailability(): Promise<BookingAvailability> {
   try {
+    const waitlistCount = await getWaitlistCount();
+
+    if (isBookingForceSoldOut()) {
+      return { ...getForcedSoldOutAvailability(), waitlistCount };
+    }
+
     const remoteAvailability = await readRemoteBookingAvailability();
-    if (remoteAvailability) return remoteAvailability;
+    if (remoteAvailability) {
+      return { ...remoteAvailability, waitlistCount };
+    }
 
     const capacity = getBookingCapacity();
-    const booked = (await readBookings()).length;
+    const booked = (await readBookings()).filter(isConfirmedBooking).length;
     const remaining = Math.max(capacity - booked, 0);
-    return { capacity, booked, remaining, full: remaining === 0 };
+    return { capacity, booked, remaining, full: remaining === 0, waitlistCount };
   } catch (error) {
     console.error("[bookings] Failed to read availability", error);
     return getDefaultAvailability();
@@ -119,12 +159,16 @@ export async function findBookingByEmail(email: string) {
   return bookings.find((entry) => entry.email.toLowerCase() === normalized) ?? null;
 }
 
-export async function saveBooking(booking: Booking) {
+export async function saveBooking(booking: Booking, options?: { waitlist?: boolean }) {
   const dir = getBookingDataDir();
   await mkdir(dir, { recursive: true });
   await appendFile(
     getBookingsFilePath(),
-    `${JSON.stringify({ ...booking, createdAt: new Date().toISOString() })}\n`,
+    `${JSON.stringify({
+      ...booking,
+      waitlist: options?.waitlist ?? false,
+      createdAt: new Date().toISOString(),
+    })}\n`,
     "utf8"
   );
 }

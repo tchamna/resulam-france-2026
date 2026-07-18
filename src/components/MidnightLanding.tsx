@@ -46,7 +46,12 @@ export function MidnightLanding({
   initialAvailability,
 }: MidnightLandingProps) {
   const m = t.midnight;
-  const mobileSeatsLabel = formatPlacesLeft(t.form, initialAvailability.remaining, initialAvailability.full);
+  const mobileSeatsLabel = formatPlacesLeft(
+    t.form,
+    initialAvailability.remaining,
+    initialAvailability.full,
+    initialAvailability.waitlistCount,
+  );
 
   return (
     <main className="page-midnight">
