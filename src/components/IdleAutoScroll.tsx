@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { getNextSectionScrollTop, scrollToNextSection } from "@/lib/section-scroll";
+import { isAtEndOfScrollSections, scrollToNextSection } from "@/lib/section-scroll";
 
 const IDLE_SCROLL_MS = 10_000;
 const END_PAUSE_MS = 30_000;
@@ -60,8 +60,7 @@ export function IdleAutoScroll() {
         return false;
       }
 
-      const nextTop = getNextSectionScrollTop();
-      return nextTop === 0 && window.scrollY > 100;
+      return isAtEndOfScrollSections();
     }
 
     const interval = window.setInterval(() => {
