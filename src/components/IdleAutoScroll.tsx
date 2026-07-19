@@ -45,7 +45,7 @@ export function IdleAutoScroll() {
       "pointerdown",
     ];
 
-    const breakEvents: Array<keyof DocumentEventMap> = ["click", "pointerover"];
+    const breakEvents: Array<keyof DocumentEventMap> = ["click"];
 
     activityEvents.forEach((event) => {
       window.addEventListener(event, markUserActivity, { passive: true });
@@ -74,23 +74,27 @@ export function IdleAutoScroll() {
         return;
       }
 
-      if (isAtEndOfSections()) {
-        endPauseActive = true;
-        endPauseTimeout = window.setTimeout(() => {
-          endPauseTimeout = 0;
-          if (!autoCycleActive) {
+      try {
+        if (isAtEndOfSections()) {
+          endPauseActive = true;
+          endPauseTimeout = window.setTimeout(() => {
+            endPauseTimeout = 0;
+            if (!autoCycleActive) {
+              endPauseActive = false;
+              return;
+            }
             endPauseActive = false;
-            return;
-          }
-          endPauseActive = false;
-          scrollToPageTopInstant();
-          suppressEndPauseUntil = Date.now() + IDLE_SCROLL_MS;
-          lastActivity = Date.now() - IDLE_SCROLL_MS;
-        }, END_PAUSE_MS);
-        return;
-      }
+            scrollToPageTopInstant();
+            suppressEndPauseUntil = Date.now() + IDLE_SCROLL_MS;
+            lastActivity = Date.now() - IDLE_SCROLL_MS;
+          }, END_PAUSE_MS);
+          return;
+        }
 
-      scrollToNextSection("smooth");
+        scrollToNextSection("smooth");
+      } catch {
+        // Ignore transient layout/DOM errors during auto-scroll.
+      }
     }, IDLE_SCROLL_MS);
 
     return () => {

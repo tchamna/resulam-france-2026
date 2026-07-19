@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/locale";
+import { isFullyBooked } from "@/lib/booking-availability";
+
 export const CONTACT_EMAIL = "contact@resulam.com";
 export const AFRICAN_LANGUAGE_LIBRARY_URL = "https://africanlanguagelibrary.tchamna.com/";
 
@@ -651,9 +654,6 @@ export const adminContent = {
     loginErrorEmail: "Saisissez votre e-mail admin avant de continuer avec Google.",
   },
 } as const;
-
-import type { Locale } from "@/lib/locale";
-import { isFullyBooked } from "@/lib/booking-availability";
 
 export type PageCopy = (typeof content)[Locale];
 
