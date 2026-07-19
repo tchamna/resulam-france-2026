@@ -1,81 +1,98 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { getNextSectionScrollTop, scrollToNextSection } from "@/lib/section-scroll";
 
-const SCROLL_SPEED = 0.45;
+const IDLE_SCROLL_MS = 10_000;
 const END_PAUSE_MS = 30_000;
 
-function scrollInstant(top: number) {
-  window.scrollTo({ top, behavior: "auto" });
-}
-
 export function IdleAutoScroll() {
-  const autoCycleRef = useRef(true);
-  const endPauseUntilRef = useRef(0);
-
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    function breakAutoCycle() {
-      if (!autoCycleRef.current) return;
-      autoCycleRef.current = false;
-      endPauseUntilRef.current = 0;
-    }
+    let autoCycleActive = true;
+    let lastActivity = Date.now();
+    let endPauseActive = false;
+    let endPauseTimeout = 0;
 
-    const breakEvents: Array<keyof WindowEventMap> = [
-      "click",
-      "pointerdown",
+    const markUserActivity = () => {
+      lastActivity = Date.now();
+    };
+
+    const breakAutoCycle = () => {
+      if (!autoCycleActive) return;
+      autoCycleActive = false;
+      endPauseActive = false;
+      if (endPauseTimeout !== 0) {
+        window.clearTimeout(endPauseTimeout);
+        endPauseTimeout = 0;
+      }
+    };
+
+    const activityEvents: Array<keyof WindowEventMap> = [
       "wheel",
       "touchstart",
       "touchmove",
+      "mousedown",
       "keydown",
+      "pointerdown",
     ];
 
-    breakEvents.forEach((event) => {
-      window.addEventListener(event, breakAutoCycle, { passive: true, capture: true });
+    const breakEvents: Array<keyof DocumentEventMap> = ["click", "pointerover"];
+
+    activityEvents.forEach((event) => {
+      window.addEventListener(event, markUserActivity, { passive: true });
     });
 
-    function getMaxScrollTop() {
-      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    breakEvents.forEach((event) => {
+      document.addEventListener(event, breakAutoCycle, { passive: true, capture: true });
+    });
+
+    function isAtEndOfSections() {
+      const nextTop = getNextSectionScrollTop();
+      return nextTop === 0 && window.scrollY > 100;
     }
 
-    let frame = 0;
-
-    function tick() {
-      if (autoCycleRef.current) {
-        const now = performance.now();
-        const maxScroll = getMaxScrollTop();
-
-        if (maxScroll > 0) {
-          if (endPauseUntilRef.current > now) {
-            scrollInstant(maxScroll);
-          } else {
-            const atBottom = window.scrollY >= maxScroll - 1;
-
-            if (endPauseUntilRef.current !== 0) {
-              scrollInstant(0);
-              endPauseUntilRef.current = 0;
-            } else if (atBottom) {
-              scrollInstant(maxScroll);
-              endPauseUntilRef.current = now + END_PAUSE_MS;
-            } else {
-              scrollInstant(window.scrollY + SCROLL_SPEED);
-            }
-          }
-        }
+    const interval = window.setInterval(() => {
+      if (!autoCycleActive || endPauseActive) {
+        return;
       }
 
-      frame = window.requestAnimationFrame(tick);
-    }
+      const idle = Date.now() - lastActivity >= IDLE_SCROLL_MS;
+      if (!idle) {
+        return;
+      }
 
-    frame = window.requestAnimationFrame(tick);
+      if (isAtEndOfSections()) {
+        endPauseActive = true;
+        endPauseTimeout = window.setTimeout(() => {
+          endPauseTimeout = 0;
+          if (!autoCycleActive) {
+            endPauseActive = false;
+            return;
+          }
+          endPauseActive = false;
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          lastActivity = Date.now();
+        }, END_PAUSE_MS);
+        return;
+      }
+
+      scrollToNextSection("smooth");
+    }, IDLE_SCROLL_MS);
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.clearInterval(interval);
+      if (endPauseTimeout !== 0) {
+        window.clearTimeout(endPauseTimeout);
+      }
+      activityEvents.forEach((event) => {
+        window.removeEventListener(event, markUserActivity);
+      });
       breakEvents.forEach((event) => {
-        window.removeEventListener(event, breakAutoCycle, { capture: true });
+        document.removeEventListener(event, breakAutoCycle, { capture: true });
       });
     };
   }, []);
