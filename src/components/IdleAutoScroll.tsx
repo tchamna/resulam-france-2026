@@ -5,6 +5,10 @@ import { useEffect, useRef } from "react";
 const SCROLL_SPEED = 0.45;
 const END_PAUSE_MS = 30_000;
 
+function scrollInstant(top: number) {
+  window.scrollTo({ top, behavior: "auto" });
+}
+
 export function IdleAutoScroll() {
   const autoCycleRef = useRef(true);
   const endPauseUntilRef = useRef(0);
@@ -23,12 +27,10 @@ export function IdleAutoScroll() {
     const breakEvents: Array<keyof WindowEventMap> = [
       "click",
       "pointerdown",
-      "pointerover",
       "wheel",
       "touchstart",
       "touchmove",
       "keydown",
-      "focusin",
     ];
 
     breakEvents.forEach((event) => {
@@ -48,18 +50,18 @@ export function IdleAutoScroll() {
 
         if (maxScroll > 0) {
           if (endPauseUntilRef.current > now) {
-            window.scrollTo(0, maxScroll);
+            scrollInstant(maxScroll);
           } else {
             const atBottom = window.scrollY >= maxScroll - 1;
 
             if (endPauseUntilRef.current !== 0) {
-              window.scrollTo(0, 0);
+              scrollInstant(0);
               endPauseUntilRef.current = 0;
             } else if (atBottom) {
-              window.scrollTo(0, maxScroll);
+              scrollInstant(maxScroll);
               endPauseUntilRef.current = now + END_PAUSE_MS;
             } else {
-              window.scrollTo(0, window.scrollY + SCROLL_SPEED);
+              scrollInstant(window.scrollY + SCROLL_SPEED);
             }
           }
         }
