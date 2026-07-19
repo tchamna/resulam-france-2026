@@ -6,6 +6,10 @@ import { getNextSectionScrollTop, scrollToNextSection } from "@/lib/section-scro
 const IDLE_SCROLL_MS = 10_000;
 const END_PAUSE_MS = 30_000;
 
+function scrollToPageTopInstant() {
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
 export function IdleAutoScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -16,6 +20,7 @@ export function IdleAutoScroll() {
     let lastActivity = Date.now();
     let endPauseActive = false;
     let endPauseTimeout = 0;
+    let suppressEndPauseUntil = 0;
 
     const markUserActivity = () => {
       lastActivity = Date.now();
@@ -51,6 +56,10 @@ export function IdleAutoScroll() {
     });
 
     function isAtEndOfSections() {
+      if (Date.now() < suppressEndPauseUntil) {
+        return false;
+      }
+
       const nextTop = getNextSectionScrollTop();
       return nextTop === 0 && window.scrollY > 100;
     }
@@ -74,8 +83,9 @@ export function IdleAutoScroll() {
             return;
           }
           endPauseActive = false;
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          lastActivity = Date.now();
+          scrollToPageTopInstant();
+          suppressEndPauseUntil = Date.now() + IDLE_SCROLL_MS;
+          lastActivity = Date.now() - IDLE_SCROLL_MS;
         }, END_PAUSE_MS);
         return;
       }
