@@ -11,6 +11,7 @@ import {
   saveBooking,
   validateBooking,
 } from "@/lib/bookings";
+import { isFullyBooked } from "@/lib/booking-availability";
 
 export const runtime = "nodejs";
 
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
   const availability = await getBookingAvailability();
   const existing = await findBookingByEmail(booking.email);
 
-  if (availability.full) {
+  if (isFullyBooked(availability.remaining, availability.full)) {
     if (existing) {
       const emailResult = existing.waitlist
         ? await sendGuestWaitlistEmail(existing, availability)

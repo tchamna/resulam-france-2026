@@ -1,3 +1,5 @@
+import { isFullyBooked } from "@/lib/booking-availability";
+
 type PlacesLeftCopy = {
   seatsLeft: string;
   seatsLeftOne: string;
@@ -10,7 +12,7 @@ export function formatPlacesLeft(
   full: boolean,
   waitlistCount = 0,
 ): string {
-  if (full || remaining <= 0) {
+  if (isFullyBooked(remaining, full)) {
     return copy.waitlistBadge.replace("{count}", String(waitlistCount));
   }
   if (remaining === 1) {

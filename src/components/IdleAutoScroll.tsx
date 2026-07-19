@@ -1,48 +1,79 @@
 "use client";
 
-import { useEffect } from "react";
-import { scrollToNextSection } from "@/lib/section-scroll";
+import { useEffect, useRef } from "react";
 
-const IDLE_SCROLL_MS = 10_000;
+const SCROLL_SPEED = 0.45;
+const END_PAUSE_MS = 30_000;
 
 export function IdleAutoScroll() {
+  const autoCycleRef = useRef(true);
+  const endPauseUntilRef = useRef(0);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    let lastActivity = Date.now();
+    function breakAutoCycle() {
+      if (!autoCycleRef.current) return;
+      autoCycleRef.current = false;
+      endPauseUntilRef.current = 0;
+    }
 
-    const markUserActivity = () => {
-      lastActivity = Date.now();
-    };
-
-    const userEvents: Array<keyof WindowEventMap> = [
+    const breakEvents: Array<keyof WindowEventMap> = [
+      "click",
+      "pointerdown",
+      "pointerover",
       "wheel",
       "touchstart",
       "touchmove",
-      "mousedown",
       "keydown",
-      "pointerdown",
+      "focusin",
     ];
 
-    userEvents.forEach((event) => {
-      window.addEventListener(event, markUserActivity, { passive: true });
+    breakEvents.forEach((event) => {
+      window.addEventListener(event, breakAutoCycle, { passive: true, capture: true });
     });
 
-    const interval = window.setInterval(() => {
-      const idle = Date.now() - lastActivity >= IDLE_SCROLL_MS;
-      if (!idle) {
-        return;
+    function getMaxScrollTop() {
+      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    }
+
+    let frame = 0;
+
+    function tick() {
+      if (autoCycleRef.current) {
+        const now = performance.now();
+        const maxScroll = getMaxScrollTop();
+
+        if (maxScroll > 0) {
+          if (endPauseUntilRef.current > now) {
+            window.scrollTo(0, maxScroll);
+          } else {
+            const atBottom = window.scrollY >= maxScroll - 1;
+
+            if (endPauseUntilRef.current !== 0) {
+              window.scrollTo(0, 0);
+              endPauseUntilRef.current = 0;
+            } else if (atBottom) {
+              window.scrollTo(0, maxScroll);
+              endPauseUntilRef.current = now + END_PAUSE_MS;
+            } else {
+              window.scrollTo(0, window.scrollY + SCROLL_SPEED);
+            }
+          }
+        }
       }
 
-      scrollToNextSection("smooth");
-    }, IDLE_SCROLL_MS);
+      frame = window.requestAnimationFrame(tick);
+    }
+
+    frame = window.requestAnimationFrame(tick);
 
     return () => {
-      window.clearInterval(interval);
-      userEvents.forEach((event) => {
-        window.removeEventListener(event, markUserActivity);
+      window.cancelAnimationFrame(frame);
+      breakEvents.forEach((event) => {
+        window.removeEventListener(event, breakAutoCycle, { capture: true });
       });
     };
   }, []);

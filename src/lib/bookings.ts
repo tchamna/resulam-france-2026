@@ -1,5 +1,6 @@
 import { mkdir, readFile, appendFile } from "node:fs/promises";
 import path from "node:path";
+import { isFullyBooked, normalizeBookingAvailability } from "@/lib/booking-availability";
 
 export type Booking = {
   locale: "en" | "fr";
@@ -89,7 +90,7 @@ async function readRemoteBookingAvailability(): Promise<BookingAvailability | nu
       capacity: Math.max(Math.floor(data.capacity), 0),
       booked: Math.max(Math.floor(data.booked), 0),
       remaining: Math.max(Math.floor(data.remaining), 0),
-      full: data.full,
+      full: isFullyBooked(Math.max(Math.floor(data.remaining), 0)),
       waitlistCount: 0,
     };
   } catch (error) {
@@ -135,18 +136,27 @@ export async function getBookingAvailability(): Promise<BookingAvailability> {
     const waitlistCount = await getWaitlistCount();
 
     if (isBookingForceSoldOut()) {
-      return { ...getForcedSoldOutAvailability(), waitlistCount };
+      return normalizeBookingAvailability({
+        ...getForcedSoldOutAvailability(),
+        waitlistCount,
+      });
     }
 
     const remoteAvailability = await readRemoteBookingAvailability();
     if (remoteAvailability) {
-      return { ...remoteAvailability, waitlistCount };
+      return normalizeBookingAvailability({ ...remoteAvailability, waitlistCount });
     }
 
     const capacity = getBookingCapacity();
     const booked = (await readBookings()).filter(isConfirmedBooking).length;
     const remaining = Math.max(capacity - booked, 0);
-    return { capacity, booked, remaining, full: remaining === 0, waitlistCount };
+    return normalizeBookingAvailability({
+      capacity,
+      booked,
+      remaining,
+      full: isFullyBooked(remaining),
+      waitlistCount,
+    });
   } catch (error) {
     console.error("[bookings] Failed to read availability", error);
     return getDefaultAvailability();

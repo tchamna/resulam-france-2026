@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BookstorePopup } from "@/components/BookstorePopup";
 import { DuplicateBookingPopup } from "@/components/DuplicateBookingPopup";
+import { isFullyBooked } from "@/lib/booking-availability";
 import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
@@ -237,6 +238,7 @@ export function BookingForm({
   );
 
   const disabled = status === "sending";
+  const soldOut = isFullyBooked(availability.remaining, availability.full);
 
   function closeDuplicatePopup() {
     setShowDuplicatePopup(false);
@@ -270,7 +272,7 @@ export function BookingForm({
         <div className="seatsPanelHead">
           <span className="seatsLabel">{copy.seatsLabel}</span>
           <strong className="seatsCount">
-            {availability.full
+            {soldOut
               ? copy.soldOut
               : formatSeats(copy, availability.remaining, availability.capacity)}
           </strong>
@@ -302,7 +304,7 @@ export function BookingForm({
       </div>
 
       <h2>{copy.title}</h2>
-      <p className="status">{availability.full ? copy.soldOutIntro : copy.intro}</p>
+      <p className="status">{soldOut ? copy.soldOutIntro : copy.intro}</p>
 
       <form
         ref={formRef}
@@ -354,7 +356,7 @@ export function BookingForm({
           />
         </div>
         <button className="submit" type="submit" disabled={disabled}>
-          {availability.full
+          {soldOut
             ? status === "sending"
               ? copy.sending
               : copy.buttonWaitlist

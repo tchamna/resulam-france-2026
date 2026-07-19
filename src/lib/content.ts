@@ -653,6 +653,7 @@ export const adminContent = {
 } as const;
 
 import type { Locale } from "@/lib/locale";
+import { isFullyBooked } from "@/lib/booking-availability";
 
 export type PageCopy = (typeof content)[Locale];
 
@@ -670,7 +671,7 @@ export function formatHeritageUrgency(
   remaining: number,
   full: boolean,
 ): string {
-  if (full || remaining <= 0) return copy.urgencySoldOut;
+  if (isFullyBooked(remaining, full)) return copy.urgencySoldOut;
   if (remaining === 1) return copy.urgencyOne;
   return copy.urgency.replace("{count}", String(remaining));
 }
