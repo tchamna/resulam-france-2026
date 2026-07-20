@@ -29,8 +29,8 @@ export type BookingAvailability = {
 };
 
 export function getBookingCapacity() {
-  const parsed = Number(process.env.BOOKING_CAPACITY ?? "50");
-  if (!Number.isFinite(parsed) || parsed < 1) return 50;
+  const parsed = Number(process.env.BOOKING_CAPACITY ?? "100");
+  if (!Number.isFinite(parsed) || parsed < 1) return 100;
   return Math.floor(parsed);
 }
 
