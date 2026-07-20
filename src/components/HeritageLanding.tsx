@@ -30,7 +30,13 @@ export function HeritageLanding({
   initialAvailability,
 }: HeritageLandingProps) {
   const h = t.heritage;
-  const urgency = formatHeritageUrgency(h, initialAvailability.remaining, initialAvailability.full);
+  const urgency = formatHeritageUrgency(
+    h,
+    initialAvailability.remaining,
+    initialAvailability.full,
+    initialAvailability.booked,
+    initialAvailability.group1Capacity,
+  );
 
   return (
     <main className="page-heritage">

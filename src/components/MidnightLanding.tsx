@@ -51,6 +51,8 @@ export function MidnightLanding({
     initialAvailability.remaining,
     initialAvailability.full,
     initialAvailability.waitlistCount,
+    initialAvailability.booked,
+    initialAvailability.group1Capacity,
   );
 
   return (

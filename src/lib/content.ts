@@ -1,5 +1,5 @@
 import type { Locale } from "@/lib/locale";
-import { isFullyBooked } from "@/lib/booking-availability";
+import { isFullyBooked, isGroup2Phase } from "@/lib/booking-availability";
 
 export const CONTACT_EMAIL = "contact@resulam.com";
 export const AFRICAN_LANGUAGE_LIBRARY_URL = "https://africanlanguagelibrary.tchamna.com/";
@@ -185,10 +185,16 @@ export const content = {
       seatsAvailable: "{count} places available",
       seatsLeft: "{count} places left",
       seatsLeftOne: "1 place left",
+      group2Badge: "Group 2: {count} places left",
+      group2BadgeOne: "Group 2: 1 place left",
       waitlistBadge: "Waitinglist: +{count}",
+      group2Intro:
+        "Great news — due to overwhelming interest, we are opening a second group with 50 additional seats. Group 1 is full; {count} places remain in Group 2. Reserve yours now.",
+      group2IntroOne:
+        "Great news — due to overwhelming interest, we are opening a second group with 50 additional seats. Group 1 is full; only 1 place remains in Group 2.",
       soldOut: "Fully booked — waiting list open",
       soldOutIntro:
-        "All 50 places have been reserved. You can still sign up for the waiting list if someone drops out or changes their mind.",
+        "All 100 places have been reserved. You can still sign up for the waiting list if someone drops out or changes their mind.",
       duplicate: "This email already has a reservation.",
       duplicateWaitlist: "This email is already on the waiting list.",
       duplicateResent:
@@ -237,6 +243,8 @@ export const content = {
       stamp: "Free conference",
       urgency: "Only {count} places left",
       urgencyOne: "Only 1 place left",
+      urgencyGroup2: "Group 2 open — only {count} places left",
+      urgencyGroup2One: "Group 2 open — only 1 place left",
       urgencySoldOut: "Fully booked — join the waiting list",
     },
     midnight: {
@@ -444,10 +452,16 @@ export const content = {
       seatsAvailable: "{count} places disponibles",
       seatsLeft: "Il reste {count} places",
       seatsLeftOne: "Il reste 1 place",
+      group2Badge: "Groupe 2 : {count} places restantes",
+      group2BadgeOne: "Groupe 2 : 1 place restante",
       waitlistBadge: "Liste d'attente : +{count}",
+      group2Intro:
+        "Bonne nouvelle ! Face à l'enthousiasme suscité, nous ouvrons un Groupe 2 avec 50 places supplémentaires. Le Groupe 1 est complet — il reste {count} places. Réservez la vôtre sans tarder.",
+      group2IntroOne:
+        "Bonne nouvelle ! Face à l'enthousiasme suscité, nous ouvrons un Groupe 2 avec 50 places supplémentaires. Le Groupe 1 est complet — il ne reste qu'une place.",
       soldOut: "Complet — liste d'attente ouverte",
       soldOutIntro:
-        "Les 50 places sont réservées. Vous pouvez encore vous inscrire sur la liste d'attente si une personne se désiste ou change d'avis.",
+        "Les 100 places sont réservées. Vous pouvez encore vous inscrire sur la liste d'attente si une personne se désiste ou change d'avis.",
       duplicate: "Cet email a déjà une réservation.",
       duplicateWaitlist: "Cet email est déjà inscrit sur la liste d'attente.",
       duplicateResent:
@@ -496,6 +510,8 @@ export const content = {
       stamp: "Conférence gratuite",
       urgency: "Plus que {count} places",
       urgencyOne: "Plus qu'une place",
+      urgencyGroup2: "Groupe 2 ouvert — plus que {count} places",
+      urgencyGroup2One: "Groupe 2 ouvert — plus qu'une place",
       urgencySoldOut:
         "Complet, mais vous pouvez vous inscrire sur la liste d'attente si une place se libère",
     },
@@ -670,8 +686,14 @@ export function formatHeritageUrgency(
   copy: HeritageCopy,
   remaining: number,
   full: boolean,
+  booked = 0,
+  group1Capacity = 50,
 ): string {
   if (isFullyBooked(remaining, full)) return copy.urgencySoldOut;
+  if (isGroup2Phase(booked, remaining, group1Capacity)) {
+    if (remaining === 1) return copy.urgencyGroup2One;
+    return copy.urgencyGroup2.replace("{count}", String(remaining));
+  }
   if (remaining === 1) return copy.urgencyOne;
   return copy.urgency.replace("{count}", String(remaining));
 }

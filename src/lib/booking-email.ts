@@ -5,6 +5,7 @@ import {
   getSmtpConfig,
   parseNotifyRecipients,
 } from "@/lib/bookings";
+import { isGroup2Phase } from "@/lib/booking-availability";
 import { getEventCopy } from "@/lib/event";
 
 function createTransporter() {
@@ -35,13 +36,27 @@ function eventDetails(locale: Booking["locale"]) {
 }
 
 function seatsLine(locale: Booking["locale"], availability: BookingAvailability) {
+  const group2 = isGroup2Phase(
+    availability.booked,
+    availability.remaining,
+    availability.group1Capacity,
+  );
+
   if (locale === "fr") {
     if (availability.remaining === 0) return "Toutes les places sont réservées.";
+    if (group2) {
+      if (availability.remaining === 1) return "Groupe 2 — 1 place restante.";
+      return `Groupe 2 — ${availability.remaining} places restantes.`;
+    }
     if (availability.remaining === 1) return "1 place restante.";
     return `${availability.remaining} places restantes.`;
   }
 
   if (availability.remaining === 0) return "All places are now booked.";
+  if (group2) {
+    if (availability.remaining === 1) return "Group 2 — 1 place left.";
+    return `Group 2 — ${availability.remaining} places left.`;
+  }
   if (availability.remaining === 1) return "1 place left.";
   return `${availability.remaining} places left.`;
 }
@@ -115,8 +130,16 @@ function adminHtml(booking: Booking, availability: BookingAvailability) {
 
 function guestHtml(booking: Booking, availability: BookingAvailability) {
   const details = eventDetails(booking.locale);
-  const intro =
-    booking.locale === "fr"
+  const group2 = isGroup2Phase(
+    availability.booked,
+    availability.remaining,
+    availability.group1Capacity,
+  );
+  const intro = group2
+    ? booking.locale === "fr"
+      ? `Bonjour ${booking.name},<br><br>Bonne nouvelle ! Votre place pour le <strong>Groupe 2</strong> de la conférence gratuite des 9 et 10 août 2026 est confirmée. Face à l'enthousiasme, nous avons ouvert 50 places supplémentaires.`
+      : `Hello ${booking.name},<br><br>Great news! Your seat in <strong>Group 2</strong> for the free conference on August 9-10, 2026 is confirmed. Due to overwhelming interest, we have opened 50 additional seats.`
+    : booking.locale === "fr"
       ? `Bonjour ${booking.name},<br><br>Votre place pour la conférence gratuite des 9 et 10 août 2026 est confirmée.`
       : `Hello ${booking.name},<br><br>Your seat for the free conference on August 9-10, 2026 is confirmed.`;
 
@@ -166,13 +189,22 @@ function adminText(booking: Booking, availability: BookingAvailability) {
 
 function guestText(booking: Booking, availability: BookingAvailability, waitlist = false) {
   const details = eventDetails(booking.locale);
+  const group2 = isGroup2Phase(
+    availability.booked,
+    availability.remaining,
+    availability.group1Capacity,
+  );
   const greeting = waitlist
     ? booking.locale === "fr"
       ? `Bonjour ${booking.name},\n\nVous êtes inscrit(e) sur la liste d'attente pour la conférence gratuite des 9 et 10 août 2026. Nous vous contacterons si une place se libère.`
       : `Hello ${booking.name},\n\nYou are on the waiting list for the free conference on August 9-10, 2026. We will contact you if a place opens up.`
-    : booking.locale === "fr"
-      ? `Bonjour ${booking.name},\n\nVotre place pour la conférence gratuite des 9 et 10 août 2026 est confirmée.`
-      : `Hello ${booking.name},\n\nYour seat for the free conference on August 9-10, 2026 is confirmed.`;
+    : group2
+      ? booking.locale === "fr"
+        ? `Bonjour ${booking.name},\n\nBonne nouvelle ! Votre place pour le Groupe 2 de la conférence gratuite des 9 et 10 août 2026 est confirmée. Face à l'enthousiasme, nous avons ouvert 50 places supplémentaires.`
+        : `Hello ${booking.name},\n\nGreat news! Your seat in Group 2 for the free conference on August 9-10, 2026 is confirmed. Due to overwhelming interest, we have opened 50 additional seats.`
+      : booking.locale === "fr"
+        ? `Bonjour ${booking.name},\n\nVotre place pour la conférence gratuite des 9 et 10 août 2026 est confirmée.`
+        : `Hello ${booking.name},\n\nYour seat for the free conference on August 9-10, 2026 is confirmed.`;
 
   return [
     greeting,

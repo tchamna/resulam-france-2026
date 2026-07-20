@@ -8,6 +8,8 @@ import type { DesignVariant } from "@/lib/design";
 type SeatsBannerCopy = {
   seatsLeft: string;
   seatsLeftOne: string;
+  group2Badge: string;
+  group2BadgeOne: string;
   waitlistBadge: string;
 };
 
@@ -53,6 +55,8 @@ export function SeatsBanner({ copy, initialAvailability, variant = "flyer" }: Se
     availability.remaining,
     availability.full,
     availability.waitlistCount,
+    availability.booked,
+    availability.group1Capacity,
   );
 
   return (

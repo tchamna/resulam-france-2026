@@ -29,6 +29,8 @@ export function FlyerLanding({ locale, design, t, alternateLocale, alternateLabe
     initialAvailability.remaining,
     initialAvailability.full,
     initialAvailability.waitlistCount,
+    initialAvailability.booked,
+    initialAvailability.group1Capacity,
   );
 
   return (

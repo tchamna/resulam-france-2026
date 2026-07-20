@@ -1,6 +1,10 @@
 import { mkdir, readFile, appendFile } from "node:fs/promises";
 import path from "node:path";
-import { isFullyBooked, normalizeBookingAvailability } from "@/lib/booking-availability";
+import {
+  getGroup1Capacity,
+  isFullyBooked,
+  normalizeBookingAvailability,
+} from "@/lib/booking-availability";
 
 export type Booking = {
   locale: "en" | "fr";
@@ -17,6 +21,7 @@ export type StoredBooking = Booking & {
 
 export type BookingAvailability = {
   capacity: number;
+  group1Capacity: number;
   booked: number;
   remaining: number;
   full: boolean;
@@ -36,7 +41,14 @@ export function isBookingForceSoldOut() {
 
 export function getForcedSoldOutAvailability(): BookingAvailability {
   const capacity = getBookingCapacity();
-  return { capacity, booked: capacity, remaining: 0, full: true, waitlistCount: 0 };
+  return {
+    capacity,
+    group1Capacity: getGroup1Capacity(),
+    booked: capacity,
+    remaining: 0,
+    full: true,
+    waitlistCount: 0,
+  };
 }
 
 /** Dev/preview only: override waitlist count shown when sold out. */
@@ -86,11 +98,15 @@ async function readRemoteBookingAvailability(): Promise<BookingAvailability | nu
     if (!response.ok) return null;
     const data = await response.json();
     if (!isBookingAvailability(data)) return null;
+    const capacity = getBookingCapacity();
+    const booked = Math.max(Math.floor(data.booked), 0);
+    const remaining = Math.max(capacity - booked, 0);
     return {
-      capacity: Math.max(Math.floor(data.capacity), 0),
-      booked: Math.max(Math.floor(data.booked), 0),
-      remaining: Math.max(Math.floor(data.remaining), 0),
-      full: isFullyBooked(Math.max(Math.floor(data.remaining), 0)),
+      capacity,
+      group1Capacity: getGroup1Capacity(),
+      booked,
+      remaining,
+      full: isFullyBooked(remaining),
       waitlistCount: 0,
     };
   } catch (error) {
@@ -128,7 +144,14 @@ export function isConfirmedBooking(entry: StoredBooking) {
 
 export function getDefaultAvailability(): BookingAvailability {
   const capacity = getBookingCapacity();
-  return { capacity, booked: 0, remaining: capacity, full: false, waitlistCount: 0 };
+  return {
+    capacity,
+    group1Capacity: getGroup1Capacity(),
+    booked: 0,
+    remaining: capacity,
+    full: false,
+    waitlistCount: 0,
+  };
 }
 
 export async function getBookingAvailability(): Promise<BookingAvailability> {
@@ -148,10 +171,12 @@ export async function getBookingAvailability(): Promise<BookingAvailability> {
     }
 
     const capacity = getBookingCapacity();
+    const group1Capacity = getGroup1Capacity();
     const booked = (await readBookings()).filter(isConfirmedBooking).length;
     const remaining = Math.max(capacity - booked, 0);
     return normalizeBookingAvailability({
       capacity,
+      group1Capacity,
       booked,
       remaining,
       full: isFullyBooked(remaining),

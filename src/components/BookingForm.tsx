@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BookstorePopup } from "@/components/BookstorePopup";
 import { DuplicateBookingPopup } from "@/components/DuplicateBookingPopup";
-import { isFullyBooked } from "@/lib/booking-availability";
+import { isFullyBooked, isGroup2Phase } from "@/lib/booking-availability";
+import { formatPlacesLeft } from "@/lib/format-places-left";
 import type { DesignVariant } from "@/lib/design";
 
 type Copy = {
@@ -26,6 +27,11 @@ type Copy = {
   seatsAvailable: string;
   seatsLeft: string;
   seatsLeftOne: string;
+  group2Badge: string;
+  group2BadgeOne: string;
+  group2Intro: string;
+  group2IntroOne: string;
+  waitlistBadge: string;
   soldOut: string;
   soldOutIntro: string;
   duplicate: string;
@@ -59,6 +65,7 @@ type BookingResponse = Availability & {
 
 type Availability = {
   capacity: number;
+  group1Capacity: number;
   booked: number;
   remaining: number;
   full: boolean;
@@ -171,6 +178,7 @@ export function BookingForm({
 
       let data: BookingResponse = {
         capacity: availability.capacity,
+        group1Capacity: availability.group1Capacity,
         booked: availability.booked,
         remaining: availability.remaining,
         full: availability.full,
@@ -239,6 +247,32 @@ export function BookingForm({
 
   const disabled = status === "sending";
   const soldOut = isFullyBooked(availability.remaining, availability.full);
+  const group2Open = isGroup2Phase(
+    availability.booked,
+    availability.remaining,
+    availability.group1Capacity,
+  );
+
+  function formatGroup2Intro() {
+    return availability.remaining === 1
+      ? copy.group2IntroOne
+      : copy.group2Intro.replace("{count}", String(availability.remaining));
+  }
+
+  function formatSeatsCount() {
+    if (soldOut) return copy.soldOut;
+    if (group2Open) {
+      return formatPlacesLeft(
+        copy,
+        availability.remaining,
+        availability.full,
+        0,
+        availability.booked,
+        availability.group1Capacity,
+      );
+    }
+    return formatSeats(copy, availability.remaining, availability.capacity);
+  }
 
   function closeDuplicatePopup() {
     setShowDuplicatePopup(false);
@@ -272,9 +306,7 @@ export function BookingForm({
         <div className="seatsPanelHead">
           <span className="seatsLabel">{copy.seatsLabel}</span>
           <strong className="seatsCount">
-            {soldOut
-              ? copy.soldOut
-              : formatSeats(copy, availability.remaining, availability.capacity)}
+            {formatSeatsCount()}
           </strong>
         </div>
         <div className="seatsSkyline" aria-hidden="true">
@@ -304,7 +336,7 @@ export function BookingForm({
       </div>
 
       <h2>{copy.title}</h2>
-      <p className="status">{soldOut ? copy.soldOutIntro : copy.intro}</p>
+      <p className="status">{soldOut ? copy.soldOutIntro : group2Open ? formatGroup2Intro() : copy.intro}</p>
 
       <form
         ref={formRef}
