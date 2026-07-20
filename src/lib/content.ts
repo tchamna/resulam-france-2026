@@ -17,7 +17,7 @@ export const content = {
     heroTitle: "Resulam lands in France.",
     kicker: "Free conference",
     lead:
-      "African languages conference with small Nufi workshops. Reconnect with your mother tongue and learn practical ways to transmit African languages at home.",
+      "African languages conference with a small workshop on literacy in African languages. Reconnect with your mother tongue and learn practical ways to transmit African languages at home.",
     cta: "Book a free place",
     heroContactBefore:
       "Would you like to organize a meeting in your city to learn or pass on your mother tongue? ",
@@ -49,7 +49,7 @@ export const content = {
         date: "August 9",
         time: "14h-18h",
         name: "NDABC",
-        description: "African languages conference with small Nufi workshops.",
+        description: "African languages conference with a small workshop on literacy in African languages.",
         address: "80 rue de Meaux, 75019 Paris",
         mapsUrl:
           "https://www.google.com/maps/search/?api=1&query=80+Rue+de+Meaux%2C+75019+Paris",
@@ -132,7 +132,7 @@ export const content = {
     books: "Books and grammar resources",
     sectionTitle: "What you will discover",
     sectionText:
-      "An African languages conference with small Nufi workshops — a practical day for families, adults, and anyone who wants to restart language transmission.",
+      "An African languages conference with a small workshop on literacy in African languages — a practical day for families, adults, and anyone who wants to restart language transmission.",
     benefits: [
       {
         id: "teaching",
@@ -258,8 +258,8 @@ export const content = {
       dateRange: "6–11",
       dateMonth: "August 2026",
       heroLead:
-        "A week of gatherings across France — with a free African languages conference and Nufi workshops on August 9 and 10. Limited places.",
-      heroLeadHighlight: "free African languages conference and Nufi workshops on August 9 and 10",
+        "A week of gatherings across France — with a free African languages conference and a literacy workshop in African languages on August 9 and 10. Limited places.",
+      heroLeadHighlight: "free African languages conference and a literacy workshop in African languages on August 9 and 10",
       ctaPrimary: "Reserve your place",
       ctaSecondary: "See the programme",
       momentsLabel: "In pictures & film",
@@ -267,7 +267,7 @@ export const content = {
       statDaysTitle: "6 days",
       statDaysText: "Gatherings across France, Aug 6–11.",
       statFreeTitle: "Aug 9-10 • Free",
-      statFreeText: "African languages conference, Nufi workshops.",
+      statFreeText: "African languages conference, literacy workshop in African languages.",
       statLimitedTitle: "Limited",
       statLimitedText: "Seats fill fast — reserve early.",
     },
@@ -284,7 +284,7 @@ export const content = {
     heroTitle: "RESULAM arrive en France",
     kicker: "CONFÉRENCE SUR LES LANGUES AFRICAINES",
     lead:
-      "Conférence des langues africaines avec petits ateliers sur le Nufi. Venez redécouvrir votre langue maternelle et découvrir des méthodes concrètes pour transmettre les langues africaines aux enfants à la maison.",
+      "Conférence des langues africaines avec un petit atelier sur l'alphabétisation dans les langues africaines. Venez redécouvrir votre langue maternelle et découvrir des méthodes concrètes pour transmettre les langues africaines aux enfants à la maison.",
     cta: "Réserver gratuitement",
     heroContactBefore:
       "Vous souhaitez organiser une rencontre dans votre ville pour apprendre ou transmettre votre langue maternelle ? ",
@@ -316,7 +316,7 @@ export const content = {
         date: "9 août",
         time: "14h à 18h",
         name: "NDABC",
-        description: "Conférence des langues africaines avec petits ateliers sur le Nufi.",
+        description: "Conférence des langues africaines avec un petit atelier sur l'alphabétisation dans les langues africaines.",
         address: "80 rue de Meaux, 75019 Paris",
         mapsUrl:
           "https://www.google.com/maps/search/?api=1&query=80+Rue+de+Meaux%2C+75019+Paris",
@@ -399,7 +399,7 @@ export const content = {
     books: "Livres et grammaire",
     sectionTitle: "Ce que vous allez découvrir",
     sectionText:
-      "Conférence des langues africaines avec petits ateliers sur le Nufi — une journée pratique pour les familles, les adultes, et toute personne qui veut relancer la transmission des langues.",
+      "Conférence des langues africaines avec un petit atelier sur l'alphabétisation dans les langues africaines — une journée pratique pour les familles, les adultes, et toute personne qui veut relancer la transmission des langues.",
     benefits: [
       {
         id: "teaching",
@@ -535,7 +535,7 @@ export const content = {
       statDaysTitle: "6 jours",
       statDaysText: "Rencontres en France, 6–11 août.",
       statFreeTitle: "9-10 août • Gratuit",
-      statFreeText: "Conférence des langues africaines, ateliers Nufi.",
+      statFreeText: "Conférence des langues africaines, atelier d'alphabétisation en langues africaines.",
       statLimitedTitle: "Limité",
       statLimitedText: "Les places partent vite — réservez tôt.",
     },

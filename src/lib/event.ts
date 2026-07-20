@@ -55,7 +55,7 @@ export function shouldSendReminderOnDate(todayParis = getParisDateString()) {
 export function getEventCopy(locale: EventLocale) {
   if (locale === "fr") {
     return {
-      event: "Conférence des langues africaines avec petits ateliers sur le Nufi — Resulam France 2026",
+      event: "Conférence des langues africaines avec un petit atelier sur l'alphabétisation dans les langues africaines — Resulam France 2026",
       date: "9 et 10 août 2026",
       visit: "Séjour en France : 6-11 août 2026",
       venue:
@@ -65,7 +65,7 @@ export function getEventCopy(locale: EventLocale) {
   }
 
   return {
-    event: "African languages conference with small Nufi workshops — Resulam France 2026",
+    event: "African languages conference with a small workshop on literacy in African languages — Resulam France 2026",
     date: "August 9-10, 2026",
     visit: "France visit: August 6-11, 2026",
     venue:
