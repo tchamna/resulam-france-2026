@@ -15,6 +15,7 @@ export const LANGUAGE_ALIAS_GROUPS = [
       "Feefee",
       "Nufi..",
       "Nugi",
+      "Bana",
     ],
   },
   {
@@ -27,6 +28,18 @@ export const LANGUAGE_ALIAS_GROUPS = [
       "Ghomalah(ouest",
       "Yogam",
     ],
+  },
+  {
+    canonical: "Medumba",
+    aliases: ["Medumba", "Bagante", "Baganté"],
+  },
+  {
+    canonical: "Lingala",
+    aliases: ["Lingala", "Lingal"],
+  },
+  {
+    canonical: "Yemba",
+    aliases: ["Yemba", "Yémba"],
   },
 ] as const;
 
