@@ -161,7 +161,10 @@ export function MediaCarousel({
   const slides = getMomentSlides(t);
   const carouselLabel = title ?? t.mediaTitle;
 
-  function scrollBySlide(direction: -1 | 1) {
+  const AUTO_ADVANCE_MS = 6000;
+  const MANUAL_PAUSE_MS = 3000;
+
+  function advanceSlide(direction: -1 | 1, pauseAfterManualNav = false) {
     const mask = maskRef.current;
     const slide = mask?.querySelector<HTMLElement>(".carouselItem");
     if (!mask || !slide) return;
@@ -178,37 +181,31 @@ export function MediaCarousel({
       mask.scrollLeft += loopPoint;
     }
 
-    pausedRef.current = true;
+    if (pauseAfterManualNav) {
+      pausedRef.current = true;
+      window.setTimeout(() => {
+        pausedRef.current = false;
+      }, MANUAL_PAUSE_MS);
+    }
+
     mask.scrollBy({ left: amount * direction, behavior: "smooth" });
-    window.setTimeout(() => {
-      pausedRef.current = false;
-    }, 3000);
+  }
+
+  function scrollBySlide(direction: -1 | 1) {
+    advanceSlide(direction, true);
   }
 
   useEffect(() => {
-    const mask = maskRef.current;
-    if (!mask) return;
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let frame = 0;
+    const interval = window.setInterval(() => {
+      if (pausedRef.current || activeMedia) return;
+      advanceSlide(1);
+    }, AUTO_ADVANCE_MS);
 
-    function tick() {
-      if (!mask) return;
-
-      if (!pausedRef.current) {
-        const loopPoint = mask.scrollWidth / 2;
-        mask.scrollLeft += 0.45;
-
-        if (mask.scrollLeft >= loopPoint) {
-          mask.scrollLeft -= loopPoint;
-        }
-      }
-
-      frame = window.requestAnimationFrame(tick);
-    }
-
-    frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+    return () => window.clearInterval(interval);
+  }, [activeMedia]);
 
   useEffect(() => {
     if (!activeMedia) return;

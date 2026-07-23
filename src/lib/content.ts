@@ -759,6 +759,14 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       alt: "(Duala-Douala) - Alphabetisation en langues africaines",
     },
     {
+      id: "story-nufi",
+      label: "Conte bamileke nufi",
+      meta: "Aug 9",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=nI0YpaHUNKA",
+      alt: "Conte bamileke nufi",
+    },
+    {
       id: "cartoon-nufi",
       label: t.cartoons,
       meta: "Aug 7",
