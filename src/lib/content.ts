@@ -751,6 +751,14 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       alt: "(Bamileke-Ghomala') - Alphabetisation en langues africaines",
     },
     {
+      id: "literacy-yemba",
+      label: "(Bamileke-Yemba) - Alphabetisation en langues africaines: La fourmi Affamée",
+      meta: "Aug 9",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=Bim7foDXNXM",
+      alt: "(Bamileke-Yemba) - Alphabetisation en langues africaines: La fourmi Affamée",
+    },
+    {
       id: "literacy-duala",
       label: "(Duala-Douala) - Alphabetisation en langues africaines",
       meta: "Aug 9",

@@ -24,6 +24,10 @@ function youtubeThumbnail(url: string) {
   return `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
 }
 
+function formatNumberedLabel(index: number, label: string) {
+  return `${index + 1}. ${label}`;
+}
+
 function YouTubeCarouselSlide({
   slide,
   onOpen,
@@ -55,10 +59,12 @@ function YouTubeCarouselSlide({
 
 function VideoCarouselSlide({
   slide,
+  label,
   openInModal,
   onOpen,
 }: {
   slide: MomentSlide;
+  label: string;
   openInModal: boolean;
   onOpen: (slide: MomentSlide) => void;
 }) {
@@ -69,7 +75,7 @@ function VideoCarouselSlide({
           type="button"
           className="youtubePreviewButton"
           onClick={() => onOpen(slide)}
-          aria-label={`Watch ${slide.label}`}
+          aria-label={`Watch ${label}`}
         >
           <video preload="metadata" muted playsInline poster={slide.poster}>
             <source src={slide.src} type="video/mp4" />
@@ -80,7 +86,7 @@ function VideoCarouselSlide({
             </svg>
           </i>
         </button>
-        <span>{slide.label}</span>
+        <span>{label}</span>
       </div>
     );
   }
@@ -90,7 +96,7 @@ function VideoCarouselSlide({
       <video controls playsInline preload="metadata">
         <source src={slide.src} type="video/mp4" />
       </video>
-      <span>{slide.label}</span>
+      <span>{label}</span>
     </div>
   );
 }
@@ -108,12 +114,15 @@ function CarouselItems({
 }) {
   return (
     <>
-      {slides.map((slide) => {
+      {slides.map((slide, index) => {
+        const numberedLabel = formatNumberedLabel(index, slide.label);
+
         if (slide.kind === "video") {
           return (
             <VideoCarouselSlide
               key={slide.id}
               slide={slide}
+              label={numberedLabel}
               openInModal={openLocalVideosInModal}
               onOpen={onOpenVideo}
             />
@@ -124,7 +133,7 @@ function CarouselItems({
           return (
             <YouTubeCarouselSlide
               key={slide.id}
-              slide={{ title: slide.alt, url: slide.src, label: slide.label }}
+              slide={{ title: slide.alt, url: slide.src, label: numberedLabel }}
               onOpen={onOpenYoutube}
             />
           );
