@@ -1450,6 +1450,13 @@ h2 {
   gap: 0.9rem;
 }
 
+.formEmailHint {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #625c52;
+}
+
 .field {
   display: grid;
   gap: 0.35rem;

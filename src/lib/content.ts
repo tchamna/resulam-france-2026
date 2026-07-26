@@ -177,9 +177,9 @@ export const content = {
       button: "Confirm seat",
       buttonWaitlist: "Join waiting list",
       sending: "Sending...",
-      success: "Your place is confirmed. {count} places left.",
+      success: "Your place is confirmed. {count} places left. Check your spam folder for the confirmation email.",
       successWaitlist:
-        "You are on the waiting list. We will contact you if a place opens up.",
+        "You are on the waiting list. We will contact you if a place opens up. Check your spam folder for the confirmation email.",
       error: "We could not submit your booking. Please try again.",
       seatsLabel: "Conference seats",
       seatsAvailable: "{count} places available",
@@ -198,18 +198,18 @@ export const content = {
       duplicate: "This email already has a reservation.",
       duplicateWaitlist: "This email is already on the waiting list.",
       duplicateResent:
-        "This email already has a reservation. We sent your confirmation email again.",
+        "This email already has a reservation. We sent your confirmation email again. Check your spam or junk folder if you don't see it.",
       duplicateWaitlistResent:
-        "This email is already on the waiting list. We sent your confirmation email again.",
+        "This email is already on the waiting list. We sent your confirmation email again. Check your spam or junk folder if you don't see it.",
       duplicatePopupTitle: "You already have a reservation",
       duplicatePopupOk: "OK, got it",
       checkSpam:
-        "If you don't see the confirmation email, check your spam or junk folder.",
+        "A confirmation email will be sent after you book. If you don't see it, check your spam or junk folder.",
       emailWarning:
         "Your seat is saved, but we could not send a confirmation email. Check your spam folder or contact contact@resulam.com.",
       fullError:
         "Sorry, the last places were just booked. You can join the waiting list below.",
-      validationError: "Please check your name, email, and languages (at least 2 characters).",
+      validationError: "Please check your name, email, phone, and languages (at least 2 characters).",
     },
     footer: "Resulam France 2026",
     bookstoreTitle: "African language books & resources",
@@ -444,9 +444,9 @@ export const content = {
       button: "Confirmer ma place",
       buttonWaitlist: "Rejoindre la liste d'attente",
       sending: "Envoi...",
-      success: "Votre place est confirmée. Il reste {count} places.",
+      success: "Votre place est confirmée. Il reste {count} places. Vérifiez vos spams pour l'email de confirmation.",
       successWaitlist:
-        "Vous êtes inscrit(e) sur la liste d'attente. Nous vous contacterons si une place se libère.",
+        "Vous êtes inscrit(e) sur la liste d'attente. Nous vous contacterons si une place se libère. Vérifiez vos spams pour l'email de confirmation.",
       error: "Impossible d'envoyer votre réservation. Veuillez réessayer.",
       seatsLabel: "Places conférence",
       seatsAvailable: "{count} places disponibles",
@@ -465,18 +465,18 @@ export const content = {
       duplicate: "Cet email a déjà une réservation.",
       duplicateWaitlist: "Cet email est déjà inscrit sur la liste d'attente.",
       duplicateResent:
-        "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation.",
+        "Cet email a déjà une réservation. Nous avons renvoyé l'email de confirmation. Vérifiez vos spams si vous ne le voyez pas.",
       duplicateWaitlistResent:
-        "Cet email est déjà inscrit sur la liste d'attente. Nous avons renvoyé l'email de confirmation.",
+        "Cet email est déjà inscrit sur la liste d'attente. Nous avons renvoyé l'email de confirmation. Vérifiez vos spams si vous ne le voyez pas.",
       duplicatePopupTitle: "Vous avez déjà une réservation",
       duplicatePopupOk: "D'accord",
       checkSpam:
-        "Si vous ne voyez pas l'email de confirmation, vérifiez vos courriers indésirables (spam).",
+        "Un email de confirmation vous sera envoyé après la réservation. Si vous ne le voyez pas, vérifiez vos courriers indésirables (spam).",
       emailWarning:
         "Votre place est enregistrée, mais nous n'avons pas pu envoyer l'email de confirmation. Vérifiez vos spams ou écrivez à contact@resulam.com.",
       fullError:
         "Désolé, les dernières places viennent d'être réservées. Vous pouvez vous inscrire sur la liste d'attente ci-dessous.",
-      validationError: "Vérifiez votre nom, email et langues (au moins 2 caractères).",
+      validationError: "Vérifiez votre nom, email, téléphone et langues (au moins 2 caractères).",
     },
     footer: "Resulam France 2026",
     bookstoreTitle: "Livres et ressources en langues africaines",

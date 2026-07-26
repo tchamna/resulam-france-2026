@@ -221,6 +221,7 @@ export function validateBooking(body: Record<string, unknown>): Booking | null {
 
   if (name.length < 2) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+  if (phone.length < 6) return null;
   if (languages.length < 2) return null;
   return { locale, name, email, phone, languages };
 }

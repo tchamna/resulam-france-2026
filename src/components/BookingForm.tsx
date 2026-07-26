@@ -152,7 +152,9 @@ export function BookingForm({
     const form = new FormData(formElement);
     const languages = String(form.get("languages") ?? "").trim();
 
-    if (languages.length < 2) {
+    const phone = String(form.get("phone") ?? "").trim();
+
+    if (languages.length < 2 || phone.length < 6) {
       setStatus("error");
       setMessage(copy.validationError);
       return;
@@ -162,7 +164,7 @@ export function BookingForm({
       locale,
       name: String(form.get("name") ?? "").trim(),
       email: String(form.get("email") ?? "").trim(),
-      phone: String(form.get("phone") ?? "").trim(),
+      phone,
       languages,
     };
 
@@ -371,10 +373,16 @@ export function BookingForm({
           </div>
         </div>
         <div className="field">
-          <label htmlFor="phone">
-            {copy.phone} <span aria-hidden="true">({copy.optional})</span>
-          </label>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" disabled={disabled} />
+          <label htmlFor="phone">{copy.phone}</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            required
+            minLength={6}
+            disabled={disabled}
+          />
         </div>
         <div className="field">
           <label htmlFor="languages">{copy.languages}</label>
@@ -387,6 +395,7 @@ export function BookingForm({
             disabled={disabled}
           />
         </div>
+        <p className="formEmailHint">{copy.checkSpam}</p>
         <button className="submit" type="submit" disabled={disabled}>
           {soldOut
             ? status === "sending"
@@ -402,11 +411,6 @@ export function BookingForm({
         >
           {message}
         </p>
-        {status === "success" && (
-          <p className="status statusHint" aria-live="polite">
-            {copy.checkSpam}
-          </p>
-        )}
       </form>
     </aside>
     </>
