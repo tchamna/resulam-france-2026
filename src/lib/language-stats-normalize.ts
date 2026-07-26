@@ -54,6 +54,8 @@ for (const group of LANGUAGE_ALIAS_GROUPS) {
 
 export function normalizeKey(raw: string): string {
   return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
     .replace(/[.…]+$/g, "")
