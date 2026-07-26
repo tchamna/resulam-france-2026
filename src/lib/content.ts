@@ -711,6 +711,14 @@ export type MomentSlide = {
 export function getMomentSlides(t: PageCopy): MomentSlide[] {
   return [
     {
+      id: "cartoon-nufi-educative",
+      label: "African Languages Educative Cartoons: Nufi Language",
+      meta: "Aug 7",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=ZtU0CMWmSL4",
+      alt: "African Languages Educative Cartoons: Nufi Language",
+    },
+    {
       id: "testimony",
       label: t.testimony,
       meta: "Aug 7",
@@ -782,14 +790,6 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       src: "https://www.youtube.com/watch?v=rr2nlVF7kgE&t=55s",
       poster: "/landing/nufi-cartoon-presentation.png",
       alt: "Resulam Nufi cartoon preview",
-    },
-    {
-      id: "cartoon-nufi-educative",
-      label: "African Languages Educative Cartoons: Nufi Language",
-      meta: "Aug 7",
-      kind: "youtube",
-      src: "https://www.youtube.com/watch?v=ZtU0CMWmSL4",
-      alt: "African Languages Educative Cartoons: Nufi Language",
     },
     {
       id: "cartoon-african",
