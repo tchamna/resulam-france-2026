@@ -12,7 +12,7 @@ type AccessStep = {
 };
 
 type AccessRoute = {
-  mode: "metro" | "bus";
+  mode: "metro" | "bus" | "tram";
   line: string;
   title: string;
   steps: ReadonlyArray<AccessStep>;

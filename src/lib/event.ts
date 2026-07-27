@@ -59,7 +59,7 @@ export function getEventCopy(locale: EventLocale) {
       date: "9 et 10 août 2026",
       visit: "Séjour en France : 6-11 août 2026",
       venue:
-        "NDABC, 80 rue de Meaux, 75019 Paris. Métro ligne 5, station Laumière (sortie 3), 5 min à pied. Bus 48, arrêt Rue de Meaux, 5 min à pied.",
+        "Espace Barrault, 98 rue Barrault, 75013 Paris. Tramway T3a, arrêt Poterne des Peupliers. Bus 67 (Rungis) ou 21 (Parc Montsouris).",
       siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",
     };
   }
@@ -69,7 +69,7 @@ export function getEventCopy(locale: EventLocale) {
     date: "August 9-10, 2026",
     visit: "France visit: August 6-11, 2026",
     venue:
-      "NDABC, 80 Rue de Meaux, 75019 Paris. Metro line 5, Laumière station (exit 3), 5 min walk. Bus 48, Rue de Meaux stop, 5 min walk.",
+      "Espace Barrault, 98 rue Barrault, 75013 Paris. Tram T3a, Poterne des Peupliers stop. Bus 67 (Rungis) or 21 (Parc Montsouris).",
     siteUrl: process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://resulam-france-2026.azurewebsites.net",
   };
 }

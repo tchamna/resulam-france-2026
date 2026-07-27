@@ -39,6 +39,8 @@ export const content = {
       intercom: "Left intercom",
       metro: "Metro",
       bus: "Bus",
+      onFoot: "On foot",
+      parking: "Parking",
       getThere: "How to get there",
       openMaps: "Open in Google Maps",
       showDirections: "Show directions",
@@ -48,33 +50,41 @@ export const content = {
       {
         date: "August 9",
         time: "14h-18h",
-        name: "NDABC",
+        name: "Espace Barrault",
         description: "African languages conference with a small workshop on literacy in African languages.",
-        address: "80 rue de Meaux, 75019 Paris",
+        address: "98 rue Barrault, 75013 Paris",
         mapsUrl:
-          "https://www.google.com/maps/search/?api=1&query=80+Rue+de+Meaux%2C+75019+Paris",
+          "https://www.google.com/maps/search/?api=1&query=98+rue+Barrault%2C+75013+Paris",
         accessRoutes: [
           {
-            mode: "metro",
-            line: "5",
-            title: "Metro line 5 · Laumière",
-            steps: [
-              { text: "Take line 5 to Laumière" },
-              { text: "Exit via sortie 3", hint: "Sortez par 3" },
-              { text: "5 min walk", hint: "200 m" },
-            ],
+            mode: "tram",
+            line: "T3a",
+            title: "Tramway line T3a · Poterne des Peupliers",
+            steps: [{ text: "Take tram T3a to Poterne des Peupliers" }],
           },
           {
             mode: "bus",
-            line: "48",
-            title: "Bus 48 · Rue de Meaux",
-            steps: [
-              { text: "Take bus 48 to Rue de Meaux" },
-              { text: "5 min walk", hint: "300 m" },
-            ],
+            line: "67",
+            title: "Bus 67 · Rungis",
+            steps: [{ text: "Take bus 67 to Rungis stop (right next to the venue)" }],
+          },
+          {
+            mode: "bus",
+            line: "21",
+            title: "Bus 21 · Parc Montsouris",
+            steps: [{ text: "Take bus 21 to Parc Montsouris stop (very close)" }],
           },
         ],
-        details: [],
+        details: [
+          {
+            label: "onFoot",
+            text: "From Place d'Italie: about 15 min walk via rue Bobillot",
+          },
+          {
+            label: "parking",
+            text: "Paripark Moulin des Prés (rue Bobillot, ~800 m) — phone reservation recommended. Saemes Sainte-Anne, 100 rue de la Santé, 75014 Paris (~800 m).",
+          },
+        ],
       },
       {
         date: "August 10",
@@ -306,6 +316,8 @@ export const content = {
       intercom: "Interphone de gauche",
       metro: "Métro",
       bus: "Bus",
+      onFoot: "À pied",
+      parking: "Parking",
       getThere: "Comment y aller",
       openMaps: "Ouvrir dans Google Maps",
       showDirections: "Voir l'accès",
@@ -315,33 +327,41 @@ export const content = {
       {
         date: "9 août",
         time: "14h à 18h",
-        name: "NDABC",
+        name: "Espace Barrault",
         description: "Conférence des langues africaines avec un petit atelier sur l'alphabétisation dans les langues africaines.",
-        address: "80 rue de Meaux, 75019 Paris",
+        address: "98 rue Barrault, 75013 Paris",
         mapsUrl:
-          "https://www.google.com/maps/search/?api=1&query=80+Rue+de+Meaux%2C+75019+Paris",
+          "https://www.google.com/maps/search/?api=1&query=98+rue+Barrault%2C+75013+Paris",
         accessRoutes: [
           {
-            mode: "metro",
-            line: "5",
-            title: "Métro ligne 5 · Laumière",
-            steps: [
-              { text: "Prenez la ligne 5 jusqu’à Laumière" },
-              { text: "Sortez par la sortie 3", hint: "Sortez par 3" },
-              { text: "5 min à pied", hint: "200 m" },
-            ],
+            mode: "tram",
+            line: "T3a",
+            title: "Tramway ligne T3a · Poterne des Peupliers",
+            steps: [{ text: "Prenez le tramway T3a jusqu'à Poterne des Peupliers" }],
           },
           {
             mode: "bus",
-            line: "48",
-            title: "Bus 48 · Rue de Meaux",
-            steps: [
-              { text: "Prenez le bus 48 jusqu’à Rue de Meaux" },
-              { text: "5 min à pied", hint: "300 m" },
-            ],
+            line: "67",
+            title: "Bus 67 · Rungis",
+            steps: [{ text: "Prenez le bus 67 jusqu'à l'arrêt Rungis (juste à côté)" }],
+          },
+          {
+            mode: "bus",
+            line: "21",
+            title: "Bus 21 · Parc Montsouris",
+            steps: [{ text: "Prenez le bus 21 jusqu'à l'arrêt Parc Montsouris (tout proche)" }],
           },
         ],
-        details: [],
+        details: [
+          {
+            label: "onFoot",
+            text: "Depuis Place d'Italie : environ 15 min à pied par la rue Bobillot",
+          },
+          {
+            label: "parking",
+            text: "Paripark Moulin des Prés (rue Bobillot, ~800 m) — réservation conseillée par téléphone. Saemes Sainte-Anne, 100 rue de la Santé, 75014 Paris (~800 m).",
+          },
+        ],
       },
       {
         date: "10 août",
