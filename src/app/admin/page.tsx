@@ -34,6 +34,14 @@ function buildProtectedHref(path: string, lang?: string) {
   return query ? `${path}?${query}` : path;
 }
 
+function buildExportHref(lang?: string, key?: string) {
+  const params = new URLSearchParams();
+  if (lang) params.set("lang", lang);
+  if (key) params.set("key", key);
+  const query = params.toString();
+  return query ? `/api/admin/bookings/export?${query}` : "/api/admin/bookings/export";
+}
+
 function parseAuthError(value?: string): AdminAuthErrorCode | undefined {
   if (
     value === "unauthorized" ||
@@ -73,6 +81,7 @@ export default async function AdminPage({
   const maxCount = stats.languages[0]?.count ?? 1;
   const statsHref = buildProtectedHref("/stats", params?.lang);
   const normalizedStatsHref = buildProtectedHref("/stats/normalized", params?.lang);
+  const exportHref = buildExportHref(params?.lang, params?.key);
 
   return (
     <main className="statsPage adminPage">
@@ -146,7 +155,12 @@ export default async function AdminPage({
             </section>
 
             <section className="adminSection" aria-labelledby="admin-subscribers-heading">
-              <h2 id="admin-subscribers-heading">{t.subscribers}</h2>
+              <div className="adminSectionHead">
+                <h2 id="admin-subscribers-heading">{t.subscribers}</h2>
+                <a className="adminCsvDownload" href={exportHref}>
+                  {t.downloadCsv}
+                </a>
+              </div>
               <div className="adminTableWrap">
                 <table className="adminTable">
                   <thead>
