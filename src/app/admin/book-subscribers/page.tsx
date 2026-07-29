@@ -32,7 +32,7 @@ function sortNewestFirst(subscribers: StoredBookSubscriber[]) {
 export default async function BookSubscribersPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ lang?: string; key?: string; error?: string }>;
+  searchParams?: Promise<{ lang?: string; key?: string; error?: string; cleared?: string }>;
 }) {
   const params = await searchParams;
   const locale = await getLocale(params?.lang);
@@ -59,6 +59,9 @@ export default async function BookSubscribersPage({
           </div>
           <div className="adminHeaderLinks">
             <Link href="/admin">Inscriptions Resulam France</Link>
+            <form action="/api/admin/book-subscribers/clear" method="POST">
+              <button type="submit" className="adminSignOutButton">Supprimer tous les abonnés du livre</button>
+            </form>
             <form action="/api/admin/auth/logout" method="POST">
               <input type="hidden" name="returnTo" value={returnTo} />
               <button type="submit" className="adminSignOutButton">Se déconnecter</button>
@@ -71,6 +74,8 @@ export default async function BookSubscribersPage({
           <span>Abonnés au cercle de lecteurs</span>
           <strong>{subscribers.length}</strong>
         </div>
+
+        {params?.cleared ? <p className="statsEmpty">{params.cleared} inscription(s) supprimée(s).</p> : null}
 
         {subscribers.length === 0 ? (
           <p className="statsEmpty">Aucun abonné pour le moment.</p>
