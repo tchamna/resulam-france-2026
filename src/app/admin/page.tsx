@@ -97,6 +97,9 @@ export default async function AdminPage({
             ) : null}
           </div>
           <div className="adminHeaderLinks">
+            <Link href={buildProtectedHref("/admin/book-subscribers", params?.lang)}>
+              Abonnés du livre
+            </Link>
             <Link href={statsHref}>{t.statsLink}</Link>
             <Link href={normalizedStatsHref}>{t.normalizedStatsLink}</Link>
             <form action="/api/admin/auth/logout" method="POST">
