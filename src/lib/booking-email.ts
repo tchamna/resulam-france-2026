@@ -196,8 +196,8 @@ function guestText(booking: Booking, availability: BookingAvailability, waitlist
   );
   const greeting = waitlist
     ? booking.locale === "fr"
-      ? `Bonjour ${booking.name},\n\nVous êtes inscrit(e) sur la liste d'attente pour la conférence gratuite des 9 et 10 août 2026. Nous vous contacterons si une place se libère.`
-      : `Hello ${booking.name},\n\nYou are on the waiting list for the free conference on August 9-10, 2026. We will contact you if a place opens up.`
+      ? `Bonjour ${booking.name},\n\nVous êtes inscrit(e) sur la liste d'attente pour la conférence gratuite des 9 et 10 août 2026. Nous vous contacterons si une place se libère. Pensez aussi à vérifier la veille de l'événement (8 août).`
+      : `Hello ${booking.name},\n\nYou are on the waiting list for the free conference on August 9-10, 2026. We will contact you if a place opens up. Please also check the day before the event (August 8).`
     : group2
       ? booking.locale === "fr"
         ? `Bonjour ${booking.name},\n\nBonne nouvelle ! Votre place pour le Groupe 2 de la conférence gratuite des 9 et 10 août 2026 est confirmée. Face à l'enthousiasme, nous avons ouvert 50 places supplémentaires.`
@@ -222,8 +222,8 @@ function waitlistGuestHtml(booking: Booking, availability: BookingAvailability) 
   const details = eventDetails(booking.locale);
   const intro =
     booking.locale === "fr"
-      ? `Bonjour ${booking.name},<br><br>Vous êtes inscrit(e) sur la liste d'attente pour la conférence gratuite des 9 et 10 août 2026. Nous vous contacterons si une personne se désiste ou change d'avis.`
-      : `Hello ${booking.name},<br><br>You are on the waiting list for the free conference on August 9-10, 2026. We will contact you if someone drops out or changes their mind.`;
+      ? `Bonjour ${booking.name},<br><br>Vous êtes inscrit(e) sur la liste d'attente pour la conférence gratuite des 9 et 10 août 2026. Nous vous contacterons si une personne se désiste ou change d'avis. Pensez aussi à vérifier la veille de l'événement (8 août).`
+      : `Hello ${booking.name},<br><br>You are on the waiting list for the free conference on August 9-10, 2026. We will contact you if someone drops out or changes their mind. Please also check the day before the event (August 8).`;
 
   return wrapHtml(
     booking.locale === "fr" ? "Liste d'attente" : "Waiting list",

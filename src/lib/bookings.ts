@@ -5,6 +5,7 @@ import {
   isFullyBooked,
   normalizeBookingAvailability,
 } from "@/lib/booking-availability";
+import { isRegistrationClosed } from "@/lib/booking-registration-close";
 
 export type Booking = {
   locale: "en" | "fr";
@@ -26,7 +27,26 @@ export type BookingAvailability = {
   remaining: number;
   full: boolean;
   waitlistCount: number;
+  /** New confirmed bookings closed; sign-ups go to the waitlist. */
+  registrationClosed?: boolean;
 };
+
+function finalizeBookingAvailability(
+  availability: ReturnType<typeof normalizeBookingAvailability>,
+  rawWaitlistCount: number,
+): BookingAvailability {
+  if (!isRegistrationClosed()) {
+    return { ...availability, registrationClosed: false };
+  }
+  const waitlistCount = Math.max(rawWaitlistCount, availability.waitlistCount);
+  return {
+    ...availability,
+    full: true,
+    remaining: 0,
+    waitlistCount,
+    registrationClosed: true,
+  };
+}
 
 export function getBookingCapacity() {
   const parsed = Number(process.env.BOOKING_CAPACITY ?? "100");
@@ -159,29 +179,38 @@ export async function getBookingAvailability(): Promise<BookingAvailability> {
     const waitlistCount = await getWaitlistCount();
 
     if (isBookingForceSoldOut()) {
-      return normalizeBookingAvailability({
-        ...getForcedSoldOutAvailability(),
+      return finalizeBookingAvailability(
+        normalizeBookingAvailability({
+          ...getForcedSoldOutAvailability(),
+          waitlistCount,
+        }),
         waitlistCount,
-      });
+      );
     }
 
     const remoteAvailability = await readRemoteBookingAvailability();
     if (remoteAvailability) {
-      return normalizeBookingAvailability({ ...remoteAvailability, waitlistCount });
+      return finalizeBookingAvailability(
+        normalizeBookingAvailability({ ...remoteAvailability, waitlistCount }),
+        waitlistCount,
+      );
     }
 
     const capacity = getBookingCapacity();
     const group1Capacity = getGroup1Capacity();
     const booked = (await readBookings()).filter(isConfirmedBooking).length;
     const remaining = Math.max(capacity - booked, 0);
-    return normalizeBookingAvailability({
-      capacity,
-      group1Capacity,
-      booked,
-      remaining,
-      full: isFullyBooked(remaining),
+    return finalizeBookingAvailability(
+      normalizeBookingAvailability({
+        capacity,
+        group1Capacity,
+        booked,
+        remaining,
+        full: isFullyBooked(remaining),
+        waitlistCount,
+      }),
       waitlistCount,
-    });
+    );
   } catch (error) {
     console.error("[bookings] Failed to read availability", error);
     return getDefaultAvailability();

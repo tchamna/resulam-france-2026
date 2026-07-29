@@ -34,6 +34,8 @@ type Copy = {
   waitlistBadge: string;
   soldOut: string;
   soldOutIntro: string;
+  registrationClosed: string;
+  registrationClosedIntro: string;
   duplicate: string;
   duplicateWaitlist: string;
   duplicateResent: string;
@@ -69,6 +71,7 @@ type Availability = {
   booked: number;
   remaining: number;
   full: boolean;
+  registrationClosed?: boolean;
 };
 
 function formatSeats(copy: Copy, remaining: number, capacity: number) {
@@ -262,7 +265,9 @@ export function BookingForm({
   }
 
   function formatSeatsCount() {
-    if (soldOut) return copy.soldOut;
+    if (soldOut) {
+      return availability.registrationClosed ? copy.registrationClosed : copy.soldOut;
+    }
     if (group2Open) {
       return formatPlacesLeft(
         copy,
@@ -338,7 +343,15 @@ export function BookingForm({
       </div>
 
       <h2>{copy.title}</h2>
-      <p className="status">{soldOut ? copy.soldOutIntro : group2Open ? formatGroup2Intro() : copy.intro}</p>
+      <p className="status">
+        {soldOut
+          ? availability.registrationClosed
+            ? copy.registrationClosedIntro
+            : copy.soldOutIntro
+          : group2Open
+            ? formatGroup2Intro()
+            : copy.intro}
+      </p>
 
       <form
         ref={formRef}

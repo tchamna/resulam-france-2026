@@ -189,7 +189,7 @@ export const content = {
       sending: "Sending...",
       success: "Your place is confirmed. {count} places left. Check your spam folder for the confirmation email.",
       successWaitlist:
-        "You are on the waiting list. We will contact you if a place opens up. Check your spam folder for the confirmation email.",
+        "You are on the waiting list. If a place opens up, we will contact you — please also check the day before the event (August 8). Check your spam folder for the confirmation email.",
       error: "We could not submit your booking. Please try again.",
       seatsLabel: "Conference seats",
       seatsAvailable: "{count} places available",
@@ -205,6 +205,9 @@ export const content = {
       soldOut: "Fully booked — waiting list open",
       soldOutIntro:
         "All 100 places have been reserved. You can still sign up for the waiting list if someone drops out or changes their mind.",
+      registrationClosed: "Registration closed — waiting list open",
+      registrationClosedIntro:
+        "Conference registration is now closed (places are reserved for confirmed attendees and the organizing team). You can still join the waiting list — if a seat opens, we will contact you; please also check the day before the event (August 8).",
       duplicate: "This email already has a reservation.",
       duplicateWaitlist: "This email is already on the waiting list.",
       duplicateResent:
@@ -466,7 +469,7 @@ export const content = {
       sending: "Envoi...",
       success: "Votre place est confirmée. Il reste {count} places. Vérifiez vos spams pour l'email de confirmation.",
       successWaitlist:
-        "Vous êtes inscrit(e) sur la liste d'attente. Nous vous contacterons si une place se libère. Vérifiez vos spams pour l'email de confirmation.",
+        "Vous êtes inscrit(e) sur la liste d'attente. Si une place se libère, nous vous contacterons — pensez aussi à vérifier la veille de l'événement (8 août). Vérifiez vos spams pour l'email de confirmation.",
       error: "Impossible d'envoyer votre réservation. Veuillez réessayer.",
       seatsLabel: "Places conférence",
       seatsAvailable: "{count} places disponibles",
@@ -482,6 +485,9 @@ export const content = {
       soldOut: "Complet — liste d'attente ouverte",
       soldOutIntro:
         "Les 100 places sont réservées. Vous pouvez encore vous inscrire sur la liste d'attente si une personne se désiste ou change d'avis.",
+      registrationClosed: "Inscriptions closes — liste d'attente ouverte",
+      registrationClosedIntro:
+        "Les inscriptions à la conférence sont closes (places réservées aux personnes déjà inscrites et à l'équipe d'organisation, environ 20 personnes). Vous pouvez encore rejoindre la liste d'attente — si une place se libère, nous vous contacterons ; pensez aussi à vérifier la veille de l'événement (8 août).",
       duplicate: "Cet email a déjà une réservation.",
       duplicateWaitlist: "Cet email est déjà inscrit sur la liste d'attente.",
       duplicateResent:
