@@ -1,4 +1,4 @@
-import { appendFile, mkdir, readFile } from "node:fs/promises";
+import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 export type BookSubscriber = {
@@ -53,6 +53,13 @@ export async function saveBookSubscriber(subscriber: BookSubscriber) {
   const stored: StoredBookSubscriber = { ...subscriber, createdAt: new Date().toISOString() };
   await appendFile(getBookSubscribersFilePath(), `${JSON.stringify(stored)}\n`, "utf8");
   return stored;
+}
+
+export async function clearBookSubscribers() {
+  const subscribers = await readBookSubscribers();
+  await mkdir(getBookSubscriberDataDir(), { recursive: true });
+  await writeFile(getBookSubscribersFilePath(), "", "utf8");
+  return subscribers.length;
 }
 
 function clean(value: unknown, maxLength: number) {
