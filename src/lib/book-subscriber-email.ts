@@ -7,7 +7,8 @@ const bookCoverUrl =
   "https://resulam-france-2026.azurewebsites.net/landing/une-langue-vision-du-monde-cover.png";
 const amazonHardcoverUrl = "https://www.amazon.com/dp/B0HB44BHHJ";
 
-function escapeHtml(value: string) {
+function escapeHtml(value: string | undefined) {
+  if (!value) return "";
   return value.replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character] ?? character);
 }
 
@@ -24,7 +25,7 @@ export async function sendBookSubscriberEmails(subscriber: BookSubscriber) {
   });
   const recipients = getBookSubscriberNotifyRecipients();
   const name = escapeHtml(subscriber.name);
-  const location = escapeHtml(subscriber.location);
+  const location = escapeHtml(subscriber.location) || "Non renseigné";
   const email = escapeHtml(subscriber.email);
 
   const [admin, guest] = await Promise.allSettled([
