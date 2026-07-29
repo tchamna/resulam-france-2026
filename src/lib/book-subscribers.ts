@@ -3,6 +3,7 @@ import path from "node:path";
 
 export type BookSubscriber = {
   name: string;
+  location: string;
   email: string;
   consent: true;
   source: "une-langue-une-vision-du-monde";
@@ -60,13 +61,14 @@ function clean(value: unknown, maxLength: number) {
 
 export function validateBookSubscriber(body: Record<string, unknown>): BookSubscriber | null {
   const name = clean(body.name, 120);
+  const location = clean(body.location, 160);
   const email = clean(body.email, 180).toLowerCase();
 
-  if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || body.consent !== true) {
+  if (name.length < 2 || location.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || body.consent !== true) {
     return null;
   }
 
-  return { name, email, consent: true, source: "une-langue-une-vision-du-monde" };
+  return { name, location, email, consent: true, source: "une-langue-une-vision-du-monde" };
 }
 
 export function getBookSubscriberNotifyRecipients() {

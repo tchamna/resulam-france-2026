@@ -24,6 +24,7 @@ export async function sendBookSubscriberEmails(subscriber: BookSubscriber) {
   });
   const recipients = getBookSubscriberNotifyRecipients();
   const name = escapeHtml(subscriber.name);
+  const location = escapeHtml(subscriber.location);
   const email = escapeHtml(subscriber.email);
 
   const [admin, guest] = await Promise.allSettled([
@@ -32,8 +33,8 @@ export async function sendBookSubscriberEmails(subscriber: BookSubscriber) {
       to: recipients.join(", "),
       replyTo: subscriber.email,
       subject: `[Une langue, une vision du monde] Nouvel abonnement — ${subscriber.name}`,
-      text: `Nouvel abonnement au cercle de lecteurs.\n\nNom : ${subscriber.name}\nCourriel : ${subscriber.email}\nConsentement : oui`,
-      html: `<p><strong>Nouvel abonnement au cercle de lecteurs</strong></p><p>Nom : ${name}<br>Courriel : ${email}<br>Consentement : oui</p>`,
+      text: `Nouvel abonnement au cercle de lecteurs.\n\nNom : ${subscriber.name}\nVille et pays : ${subscriber.location}\nCourriel : ${subscriber.email}\nConsentement : oui`,
+      html: `<p><strong>Nouvel abonnement au cercle de lecteurs</strong></p><p>Nom : ${name}<br>Ville et pays : ${location}<br>Courriel : ${email}<br>Consentement : oui</p>`,
     }),
     transporter.sendMail({
       from: config.from,

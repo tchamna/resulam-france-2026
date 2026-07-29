@@ -82,11 +82,12 @@ export default async function BookSubscribersPage({
             </div>
             <div className="adminTableWrap">
               <table className="adminTable">
-                <thead><tr><th scope="col">Nom</th><th scope="col">Courriel</th><th scope="col">Consentement</th><th scope="col">Date</th></tr></thead>
+                <thead><tr><th scope="col">Nom</th><th scope="col">Ville et pays</th><th scope="col">Courriel</th><th scope="col">Consentement</th><th scope="col">Date</th></tr></thead>
                 <tbody>
                   {subscribers.map((subscriber) => (
                     <tr key={`${subscriber.email}-${subscriber.createdAt}`}>
                       <td>{subscriber.name}</td>
+                      <td>{subscriber.location || "—"}</td>
                       <td><a href={`mailto:${subscriber.email}`}>{subscriber.email}</a></td>
                       <td>Oui</td>
                       <td>{formatDate(subscriber.createdAt, locale)}</td>

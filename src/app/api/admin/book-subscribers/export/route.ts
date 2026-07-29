@@ -18,9 +18,10 @@ export async function GET(request: NextRequest) {
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
   const rows = [
-    ["Nom", "Courriel", "Consentement", "Date d’inscription"],
+    ["Nom", "Ville et pays", "Courriel", "Consentement", "Date d’inscription"],
     ...subscribers.map((subscriber) => [
       subscriber.name,
+      subscriber.location,
       subscriber.email,
       subscriber.consent ? "Oui" : "Non",
       subscriber.createdAt,
