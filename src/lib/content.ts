@@ -747,6 +747,14 @@ export type MomentSlide = {
 export function getMomentSlides(t: PageCopy): MomentSlide[] {
   return [
     {
+      id: "nom-identite-force",
+      label: "Le nom : une énergie, une identité, une force",
+      meta: "Aug 7",
+      kind: "youtube",
+      src: "https://www.youtube.com/watch?v=4S39Hhmy8Kc",
+      alt: "Le nom : une énergie, une identité, une force",
+    },
+    {
       id: "cartoon-nufi-educative",
       label: "African Languages Educative Cartoons: Nufi Language",
       meta: "Aug 7",
@@ -834,14 +842,6 @@ export function getMomentSlides(t: PageCopy): MomentSlide[] {
       kind: "youtube",
       src: "https://www.youtube.com/watch?v=xusm6BsMVWg",
       alt: "Resulam African language cartoon preview",
-    },
-    {
-      id: "nom-identite-force",
-      label: "Le nom : une énergie, une identité, une force",
-      meta: "Aug 7",
-      kind: "youtube",
-      src: "https://www.youtube.com/watch?v=4S39Hhmy8Kc",
-      alt: "Le nom : une énergie, une identité, une force",
     },
   ];
 }
