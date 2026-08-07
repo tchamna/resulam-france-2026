@@ -662,6 +662,10 @@ export const adminContent = {
     loginErrorState: "Sign-in expired or was invalid. Please try again.",
     loginErrorConfig: "Google sign-in is not configured on this server.",
     loginErrorEmail: "Enter your admin email before continuing with Google.",
+    programmeTitle: "Conference programme",
+    programmeIntro: "Draft ceremony schedule for Resulam France 2026.",
+    programmeDraftNote: "Draft — not published on the public site.",
+    programmeLink: "Conference programme (draft)",
   },
   fr: {
     title: "Administration des réservations",
@@ -696,6 +700,10 @@ export const adminContent = {
     loginErrorState: "La connexion a expiré ou est invalide. Veuillez réessayer.",
     loginErrorConfig: "La connexion Google n'est pas configurée sur ce serveur.",
     loginErrorEmail: "Saisissez votre e-mail admin avant de continuer avec Google.",
+    programmeTitle: "Programme de la conférence",
+    programmeIntro: "Brouillon du déroulement de la cérémonie Resulam France 2026.",
+    programmeDraftNote: "Brouillon — non publié sur le site public.",
+    programmeLink: "Programme de la conférence (brouillon)",
   },
 } as const;
 

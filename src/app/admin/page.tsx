@@ -82,6 +82,7 @@ export default async function AdminPage({
   const statsHref = buildProtectedHref("/stats", params?.lang);
   const normalizedStatsHref = buildProtectedHref("/stats/normalized", params?.lang);
   const exportHref = buildExportHref(params?.lang, params?.key);
+  const programmeHref = buildProtectedHref("/admin/programme", params?.lang);
 
   return (
     <main className="statsPage adminPage">
@@ -97,6 +98,7 @@ export default async function AdminPage({
             ) : null}
           </div>
           <div className="adminHeaderLinks">
+            <Link href={programmeHref}>{t.programmeLink}</Link>
             <Link href={statsHref}>{t.statsLink}</Link>
             <Link href={normalizedStatsHref}>{t.normalizedStatsLink}</Link>
             <form action="/api/admin/auth/logout" method="POST">
