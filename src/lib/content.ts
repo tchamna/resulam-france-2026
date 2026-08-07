@@ -595,6 +595,27 @@ export const statsContent = {
   },
 } as const;
 
+export const programmePublicContent = {
+  en: {
+    title: "Conference programme",
+    intro: "Official programme for Resulam France 2026 (August 9, 2026).",
+    download: "Download PDF",
+    back: "Back to site",
+    viewerLabel: "Programme preview",
+    tabHtml: "Web version",
+    tabPdf: "PDF",
+  },
+  fr: {
+    title: "Programme de la conférence",
+    intro: "Programme officiel de Resulam France 2026 (9 août 2026).",
+    download: "Télécharger le PDF",
+    back: "Retour au site",
+    viewerLabel: "Aperçu du programme",
+    tabHtml: "Version web",
+    tabPdf: "PDF",
+  },
+} as const;
+
 export const normalizedStatsContent = {
   en: {
     title: "Normalized language stats",
