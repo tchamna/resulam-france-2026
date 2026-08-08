@@ -9,12 +9,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "imapflow": "^1.6.6",
+    "mailparser": "^3.9.15",
     "next": "15.5.19",
     "nodemailer": "^9.0.1",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@types/mailparser": "^3.4.6",
     "@types/node": "20.17.49",
     "@types/nodemailer": "^8.0.1",
     "@types/react": "19.0.12",
